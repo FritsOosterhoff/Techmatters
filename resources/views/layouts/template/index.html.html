@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!-- HTML5 Boilerplate -->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+
+  <head>
+
+    <meta charset="utf-8">
+    <!-- Always force latest IE rendering engine & Chrome Frame -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Example of the Responsive Grid System</title>
+    <meta name="description" content="This is the Responsive Grid System, a quick, easy and flexible way to create a responsive web site.">
+    <meta name="keywords" content="responsive, grid, system, web design">
+
+    <meta name="author" content="www.grahamrobertsonmiller.co.uk">
+
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- Responsive and mobile friendly stuff -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/html5reset.css" media="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" media="all">
+
+    <link rel="stylesheet" href="css/col.css" media="all">
+    <link rel="stylesheet" href="css/4cols.css" media="all">
+    <link rel="stylesheet" href="css/3cols.css" media="all">
+    <link rel="stylesheet" href="css/8cols.css" media="all">
+	<link rel="stylesheet" href="css/5cols.css" media="all">
+
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600');
+      body {
+        margin: 0;
+        padding: 0;
+         font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        color: #000;
+        background: #ccc;
+      }
+      .normal_font{font-family:verdana;}
+      .navbar {
+        overflow: hidden;
+        background: #303030;
+      }
+      
+      .navbar .logo {
+        margin-left: 20px;
+      }
+	  .navbar .logo img{max-width:80px;width:100%; }
+      
+      .main-container {
+        width: 80%;
+        margin: 0px auto;
+        padding: 0;
+      }
+      
+      .fl-right {
+        float: right;
+      }
+      
+      .fl-left {
+        float: left;
+      }
+      
+      .navbar .menu_1 {
+        list-style: none;
+      }
+      
+      .navbar .menu_1 li a{ 
+		
+        float: left;
+        margin-right: 20px;
+    
+        line-height: 40px;
+      }
+	  
+	  a{
+		color:#ccc;
+		text-decoration:none;
+	  }
+	  a:hover{text-decoration:underline}
+	  
+      
+      .socials {
+		
+        list-style: none;
+        line-height: 30px;
+      }
+	  
+	  .socials .fa{
+	   font-size:1.6em;
+	   }
+	  .socials li{float:left;color: #ccc;}
+      .socials li.soc {position:relative;}
+      
+      .container {
+        width: 100%;
+      }
+      
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: 'Montserrat', sans-serif;
+		padding:10px 0px;
+      }
+      
+      .searchbar {
+        background: #ccc;
+        width: 100%;
+        height: 30px;
+        border-radius: 40px;
+        border: none;
+        text-indent: 20px;
+		 outline: none;
+      }
+      
+      .box {
+        background: white;
+   
+      }
+	  
+	  input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+	  
+	  
+	
+	  
+   .badge{
+    position: absolute;
+    background: #29abe2;
+    height:10px;width:10px;
+	right:0;  top:0;
+    border-radius: 50%;
+	}
+	.box{position:relative}
+	/**.box-img{margin-bottom:20px;}**/
+	.box-img img{max-height:200px;max-width:100%; }
+	.box-content{padding:5px;}
+	.box.no-style{
+		background:none!important;
+		-webkit-border-radius: 0px;
+        border-radius: 0px;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+	.box.no-style img{height:100%;width:100%;}
+	.box.no-style .box-img{margin-bottom:0px}
+	
+	.user{color:black;}
+	.user:hover{text-decoration:none}
+	.box:hover .social_interactions{display:block;}
+	.social_interactions{float:right;margin-right:15px;position:absolute; top:5px; left:5px;display:none; color:white;font-weight:bold;
+	-webkit-transition: all 300ms ease-in-out;
+-moz-transition: all 300ms ease-in-out;
+-ms-transition: all 300ms ease-in-out;
+-o-transition: all 300ms ease-in-out;
+transition: all 300ms ease-in-out;}
+	
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="navbar ">
+      <div class="main-container">
+        <div class="section group">
+          <div class="col span_1_of_3 fl-left">
+            <div class="logo"><img src="../dive_logo.png" /></div>
+          </div>
+
+          <div class="col span_1_of_3 fl-left">
+            <nav class="menu_1">
+              <ul>
+                <li><a href="#"> News </a></li>
+                <li><a href="#"> Connect </a></li>
+                <li><a href="#"> Teams</a></li>
+                <li><a href="#"> Community </a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="col span_1_of_3">
+            <div class="col span_2_of_3 ">
+              <input type="search" name="search" placeholder="Search" onkeypress="handle(event, this)" class="searchbar" />
+            </div>
+            <div class="col span_1_of_4 fl-right">
+              <ul class="socials">
+               <!-- <li class="soc"><i class="fa fa-fw fa-lg fa-globe "><i class="badge"></i></i></li>
+                <li class="soc"><i class="fa fa-fw fa-lg fa-inbox"><i class="badge"></i></i></li>-->
+				<li><a href="#">Sign in</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-content main-container">
+
+<!--
+		<div id="users" class="section group">
+			
+					
+						<div v-for="user in users" class="col span_1_of_5">
+						  <div class="box" >
+							<div class="box-img"><img src="https://placeimg.com/640/480/any" /></div>
+							<div class="box-content">
+							<h3><a class="user" href="#">@{{user.username}}</a></h3>
+							{{user.company.catchPhrase}}</div>
+						  </div>
+						</div>
+		
+				
+				
+				
+	
+			
+		</div> -->
+
+      <div class="section group">
+        <div class="col span_1_of_5">
+          <div class="box" >
+			<div class="box-img"><img src="../Overwatch-Winter-Wonderland-9-1280x720.jpg" /></div>
+			<div class="box-content">
+			<h3><a class="user" href="#">@ImAtWar</a></h3>
+			Hier heb je nog wat tekst <br /></div>
+			<div class="social_interactions"><i class="fa fa-fw fa-lg fa-heart "></i>15</div>
+		  </div>
+        </div>
+		<div class="col span_1_of_5">
+          <div class="box">
+			<div class="box-img"><img src="../jeff-hopper-17306.jpg" /></div>
+			<div class="box-content">
+			<h3><a class="user" href="#">@ImAtWar</a></h3>
+			Hier heb je nog wat tekst <br /></div>
+			<div class="social_interactions"><i class="fa fa-fw fa-lg fa-heart "></i>15</div>
+		  </div>
+        </div>
+		
+		<div class="col span_1_of_5">
+          <div class="box" >
+			<div class="box-img"><img src="../170830_19054_Call-of-Duty-WWII-2.jpg" /></div>
+			<div class="box-content">
+			<h3><a class="user" href="#">@ImAtWar</a></h3>
+			Hier heb je nog wat tekst <br /></div>
+			<div class="social_interactions"><i class="fa fa-fw fa-lg fa-heart "></i>15</div>
+			</div>
+		</div>
+		
+		<div class="col span_1_of_5">
+          <div class="box" >
+			<div class="box-img"><img src="../screencapture-wix-demone2-ux-ui-designer-resum-1500458998195.png" /></div>
+			<div class="box-content">
+			<h3><a class="user" href="#">@ImAtWar</a></h3>
+			Hier heb je nog wat tekst <br /></div>
+			<div class="social_interactions"><i class="fa fa-fw fa-lg fa-heart "></i>15</div>
+			</div>
+        </div>
+        
+        <div class="col span_1_of_5">
+          <div class="box no-style">
+			<div class="box-img"><img src="../reg.png" /></div>
+		  </div>
+        </div>
+
+      </div>
+	  
+	 
+	  
+	  
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://brm.io/js/libs/matchHeight/jquery.matchHeight.js"></script>
+<script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+/*
+new Vue({
+	
+	el : '#users',
+	data: {
+		users: []
+	},
+	mounted(){
+		// ajax
+		
+		axios.get('https://jsonplaceholder.typicode.com/users')
+		.then(response => this.users = response.data);
+	
+	},
+	
+	beforeDestroy(){
+		
+	}
+});
+*/
+
+jQuery(function($){
+	$('.box').matchHeight();
+});
+
+function handle(e, obj){
+	
+    if(e.keyCode === 13){
+		//$("searchBox")
+		var q = $(obj).val();
+		console.log(q);
+		
+    }
+	return false;
+}
+</script>
+
+
+  </body>
+
+</html>
