@@ -36,11 +36,22 @@ class User extends Authenticatable
     }
 
     /**
-      * Get the posts for this user
+      * Get the teams for this user
       */
      public function teams()
      {
          return $this->belongsToMany('App\Team');
+     }
+
+     public function followers()
+     {
+      return $this->hasMany('App\Follower');
+     }
+
+     public function likes()
+     {
+       return $this->hasMany('App\Like');
+
      }
 
 }

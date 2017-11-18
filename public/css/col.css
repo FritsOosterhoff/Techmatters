@@ -248,6 +248,9 @@ h6 { font-size: .75em; }
 .user_profile .user_card{padding-top:5px;line-height:6px;}
 .user_profile .user_card span{font-size:11px;}
 
+.user_avatar_small{
+	width:36px; height:36px; float:left; border-radius:50%;
+}
 	.user_avatar{
 		width:48px; height:48px; float:left; border-radius:50%;
 	}
@@ -295,7 +298,7 @@ h6 { font-size: .75em; }
   		}
   	}
 
-		
+
 
   	@media only screen and (max-width: 900px){
   		#second{width:100%;}

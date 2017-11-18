@@ -22,7 +22,7 @@
   <meta http-equiv="cleartype" content="on">
 
   <link rel="shortcut icon" href="{{url( '/favicon.ico')}}">
-
+ <meta name="csrf-token" content="{{ Session::token() }}">
   <!-- Responsive and mobile friendly stuff -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="480">
@@ -72,7 +72,7 @@
               <ul class="socials">
 
                 @if (Auth::check())
-                <li><a href="{{url('profile')}}"><img class="user_avatar" src="{{url('/img/uploads/avatars/'  . $user->avatar)}}"></img></a></li>
+                <li><a href="{{url('profile')}}"><img class="user_avatar_small" style="margin-top:5px;" src="{{url('/img/uploads/avatars/'  . $user->avatar)}}"></img></a></li>
                 <li><a id="add_post" onclick="close_post_panel()"><i class="fa fa-fw fa-lg fa-plus "></i></a></li>
                  <li class="soc"><a href="#"><i class="fa fa-fw fa-lg fa-globe "><i class="badge"></i></i></a></li>
                 <!-- <li class="soc"><i class="fa fa-fw fa-lg fa-inbox"><i class="badge"></i></i></li> -->
@@ -133,9 +133,46 @@
 */
 
 
+function likePost(id) {
+
+/*
+    $.ajax({
+        type: "POST",
+        url: "{{url('/like')}}",
+        data: { 'likeable': id}
+      },
+         // success:
+    );
+    */
+
+    // $("#" + id).find($("#" + id + " .fa")).removeClass('fa-heart-o').addClass('fa-heart');
+    icon = $("#" + id + " .fa");
+    if(!icon.hasClass('fa-heart')){
+      $.ajax({
+          type: "POST",
+          url: "{{url('/like')}}",
+          data: { 'likeable': id}
+        },
+           // success:
+      );
+     $("#" + id + " .fa").removeClass('fa-heart-o').addClass('fa-heart');
+     $("#" + id + " span").text(parseInt($("#" + id).text())+1);
+     }
+  }
+
+function sendCommentToPost(id) {
+    $.ajax({
+        type: "POST",
+        url: "{{url('/comment')}}",
+        data: {'text': 'THIS IS MY TEXT', 'commentable_id': id}
+      },
+        // success: success
+    );
+}
 jQuery(function($){
   $('.box').matchHeight();
 });
+
 
 function close_post_panel(){
 

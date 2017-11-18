@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Post;
 use \App\User;
+use \App\Comment;
+use \App\Like;
 use Image;
 use Auth;
 use Storage;
@@ -22,6 +24,32 @@ class HomeController extends Controller
         $this->middleware('auth', ['except' => ['home', 'newest', 'teams']]);
     }
 
+    public function comment(Request $request)
+    {
+      // dd($request);
+      # code...
+        // print_r($request);
+        $c = new Comment();
+        $c->text =  $request->input('text');
+        $c->user_id = Auth::id();
+        $p = Post::find( $request->input('commentable_id'));
+        $p->comments()->save($c);
+
+        return response()->json($p, 200);
+    }
+
+
+        public function like(Request $request)
+        {
+
+            $l = new Like();
+            $l->user_id = Auth::id();
+            $p = Post::find( $request->input('likeable'));
+            $p->likes()->save($l);
+
+            return response()->json($p, 200);
+        }
+
 
 
     /**
@@ -32,7 +60,7 @@ class HomeController extends Controller
     public function index()
     {
 
-
+    $user = Auth::user();
     $posts = $user->posts;
 
     $teams = $user->teams;
@@ -43,7 +71,7 @@ class HomeController extends Controller
 
 
 
-        return view('home')->with('posts', $posts);
+        return view('home')->with(compact('posts', 'user', 'teams'));
     }
 
 
@@ -57,14 +85,14 @@ class HomeController extends Controller
       return view('home')->with(compact('user', 'posts'));
     }
 
-    // public function teams($value='')
-    // {
-    //   # code...
-    //   $teams = Post::where('user_id',  \Auth::id())->orderBy('id', 'desc')
-    //              ->take(25)
-    //              ->get();
-    //
-    // }
+    public function teams($value='')
+    {
+      # code...
+      $teams = Post::where('user_id',  \Auth::id())->orderBy('id', 'desc')
+                 ->take(25)
+                 ->get();
+
+    }
 
     public function addPost(Request $request)
     {

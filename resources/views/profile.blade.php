@@ -11,7 +11,7 @@
 
 	            <img src="{{url('/img/uploads/avatars/' . $user->avatar)}}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
 
-							<h1>{{ $user->username }}</h1>
+						<h1>{{ $user->username }}</h1>
 						@if(Auth::id()===$user->id)
 	            <form enctype="multipart/form-data" action="{{url('profile')}}" method="POST">
 	                <label>Update Profile Image</label>
@@ -19,6 +19,8 @@
 	                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	                <input type="submit" class="pull-right btn btn-sm btn-primary">
 	            </form>
+							@else
+								<a href="{{url('follow')}}">  </a>
 							@endif
 	        </div>
 
@@ -27,6 +29,7 @@
 	</div>
 
 	<div class="section group">
+		<h1>Posts</h1>
 		@each('layouts.post', $user->posts, 'post')
 	</div>
 

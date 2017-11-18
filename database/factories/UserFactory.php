@@ -19,7 +19,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'username' => $faker->unique()->username,
         'name' => $faker->name,
-        'avatar' => '',
+        'avatar' =>  $faker->biasedNumberBetween($min = 1, $max = 10, $function = 'sqrt') . '.jpg',
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),

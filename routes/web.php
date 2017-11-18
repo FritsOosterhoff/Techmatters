@@ -36,3 +36,6 @@ Route::post('new_post', 'HomeController@addPost');
 Route::get('profile/{username}', 'HomeController@profile');
 Route::get('profile', 'HomeController@profile');
 Route::post('profile', 'HomeController@update_avatar');
+
+Route::post('comment', 'HomeController@comment');
+Route::post('like', 'HomeController@like');
