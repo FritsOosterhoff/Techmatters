@@ -48,7 +48,7 @@
                             <label for="username" class="col span_4_of_12 control-label">Username</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="input-primary" name="username" value="{{ old('username') }}" required>
+                                <input id="username" type="text" class="input-primary" name="username" value="{{ old('username') }}" required>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">

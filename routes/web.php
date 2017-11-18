@@ -24,17 +24,15 @@ return redirect('/');
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@newest')->name('home');
+Route::get('/newest', 'HomeController@newest')->name('newest');
 Route::get('/teams', 'HomeController@index')->name('teams');
-Route::get('/connect', 'HomeController@index')->name('connect');
 //Route::get('/', 'HomeController@index')->name('news');
 Route::get('/community', 'HomeController@index')->name('community');
 
 
 Route::post('new_post', 'HomeController@addPost');
-Route::get('new_post', 'HomeController@addPost');
 
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('profile/{username}', 'HomeController@profile');
+Route::get('profile', 'HomeController@profile');
+Route::post('profile', 'HomeController@update_avatar');

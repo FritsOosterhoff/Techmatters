@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use \App\Post;
 use \App\User;
 use Image;
-
+use Auth;
+use Storage;
+use Hash;
 class HomeController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -16,8 +19,10 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['home', 'newest', 'teams']]);
     }
+
+
 
     /**
      * Show the application dashboard.
@@ -26,7 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-    $user = User::find(\Auth::id());
+
 
     $posts = $user->posts;
 
@@ -42,97 +47,93 @@ class HomeController extends Controller
     }
 
 
-    public function teams($value='')
+    public function newest($value='')
     {
-      # code...
-      $teams = Post::where('user_id',  \Auth::id())->orderBy('title', 'desc')
-                 ->take(25)
-                 ->get();
+
+      $posts = Post::orderBy('id', 'desc')->take(20)->get();
+      $user = User::find(\Auth::id());
 
 
+      return view('home')->with(compact('user', 'posts'));
     }
+
+    // public function teams($value='')
+    // {
+    //   # code...
+    //   $teams = Post::where('user_id',  \Auth::id())->orderBy('id', 'desc')
+    //              ->take(25)
+    //              ->get();
+    //
+    // }
 
     public function addPost(Request $request)
     {
-      # code...
-
-      /**
-      $flight = new Flight;
-
-        $flight->name = $request->name;
-
-        $flight->save();
-    }
-      **/
-      //
-      // $this->validate($request, [
-  	  //   	'title' => 'required',
-      //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-      //     ]);
-
-
 
       if ($request->has('name') && $request->has('text')) {
         //
-        // dd($request);
           $post = new Post;
-
           $post->title = $request->name;
           $post->text = $request->text;
 
           if($request->has('file')){
 
+            $file = $request->file('file');
 
 
-            $image =  $request->file('file');
-            $img = Image::make($image->getRealPath());
+            $path = $file->hashName('images');
+            $image = Image::make($file);
+            $image->fit(480, 360, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            Storage::put($path, (string) $image->encode());
+            $post->image = $path;
 
+          }
 
+          $post->user_id = \Auth::id();
+          $post->save();
 
-
-      // add callback functionality to retain maximal original image size
-      $img->fit(800, 600, function ($constraint) {
-          $constraint->upsize();
-      });
-      $path = $request->file->store('images');
-      $post->image = $path;
-
-    }
-      $post->user_id = \Auth::id();
-      $post->save();
-
-
-          //print_r($post);
-          return back()
-     ->with('success','Image Upload successful');
-
+          return back()->with('success','Image Upload successful');
       }
 
     }
 
-    public function processImage($image)
+    public function profile($user ='')
     {
 
-      # code...
+      // return view('profile', array('user' => Auth::user()) );
+      if(empty($user))
+      $user = \Auth::user();
+      else $user = User::where('username', $user)->limit(1)->get()->first();
 
-      // open file a image resource
+      return view('profile', array('user' => $user) );
 
-
-      print_r($img);
-      print_r($image);
-
-  /*
-      $destinationPath = public_path('/img');
-              $img = Image::make($image->getRealPath());
-              $img->resize(100, 100, function ($constraint) {
-      		    $constraint->aspectRatio();
-      		})->save($destinationPath.'/'.$input['imagename']);
-
-              $destinationPath = public_path('/images');
-              $image->move($destinationPath, $input['imagename']);
+    }
 
 
-      */
+    public function update_avatar(Request $request){
+
+    	// Handle the user upload of avatar
+    	if($request->hasFile('avatar')){
+        $user = Auth::user();
+
+    		$avatar = $request->file('avatar');
+
+
+    		$filename = md5_file($avatar->getRealPath()) . '.' . $avatar->getClientOriginalExtension();
+    		Image::make($avatar)->resize(300, 300)->save( 'img/uploads/avatars/' . $filename ) ;
+
+    		$user->avatar = $filename;
+    		$user->save();
+    	}
+
+    	return view('profile', array('user' => Auth::user()) );
+
+    }
+
+    public function hash($value='')
+    {
+      return Hash::make($value);
     }
 
 }

@@ -7,7 +7,7 @@
 
       <div class=" span_12_of_12 center" style="width:50%; margin:0px auto; padding: 40px 0px 120px 0px;">
         <div class="section group">
-          <div class="col span_6_of_12"><div class="fl-left" style="margin-right:20px;"><a id="add_post_close" style="cursor:pointer"><i class="fa fa-2x fa-close color-white"></i></a></div><div class="fl-left"><h2 class="color-white" style="text-align:center">Add a post</h2></div></div>
+          <div class="col span_6_of_12"><div class="fl-left" style="margin-right:20px;"><a id="add_post"  onclick="close_post_panel()" style="cursor:pointer"><i class="fa fa-2x fa-close color-white"></i></a></div><div class="fl-left"><h2 class="color-white" style="text-align:center">Add a post</h2></div></div>
           <div class="col span_1_of_12 fl-right"></div>
         </div>
         <form class="form-horizontal" method="POST" action="new_post" enctype="multipart/form-data">
@@ -51,7 +51,6 @@
 @push('scripts')
 <script>
 $("#image-upload").click(function() {
-
   $("#file-upload").click();
 });
 

@@ -11,10 +11,19 @@ class Post extends Model
 		/**
       * Get the posts for this user
       */
-     public function posts()
+     public function user()
      {
-         return $this->BelongsTo('App\Team', 'App\User');
+         return $this->BelongsTo('App\User');
      }
 
+
+
+     		/**
+           * Get the posts for this user
+           */
+          public function team()
+          {
+              return $this->BelongsTo('App\Team');
+          }
 
 }

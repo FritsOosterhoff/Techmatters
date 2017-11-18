@@ -15,16 +15,18 @@
       <form class="form-horizontal" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
 
-        <!-- <div class="section group"> -->
-        <div class="col span_5_of_12">
-          <!-- <input type="email" class="input-primary" placeholder="Email"/> -->
-          <input id="email" type="email" class="input-primary" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
-        </div>
+        <div class="section group">
+          <!-- <div class="section group"> -->
+          <div class="col span_6_of_12">
+            <!-- <input type="email" class="input-primary" placeholder="Email"/> -->
+            <input id="email" type="email" class="input-primary" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
+          </div>
 
-        <div class="col span_5_of_12">
-          <!--            <input type="password" class="input-primary"  placeholder="Password"/> -->
-          <input id="password" type="password" class="input-primary" name="password" placeholder="Password" required>
+          <div class="col span_6_of_12">
+            <!--            <input type="password" class="input-primary"  placeholder="Password"/> -->
+            <input id="password" type="password" class="input-primary" name="password" placeholder="Password" required>
 
+          </div>
         </div>
         <!-- </div> -->
 
@@ -33,9 +35,14 @@
             Login
           </button>
 
-          <a class="btn btn-link color-white" href="{{ route('password.request') }}">
+
+                    <a class="btn btn-link color-white " href="{{ route('register') }}">
+                      Register
+                    </a>
+          <a class="btn btn-link color-white fl-right" href="{{ route('password.request') }}">
             Forgot Your Password?
           </a>
+
         </div>
       </div>
     </form>
