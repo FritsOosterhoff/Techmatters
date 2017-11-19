@@ -11,6 +11,11 @@
 	@each('layouts.post', $posts->all(), 'post')
 </div>
 
+<div class="section group">
+	<div id="paginate-container" class="center">
+		{{$posts->links()}}
+	</div>
+</div>
 
 @endif
 

@@ -90,7 +90,7 @@ class HomeController extends Controller
   public function newest($value='')
   {
 
-    $posts = Post::orderBy('id', 'desc')->take(20)->get();
+    $posts = Post::orderBy('id', 'desc')->paginate(20);
     $user = User::find(\Auth::id());
 
 
@@ -101,15 +101,32 @@ class HomeController extends Controller
   {
     # code...
     $teams = Post::where('user_id',  \Auth::id())->orderBy('id', 'desc')
-    ->take(25)
-    ->get();
+    ->get()->paginate();
+
+  }
+
+  public function trending($value='')
+  {
+    // # code...
+    // $posts = Post::take(20)->get()->sort(function ($post) {
+    //     return $post->likes;
+    // });
+    //
+    // $posts = Post::leftJoin('likes', function ($join) {
+    // $join->on('users.id', '=', 'likes.likeable_id')
+    //     ->where('likeable_type', '=', 'App\Post')->orderBy('post.likes');
+    // });
+
+    $posts = Post::orderBy('id', 'desc')->paginate(20);
+
+    return view('home')->with(compact('posts'));
 
   }
 
   public function tags($value='')
   {
     # code...
-    $posts = Post::where('text', 'like', '%#' . $value . '%')->take(25)->get();
+    $posts = Post::where('text', 'like', '%#' . $value . '%')->paginate(20);
     return view('home')->with(compact('posts'));
   }
 

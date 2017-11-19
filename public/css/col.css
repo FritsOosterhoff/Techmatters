@@ -32,7 +32,7 @@
 .col {
 	display: block;
 	float:left;
-	margin: 1% 0 1% 1.6%;
+	margin: 1% 0 1% 1%;
 }
 
 .col:first-child { margin-left: 0; } /* all browsers except IE6 and lower */
@@ -90,7 +90,51 @@
 .span_1_of_12 {
 	width: 6.866%;
 }
+/*
+#paginate-container .pagination{list-style:none;}
+#paginate-container .pagination li{float:left; display:inline-block; border: 1px solid black; height:15px;width:15px; margin-right: 5px; background:white; text-align:center}
+#paginate-container .pagination a{display:block;}*/
 
+
+/* GENERAL STYLES */
+
+#paginate-container{margin-bottom:50px}
+ul.pagination{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;  padding: 30px 0;
+text-align:center;
+}
+
+.pagination li.disabled, .pagination li.active{}
+#paginate-container .pagination li a,.pagination li.disabled, .pagination li.active{
+	display:block;
+	padding: 10px 18px;
+}
+#paginate-container .pagination li{
+	background: white;
+  display: inline-block;
+	margin-right:5px;
+  color: #222;
+	float:left;
+}
+
+
+#paginate-container .pagination li:first-of-type a, #paginate-container .pagination li:last-of-type a{
+	color:white; font-weight:bold
+}
+
+#paginate-container .pagination li:first-of-type, #paginate-container .pagination li:last-of-type, #paginate-container .pagination li.active{
+	background: #29abe2; color:#fff; font-weight:bold;
+}
+
+/* TWELVE
+
+#paginate-container .pagination li a:first-of-type, #paginate-container .pagination a:last-of-type, #paginate-container .pagination .active{
+  background-color: #2ecc71;
+  color: #fff;
+  font-weight: bold;
+}
 
 
 /*  GO FULL WIDTH BELOW 480 PIXELS */
@@ -157,7 +201,7 @@ a{
 	text-decoration:none;
 }
 a:hover{text-decoration:underline}
-.darkblue{background:#1b212c;color:white;}
+.darkblue{background:#1b212c;color:white;padding:40px 20px}
 
 .socials {
 
@@ -166,7 +210,7 @@ a:hover{text-decoration:underline}
 .socials .fa{
 	font-size:1.6em;
 }
-
+.socials li{display:inline-block}
 .socials li a{float:left; color: #fff;  line-height: 40px; cursor:pointer;}
 .socials li.soc i.fa {position:relative; width:auto}
 
@@ -282,39 +326,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 		padding:10px;
 	}
 
-	@media only screen and (max-width: 480px) {
-		.navbar .first-menu ul li a{
-			width:100%;
-			border-bottom:1px solid #ccc;
-			float:none;display:block
-		}
-		.main-container{width:95%;}
-		.logo{
-			margin: 0px auto;
-			padding: 0;
-			width: 77px;
-			margin-top: 10px;
-			margin-left:0px!important;
-		}
-	}
 
-
-
-	@media only screen and (max-width: 900px){
-		#second{width:100%;}
-		.logo-container{width:100%;}
-		.menu-container{width:100%;}
-		#branding-nav{width:100%;}
-	}
-
-	@media only screen and (max-width: 1000px) {
-		.span_1_of_5{width: 32.26%;}
-	}
-
-
-	@media only screen and (max-width: 480px) {
-		.span_1_of_5{width: 100%;}
-	}
 
 	#image-upload{height:100px;}
 	#image-upload:hover{cursor:pointer}
@@ -365,8 +377,60 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 	}
 
 
+
 	.input-primary{
 		-webkit-border-radius: 10px;
 		border-radius: 10px;
 		width:100%; height:30px; border-radius:10px; border:none;text-indent:20px;
+	}
+
+	.center{margin:0px auto;padding:0;}
+	@media only screen and (max-width: 480px) {
+		.navbar .first-menu ul li a{
+			width:100%;
+			border-bottom:1px solid #ccc;
+			float:none;display:block
+		}
+		.main-container{width:95%;}
+		.logo{
+			margin: 0px auto;
+			padding: 0;
+			width: 77px;
+			margin-top: 10px;
+			margin-left:0px!important;
+		}
+	}
+
+
+
+	@media only screen and (max-width: 1000px){
+		.col {  margin: 1% 0% 1% 4px; }
+		.col{width:49.2%;}
+		#branding-nav, #nav_tools
+	}
+
+	@media only screen and (max-width: 720px){
+		/*body{background: black;}*/
+		.col {width:100%}
+
+		.pagination li{display:none!important;}
+		.pagination li:first-of-type, .pagination li:last-of-type{display:inherit!important;width:33.6%;}
+		.pagination li:last-of-type{float:right!important}
+
+	}
+
+	@media only screen and (max-width: 900px){
+		#branding-nav, #nav_tools{width:100%}
+		.logo-container{width:100%;}
+		.menu-container{width:100%;}
+
+	}
+
+	@media only screen and (max-width: 1000px) {
+		.span_1_of_5{width: 32.26%;}
+	}
+
+
+	@media only screen and (max-width: 480px) {
+
 	}

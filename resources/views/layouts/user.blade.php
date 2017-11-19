@@ -6,7 +6,7 @@
     <!-- -->
     <img src="{{ url('/img/uploads/avatars/' . $user->avatar)}}" class="user_avatar">
     <div class="user_card" style="">
-      <h5>{{$user->username}}</h5>
+      <h4>{{$user->username}}</h4>
       <span>{{$post->updated_at}}</span></div>
     <!-- <div class="col span_9_of_12">
       <div class="col span_6_of_12" style="padding:0px!important"><h4>{{ $user->username }}</h4></div>

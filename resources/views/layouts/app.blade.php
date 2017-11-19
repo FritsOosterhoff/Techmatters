@@ -55,16 +55,17 @@
             <div class="col span_8_of_12 fl-left menu-container">
               <nav class="first-menu">
                 <ul>
-                  <li><a href="{{url('/newest')}}"> Trending </a></li>
+                  <li><a href="{{url('/newest')}}"> Newest </a></li>
+                  <li><a href="{{url('/trending')}}">Trending</a></li>
+
                   <li><a href="{{url('/teams')}}"> Teams</a></li>
-                  <li><a href="{{url('/community')}}"> Community </a></li>
                 </ul>
               </nav>
             </div>
           </div>
 
 
-          <div class="col span_5_of_12" id="second">
+          <div id="nav_tools" class="col span_5_of_12" >
             <div class="col span_7_of_12 ">
               <input type="search" name="search" placeholder="Search" onkeypress="handle(event, this)" class="searchbar" />
             </div>

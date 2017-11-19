@@ -28,7 +28,7 @@ Route::get('/', 'HomeController@newest')->name('home');
 Route::get('/newest', 'HomeController@newest')->name('newest');
 Route::get('/teams', 'HomeController@index')->name('teams');
 //Route::get('/', 'HomeController@index')->name('news');
-Route::get('/community', 'HomeController@index')->name('community');
+Route::get('/trending', 'HomeController@trending')->name('trending');
 
 
 Route::post('new_post', 'HomeController@addPost');
