@@ -73,13 +73,12 @@ class HomeController extends Controller
   {
 
     $user = Auth::user();
-    $posts = $user->posts;
+    // $posts = $user->posts->paginate(20);
+    // $posts
+    // $teams = $user->teams;
 
-    $teams = $user->teams;
-
-    // $posts = Post::where('user_id',  \Auth::id())->orderBy('title', 'desc')
-    //            ->take(25)
-    //            ->get();
+    $posts = Post::where('user_id',  \Auth::id())->orderBy('title', 'desc')
+               ->paginate(25);
 
 
 
@@ -107,46 +106,12 @@ class HomeController extends Controller
 
   public function trending($value='')
   {
-    // # code...
-    // $posts = Post::take(20)->get()->sort(function ($post) {
-    //     return $post->likes;
-    // });
-    //
-    // $posts = Post::leftJoin('likes', function ($join) {
-    // $join->on('users.id', '=', 'likes.likeable_id')
-    //     ->where('likeable_type', '=', 'App\Post')->orderBy('post.likes');
-    // });
-    //
-    // $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
-    // ->join('likes', 'likeable_id', '=', 'posts.id')
-    // ->where('likeable_type', '=', 'App\Post')
-    // ->orderBy('aggregate', 'desc')->paginate(20);
-    //
-    // dd($posts);
-    // User::leftJoin('images', function ($join) {
-    //     $join->on('users.id', '=', 'images.imageable_id')
-    //         ->where('imageable_type', '=', 'User')
-    //         ->where('upload_date', '=', Carbon::today()->toDateString());
-    // })
-    //     ->orderBy('images.views')
-    //     ->select(['players.*']);
-
-        // $foo = Post::leftJoin('likes', function($join){
-        //     	$join->on('posts.id', '=', 'likeable_id')->where('likeable_type', '=', 'App\Post');
-        // })->get();
-        // // dd($foo);
 
         $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->groupBy('posts.id')
     ->orderBy('aggregate', 'desc')
     ->paginate(10);
-
-    // dd($categories);
-
-    // dd($categories);
-
-    // $posts = Post::orderBy('id', 'desc')->paginate(20);
 
     return view('home')->with(compact('posts'));
 
@@ -157,6 +122,12 @@ class HomeController extends Controller
     # code...
     $posts = Post::where('text', 'like', '%#' . $value . '%')->paginate(20);
     return view('home')->with(compact('posts'));
+  }
+
+  public function search($value)
+  {
+      $posts = Post::where('text', 'like', '%' . $value . '%')->paginate(20);
+      return view('home')->with(compact('posts'));
   }
 
   public function addPost(Request $request)

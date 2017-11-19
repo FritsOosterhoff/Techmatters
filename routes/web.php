@@ -35,6 +35,9 @@ Route::post('new_post', 'HomeController@addPost');
 
 Route::get('profile/{username}', 'HomeController@profile');
 Route::get('tag/{name}', 'HomeController@tags');
+
+Route::get('search/{text}', 'HomeController@search');
+
 Route::get('profile', 'HomeController@profile');
 Route::post('profile', 'HomeController@update_avatar');
 

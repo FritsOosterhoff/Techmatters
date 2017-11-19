@@ -207,7 +207,9 @@ function handle(e, obj) {
   if (e.keyCode === 13) {
     //$("searchBox")
     var q = $(obj).val();
-    console.log(q);
+
+    window.location.href = "{{url('/')}}" + "/search/" + q;
+
 
   }
   return false;
