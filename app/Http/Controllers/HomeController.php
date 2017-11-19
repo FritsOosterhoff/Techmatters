@@ -116,8 +116,37 @@ class HomeController extends Controller
     // $join->on('users.id', '=', 'likes.likeable_id')
     //     ->where('likeable_type', '=', 'App\Post')->orderBy('post.likes');
     // });
+    //
+    // $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
+    // ->join('likes', 'likeable_id', '=', 'posts.id')
+    // ->where('likeable_type', '=', 'App\Post')
+    // ->orderBy('aggregate', 'desc')->paginate(20);
+    //
+    // dd($posts);
+    // User::leftJoin('images', function ($join) {
+    //     $join->on('users.id', '=', 'images.imageable_id')
+    //         ->where('imageable_type', '=', 'User')
+    //         ->where('upload_date', '=', Carbon::today()->toDateString());
+    // })
+    //     ->orderBy('images.views')
+    //     ->select(['players.*']);
 
-    $posts = Post::orderBy('id', 'desc')->paginate(20);
+        // $foo = Post::leftJoin('likes', function($join){
+        //     	$join->on('posts.id', '=', 'likeable_id')->where('likeable_type', '=', 'App\Post');
+        // })->get();
+        // // dd($foo);
+
+        $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
+    ->join('likes', 'posts.id', '=', 'likes.likeable_id')
+    ->groupBy('posts.id')
+    ->orderBy('aggregate', 'desc')
+    ->paginate(10);
+
+    // dd($categories);
+
+    // dd($categories);
+
+    // $posts = Post::orderBy('id', 'desc')->paginate(20);
 
     return view('home')->with(compact('posts'));
 

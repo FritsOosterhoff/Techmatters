@@ -13,12 +13,11 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Comment::class, function (Faker $faker) {
+$factory->define(App\Like::class, function (Faker $faker) {
 
     return [
-      'text' => $faker->text,
       'user_id' => $faker->biasedNumberBetween($min = 1, $max = 200, $function = 'sqrt'),
-      'commentable_id' => $faker->biasedNumberBetween($min = 1, $max = 500, $function = 'sqrt'),
-      'commentable_type' => 'App\Post',
+      'likeable_id' => $faker->biasedNumberBetween($min = 1, $max = 500, $function = 'sqrt'),
+      'likeable_type' => 'App\Post',
     ];
 });
