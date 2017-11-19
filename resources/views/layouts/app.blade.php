@@ -72,7 +72,7 @@
               <ul class="socials">
 
                 @if (Auth::check())
-                <li><a href="{{url('profile')}}"><img class="user_avatar_small" style="margin-top:5px;" src="{{url('/img/uploads/avatars/'  . $user->avatar)}}"></img></a></li>
+                <li><a href="{{url('profile')}}"><img class="user_avatar_small" style="margin-top:5px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}"></img></a></li>
                 <li><a id="add_post" onclick="close_post_panel()"><i class="fa fa-fw fa-lg fa-plus "></i></a></li>
                  <li class="soc"><a href="#"><i class="fa fa-fw fa-lg fa-globe "><i class="badge"></i></i></a></li>
                 <!-- <li class="soc"><i class="fa fa-fw fa-lg fa-inbox"><i class="badge"></i></i></li> -->
@@ -132,63 +132,86 @@
 });
 */
 
-
 function likePost(id) {
-
-/*
+  icon = $("#" + id + " .fa");
+  if (!icon.hasClass('fa-heart')) {
     $.ajax({
         type: "POST",
         url: "{{url('/like')}}",
-        data: { 'likeable': id}
+        data: {
+          'likeable': id
+        }
       },
-         // success:
+      // success:
     );
-    */
-
-    // $("#" + id).find($("#" + id + " .fa")).removeClass('fa-heart-o').addClass('fa-heart');
-    icon = $("#" + id + " .fa");
-    if(!icon.hasClass('fa-heart')){
-      $.ajax({
-          type: "POST",
-          url: "{{url('/like')}}",
-          data: { 'likeable': id}
-        },
-           // success:
-      );
-     $("#" + id + " .fa").removeClass('fa-heart-o').addClass('fa-heart');
-     $("#" + id + " span").text(parseInt($("#" + id).text())+1);
-     }
+    $("#" + id + " .fa").removeClass('fa-heart-o').addClass('fa-heart');
+    $("#" + id + " span").text(parseInt($("#" + id).text()) + 1);
   }
+}
+
+function getCount(obj) {
+  // console.log(($(obj).text().length > 0) ? parseInt($(obj).text()) : 0);
+  return ($(obj).text().length > 0) ? parseInt($(obj).text()) : 0;
+}
+
+function likePost(id) {
+  icon = $("#" + id + " .fa");
+
+  // console.log(    getCount(("#" + id + " span")));
+
+  if (!icon.hasClass('fa-heart')) {
+    url = '{{url("like")}}';
+    $("#" + id + " span").text(getCount("#" + id + " span") + 1);
+  } else {
+    url = '{{url("removelike")}}';
+    $("#" + id + " span").text(getCount("#" + id + " span") > 1 ? (getCount("#" + id + " span") - 1) : '');
+  }
+  $.ajax({
+      type: "POST",
+      url: url,
+      data: {
+        'likeable': id
+      }
+    },
+    // success:
+  );
+  icon.toggleClass('fa-heart-o fa-heart');
+
+}
 
 function sendCommentToPost(id) {
-    $.ajax({
-        type: "POST",
-        url: "{{url('/comment')}}",
-        data: {'text': 'THIS IS MY TEXT', 'commentable_id': id}
-      },
-        // success: success
-    );
+  $.ajax({
+      type: "POST",
+      url: "{{url('/comment')}}",
+      data: {
+        'text': 'THIS IS MY TEXT',
+        'commentable_id': id
+      }
+    },
+    // success: success
+  );
 }
-jQuery(function($){
+jQuery(function($) {
   $('.box').matchHeight();
 });
 
 
-function close_post_panel(){
+function close_post_panel() {
 
-      $("#add_post_panel").toggle();
+  $("#add_post_panel").toggle();
 }
 
-  function handle(e, obj){
+function handle(e, obj) {
 
-    if(e.keyCode === 13){
-      //$("searchBox")
-      var q = $(obj).val();
-      console.log(q);
+  if (e.keyCode === 13) {
+    //$("searchBox")
+    var q = $(obj).val();
+    console.log(q);
 
-    }
-    return false;
   }
+  return false;
+}
+
 
 </script>
 
