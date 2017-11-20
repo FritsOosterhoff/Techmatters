@@ -1,6 +1,6 @@
-<div class="col span_3_of_12">
+<div class="col span_3_of_12 item" id="{{$post->id}}">
   <div class="box" >
-    @include('layouts.user', ['user' => $post->user])
+    @include('layouts.user', ['data' => $post])
     <div class="box-img">
 
 <!-- 'img/uploads/' . url('/img/uploads/avatars/' . $user->avatar-->

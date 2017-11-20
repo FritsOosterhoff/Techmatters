@@ -171,6 +171,13 @@ class HomeController extends Controller
 
   }
 
+  public function post($value='')
+  {
+      $post = Post::find($value);
+
+      return view('single.post')->with(compact('post'));
+  }
+
   public function profile($user ='')
   {
 

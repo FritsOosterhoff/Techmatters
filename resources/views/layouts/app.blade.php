@@ -215,6 +215,16 @@ function handle(e, obj) {
   return false;
 }
 
+$('.item').click(function(event){
+  console.log(event.target.className);
+  if(event.target.className.indexOf("fa")<0){
+  parent = event.target.closest('.item');
+  // console.log(parent.id);
+  window.location.href = "{{url('/')}}" + "/post/" + parent.id;
+  // console.log(parent);
+  }
+});
+
 
 </script>
 
