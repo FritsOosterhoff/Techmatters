@@ -30,7 +30,7 @@ class Post extends Model
   {
     return $this->morphMany('App\Comment', 'commentable');
   }
-  
+
   /**
   * Get all of the post's comments.
   */
@@ -38,4 +38,15 @@ class Post extends Model
   {
     return $this->morphMany('App\Like', 'likeable');
   }
+
+  public function delete()
+  {
+    $res = parent::delete();
+    if($res===true){
+      $this->likes()->delete();
+      $this->comments()->delete();
+
+    }
+  }
+
 }

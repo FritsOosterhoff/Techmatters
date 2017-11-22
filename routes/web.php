@@ -46,3 +46,4 @@ Route::post('profile', 'HomeController@update_avatar');
 Route::post('comment', 'HomeController@comment');
 Route::post('like', 'HomeController@like');
 Route::post('removelike', 'HomeController@removeLike');
+Route::post('removepost', 'HomeController@removePost');

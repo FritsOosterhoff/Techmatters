@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-          'comment', 'follow', 'like', 'removelike'
+          'comment', 'follow', 'like', 'removelike', 'removepost'
     ];
 }

@@ -7,4 +7,6 @@
     {{$comment->text}}
   </div>
 
+  
+
 </div>

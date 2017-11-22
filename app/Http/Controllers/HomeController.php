@@ -64,6 +64,18 @@ class HomeController extends Controller
   }
 
 
+  public function removePost(Request $request)
+  {
+    // $posts->photos()->where('id', '=', 1)->delete();
+
+
+    $p = Post::find( $request->input('post_id'));
+    $p->delete();
+
+    return response()->json($p, 200);
+  }
+
+
   /**
   * Show the application dashboard.
   *
@@ -78,7 +90,7 @@ class HomeController extends Controller
     // $teams = $user->teams;
 
     $posts = Post::where('user_id',  \Auth::id())->orderBy('title', 'desc')
-               ->paginate(25);
+    ->paginate(25);
 
 
 
@@ -90,10 +102,10 @@ class HomeController extends Controller
   {
 
     $posts = Post::orderBy('id', 'desc')->paginate(20);
-    $user = User::find(\Auth::id());
 
+    $title = 'Newest Posts';
 
-    return view('home')->with(compact('user', 'posts'));
+    return view('home')->with(compact('posts', 'title'));
   }
 
   public function teams($value='')
@@ -107,13 +119,15 @@ class HomeController extends Controller
   public function trending($value='')
   {
 
-        $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
+    $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->groupBy('posts.id')
     ->orderBy('aggregate', 'desc')
     ->paginate(10);
 
-    return view('home')->with(compact('posts'));
+    $title = 'Trending Posts';
+
+    return view('home')->with(compact('posts', 'title'));
 
   }
 
@@ -121,13 +135,19 @@ class HomeController extends Controller
   {
     # code...
     $posts = Post::where('text', 'like', '%#' . $value . '%')->paginate(20);
-    return view('home')->with(compact('posts'));
+
+    $title = 'Posts tagged with: ' . $value;
+
+    return view('home')->with(compact('posts', 'title'));
   }
 
   public function search($value)
   {
-      $posts = Post::where('text', 'like', '%' . $value . '%')->paginate(20);
-      return view('home')->with(compact('posts'));
+    $posts = Post::where('text', 'like', '%' . $value . '%')->paginate(20);
+
+    $title = 'Search results for: ' . $value;
+
+    return view('home')->with(compact('posts', 'title'));
   }
 
   public function addPost(Request $request)
@@ -173,9 +193,9 @@ class HomeController extends Controller
 
   public function post($value='')
   {
-      $post = Post::find($value);
+    $post = Post::find($value);
 
-      return view('single.post')->with(compact('post'));
+    return view('single.post')->with(compact('post'));
   }
 
   public function profile($user ='')

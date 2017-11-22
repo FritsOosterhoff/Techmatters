@@ -22,7 +22,7 @@
   <meta http-equiv="cleartype" content="on">
 
   <link rel="shortcut icon" href="{{url( '/favicon.ico')}}">
- <meta name="csrf-token" content="{{ Session::token() }}">
+  <meta name="csrf-token" content="{{ Session::token() }}">
   <!-- Responsive and mobile friendly stuff -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="480">
@@ -36,98 +36,98 @@
 
   <style type="text/css">
 
-    </style>
+  </style>
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <div class="navbar ">
-      <div class="main-container">
-        <div class="section group">
-          <!-- LOGO SECTION -->
-          <div id="branding-nav" class="col span_7_of_12">
+  <div class="navbar ">
+    <div class="main-content main-container">
+      <div class="section group">
+        <!-- LOGO SECTION -->
+        <div id="branding-nav" class="col span_7_of_12">
 
-            <div class="col span_3_of_12 logo-container">
-              <div class="logo"><a href="{{route('home')}}"><img src="{{url('/img/dive_logo.png')}}" /></a></div>
-            </div>
-
-            <div class="col span_8_of_12 fl-left menu-container">
-              <nav class="first-menu">
-                <ul>
-                  <li><a href="{{url('/newest')}}"> Newest </a></li>
-                  <li><a href="{{url('/trending')}}">Trending</a></li>
-
-                  <li><a href="{{url('/teams')}}"> Teams</a></li>
-                </ul>
-              </nav>
-            </div>
+          <div class="col span_3_of_12 logo-container">
+            <div class="logo"><a href="{{route('home')}}"><img src="{{url('/img/dive_logo.png')}}" /></a></div>
           </div>
 
+          <div class="col span_8_of_12 fl-left menu-container">
+            <nav class="first-menu">
+              <ul>
+                <li><a href="{{url('/newest')}}"> Newest </a></li>
+                <li><a href="{{url('/trending')}}">Trending</a></li>
 
-          <div id="nav_tools" class="col span_5_of_12" >
-            <div class="col span_7_of_12 ">
-              <input type="search" name="search" placeholder="Search" onkeypress="handle(event, this)" class="searchbar" />
-            </div>
-            <div class="col span_5_of_12 fl-right">
-              <ul class="socials">
-
-                @if (Auth::check())
-                <li><a href="{{url('profile')}}"><img class="user_avatar_small" style="margin-top:5px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}"></img></a></li>
-                <li><a id="add_post" onclick="close_post_panel()"><i class="fa fa-fw fa-lg fa-plus "></i></a></li>
-                 <li class="soc"><a href="#"><i class="fa fa-fw fa-lg fa-globe "><i class="badge"></i></i></a></li>
-                <!-- <li class="soc"><i class="fa fa-fw fa-lg fa-inbox"><i class="badge"></i></i></li> -->
-                <li  class="fl-right"><a href="{{ route('logout') }}">Sign out</a></i></li>
-                  @else
-                  <li><a style="cursor:pointer" id="login_button" href="{{route('login')}}"class="color-white">Sign in</a> </li>
-                    @endif
-
-                  </ul>
-                </div>
-              </div>
-            </div>
+                <!-- <li><a href="{{url('/teams')}}"> Teams</a></li> -->
+              </ul>
+            </nav>
           </div>
         </div>
 
-              @include('posts.create_post')
 
+        <div id="nav_tools" class="col span_5_of_12" >
+          <div class="col span_7_of_12 ">
+            <input type="search" name="search" placeholder="Search" onkeypress="handle(event, this)" class="searchbar" />
+          </div>
+          <div class="col span_5_of_12 fl-right">
+            <ul class="socials">
 
+              @if (Auth::check())
+              <li><a href="{{url('profile')}}"><img class="user_avatar_small" style="margin-top:5px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}"></img></a></li>
+              <li><a id="add_post" onclick="close_post_panel()"><i class="fa fa-fw fa-lg fa-plus "></i></a></li>
+              <li class="soc"><a href="#"><i class="fa fa-fw fa-lg fa-globe "><i class="badge"></i></i></a></li>
+              <!-- <li class="soc"><i class="fa fa-fw fa-lg fa-inbox"><i class="badge"></i></i></li> -->
+              <li  class="fl-right"><a href="{{ route('logout') }}">Sign out</a></i></li>
+              @else
+              <li><a style="cursor:pointer" id="login_button" href="{{route('login')}}"class="color-white">Sign in</a> </li>
+              @endif
+
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="main-content main-container">
+    </div>
+  </div>
+
+  @include('posts.create_post')
 
 
-        @yield('content')
+</div>
+<div class="page-start main-content main-container">
+
+
+  @yield('content')
 
 
 
-      </div>
+</div>
 
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script src="http://brm.io/js/libs/matchHeight/jquery.matchHeight.js"></script>
-      <script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://brm.io/js/libs/matchHeight/jquery.matchHeight.js"></script>
+<script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 @stack('scripts')
 
-      <script>
+<script>
 
-      /*
-      new Vue({
+/*
+new Vue({
 
-      el : '#users',
-      data: {
-      users: []
-    },
-    mounted(){
-    // ajax
+el : '#users',
+data: {
+users: []
+},
+mounted(){
+// ajax
 
-    axios.get('https://jsonplaceholder.typicode.com/users')
-    .then(response => this.users = response.data);
+axios.get('https://jsonplaceholder.typicode.com/users')
+.then(response => this.users = response.data);
 
-  },
+},
 
-  beforeDestroy(){
+beforeDestroy(){
 
 }
 });
@@ -137,17 +137,17 @@ function likePost(id) {
   icon = $("#" + id + " .fa");
   if (!icon.hasClass('fa-heart')) {
     $.ajax({
-        type: "POST",
-        url: "{{url('/like')}}",
-        data: {
-          'likeable': id
-        }
-      },
-      // success:
-    );
-    $("#" + id + " .fa").removeClass('fa-heart-o').addClass('fa-heart');
-    $("#" + id + " span").text(parseInt($("#" + id).text()) + 1);
-  }
+      type: "POST",
+      url: "{{url('/like')}}",
+      data: {
+        'likeable': id
+      }
+    },
+    // success:
+  );
+  $("#" + id + " .fa").removeClass('fa-heart-o').addClass('fa-heart');
+  $("#" + id + " span").text(parseInt($("#" + id).text()) + 1);
+}
 }
 
 function getCount(obj) {
@@ -168,29 +168,44 @@ function likePost(id) {
     $("#" + id + " span").text(getCount("#" + id + " span") > 1 ? (getCount("#" + id + " span") - 1) : '');
   }
   $.ajax({
-      type: "POST",
-      url: url,
-      data: {
-        'likeable': id
-      }
+    type: "POST",
+    url: url,
+    data: {
+      'likeable': id
+    }
+  },
+  // success:
+);
+icon.toggleClass('fa-heart-o fa-heart');
+
+}
+
+function removePost(id) {
+  $.ajax({
+    type: "POST",
+    url:   url = '{{url("removepost")}}',
+    data: {
+      'post_id': id
     },
-    // success:
-  );
-  icon.toggleClass('fa-heart-o fa-heart');
+
+    success: function(){
+      alert('success');
+    },
+  });
 
 }
 
 function sendCommentToPost(id) {
   $.ajax({
-      type: "POST",
-      url: "{{url('/comment')}}",
-      data: {
-        'text': 'THIS IS MY TEXT',
-        'commentable_id': id
-      }
-    },
-    // success: success
-  );
+    type: "POST",
+    url: "{{url('/comment')}}",
+    data: {
+      'text': 'THIS IS MY TEXT',
+      'commentable_id': id
+    }
+  },
+  // success: success
+);
 }
 jQuery(function($) {
   $('.box').matchHeight();
@@ -218,10 +233,10 @@ function handle(e, obj) {
 $('.item').click(function(event){
   console.log(event.target.className);
   if(event.target.className.indexOf("fa")<0){
-  parent = event.target.closest('.item');
-  // console.log(parent.id);
-  window.location.href = "{{url('/')}}" + "/post/" + parent.id;
-  // console.log(parent);
+    parent = event.target.closest('.item');
+    // console.log(parent.id);
+    window.location.href = "{{url('/')}}" + "/post/" + parent.id;
+    // console.log(parent);
   }
 });
 

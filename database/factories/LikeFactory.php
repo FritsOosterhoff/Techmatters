@@ -17,7 +17,7 @@ $factory->define(App\Like::class, function (Faker $faker) {
 
     return [
       'user_id' => $faker->biasedNumberBetween($min = 1, $max = 200, $function = 'sqrt'),
-      'likeable_id' => $faker->biasedNumberBetween($min = 1, $max = 500, $function = 'sqrt'),
+      'likeable_id' => $faker->biasedNumberBetween($min = 1, $max = 502, $function = 'sqrt'),
       'likeable_type' => 'App\Post',
     ];
 });

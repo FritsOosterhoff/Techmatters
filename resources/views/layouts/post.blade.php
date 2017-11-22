@@ -26,8 +26,8 @@
           <li class="comment_icon" onclick="sendCommentToPost({{$post->id}})"><i class="fa fa-fw  fa-comment-o "></i><span>{{(count($post->comments) > 0 ? count($post->comments) : '')}}</span></li>
 
 
-          @if($post->user_id === Auth::id())
-          <li class="fl-right"><i class="fa fa-fw  fa-trash-o "></i></li>
+          @if($post->user_id === Auth::id()) <!-- || Auth::id()===201 -->
+          <li class="remove_icon fl-right" onclick="removePost({{$post->id}})"><i class="fa fa-fw  fa-trash-o "></i></li>
           @endif
 
       </ul></div>

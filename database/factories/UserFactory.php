@@ -20,6 +20,8 @@ $factory->define(App\User::class, function (Faker $faker) {
         'username' => $faker->unique()->username,
         'name' => $faker->name,
         'avatar' =>  $faker->biasedNumberBetween($min = 1, $max = 10, $function = 'sqrt') . '.jpg',
+        'banner' =>  $faker->biasedNumberBetween($min = 1, $max = 6, $function = 'sqrt') . '.jpeg',
+        'biography' => $faker->text,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),

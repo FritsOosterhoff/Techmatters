@@ -7,7 +7,7 @@
 
 
 <div class="section group">
-	<h1>Posts</h1>
+	<h1 class="page-heading">{{$title}}</h1>
 	@each('layouts.post', $posts->all(), 'post')
 </div>
 

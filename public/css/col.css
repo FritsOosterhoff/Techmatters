@@ -100,40 +100,40 @@
 
 #paginate-container{margin-bottom:50px}
 ul.pagination{
-  margin: 0;
-  padding: 0;
-  list-style-type: none;  padding: 30px 0;
-text-align:center;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;  padding: 30px 0;
+	text-align:center;
 }
 
 .pagination li.disabled, .pagination li.active{}
-#paginate-container .pagination li a,.pagination li.disabled, .pagination li.active{
-	display:block;
-	padding: 10px 18px;
-}
-#paginate-container .pagination li{
-	background: white;
-  display: inline-block;
-	margin-right:5px;
-  color: #222;
-	float:left;
-}
+	#paginate-container .pagination li a,.pagination li.disabled, .pagination li.active{
+		display:block;
+		padding: 10px 18px;
+	}
+	#paginate-container .pagination li{
+		background: white;
+		display: inline-block;
+		margin-right:5px;
+		color: #222;
+		float:left;
+	}
 
 
-#paginate-container .pagination li:first-of-type a, #paginate-container .pagination li:last-of-type a{
-	color:white; font-weight:bold
-}
+	#paginate-container .pagination li:first-of-type a, #paginate-container .pagination li:last-of-type a{
+		color:white; font-weight:bold
+	}
 
-#paginate-container .pagination li:first-of-type, #paginate-container .pagination li:last-of-type, #paginate-container .pagination li.active{
-	background: #29abe2; color:#fff; font-weight:bold;
-}
+	#paginate-container .pagination li:first-of-type, #paginate-container .pagination li:last-of-type, #paginate-container .pagination li.active{
+		background: #29abe2; color:#fff; font-weight:bold;
+	}
 
-/* TWELVE
+	/* TWELVE
 
-#paginate-container .pagination li a:first-of-type, #paginate-container .pagination a:last-of-type, #paginate-container .pagination .active{
-  background-color: #2ecc71;
-  color: #fff;
-  font-weight: bold;
+	#paginate-container .pagination li a:first-of-type, #paginate-container .pagination a:last-of-type, #paginate-container .pagination .active{
+	background-color: #2ecc71;
+	color: #fff;
+	font-weight: bold;
 }
 
 
@@ -165,16 +165,23 @@ body {
 	background: #222835;
 }
 
-.navbar .logo {
-	margin-left: 20px;
+.navbar .logo-container{
+	margin-right: 20px;
 }
-.navbar .logo img{max-width:80px;width:100%; }
+
+.navbar .logo {
+
+}
+.navbar .logo img{max-width:150px;width:100%; }
 
 .main-container {
 	width: 80%;
 	margin: 0px auto;
 	padding: 0;
-	
+}
+
+.page-heading{
+	text-align:center
 }
 
 .fl-right {
@@ -184,6 +191,8 @@ body {
 .fl-left {
 	float: left;
 }
+
+/*.navbar{margin-bottom:20px;}*/
 
 .navbar .first-menu {
 	list-style: none;
@@ -215,7 +224,16 @@ a:hover{text-decoration:underline}
 .socials li a{float:left; color: #fff;  line-height: 40px; cursor:pointer;}
 .socials li.soc i.fa {position:relative; width:auto}
 
+.page-start{
+	/*margin-top:20px*/
+}
 
+.banner img{display: block; width: 100%;object-fit: cover; position:absolute; z-index:-2;}
+.profile > .user_info >.user_profile{margin-top:-75.5px; height:300px;}
+.profile > .user_info >.user_profile > .user_img{width:150px;}
+.profile > .user_info >.user_profile > .user_img img{width:150px; height:150px;border-radius:50%;}
+.profile > .user_info >.user_profile > .user_info{text-align:center;}
+.profile-page{width:100%;margin-top:250px;}
 .badge{
 	position: absolute;
 	background: #29abe2;
@@ -230,6 +248,7 @@ a:hover{text-decoration:underline}
 input{font-family: Montserrat;}
 .color-white{color:white;}
 .color-primary{color:#ccc}
+.bg-primary{background:#ccc}
 .bg-white{background: white;}
 h1 { font-size: 2em; }
 h2 { font-size: 1.5em; }
@@ -243,7 +262,7 @@ h2,
 h3,
 h4,
 h5, input[type="input"] {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	padding:10px 0px;
 }
 
@@ -283,8 +302,6 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 .box.no-style img{height:100%;width:100%;}
 .box.no-style .box-img{margin-bottom:0px}
 
-
-
 /* USER PROFILE */
 .user_profile{
 	padding:10px 10px 0px 10px;
@@ -301,7 +318,6 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 }
 #add_post_panel{display:none;}
 
-
 /*.box:hover .social_interactions{display:block;}*/
 .social_interactions{
 	background:white;width:100%;
@@ -312,7 +328,9 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 	.like_icon:hover i.fa:before{
 		content: "\f004";
 	}
-
+	.remove_icon:hover i.fa:before{
+		content: "\f1f8";
+	}
 	.comment_icon:hover i.fa:before{content:"\f075"}
 	/*.social_interactions{
 	float:right;margin-right:15px;position:absolute; top:5px; left:5px;display:none; color:white;font-weight:bold;
