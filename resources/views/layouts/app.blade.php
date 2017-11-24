@@ -57,6 +57,7 @@
               <ul>
                 <li><a href="{{url('/newest')}}"> Newest </a></li>
                 <li><a href="{{url('/trending')}}">Trending</a></li>
+                <li><a href="{{url('/following')}}">Following</a></li>
 
                 <!-- <li><a href="{{url('/teams')}}"> Teams</a></li> -->
               </ul>
@@ -133,40 +134,26 @@ beforeDestroy(){
 });
 */
 
-function likePost(id) {
-  icon = $("#" + id + " .fa");
-  if (!icon.hasClass('fa-heart')) {
-    $.ajax({
-      type: "POST",
-      url: "{{url('/like')}}",
-      data: {
-        'likeable': id
-      }
-    },
-    // success:
-  );
-  $("#" + id + " .fa").removeClass('fa-heart-o').addClass('fa-heart');
-  $("#" + id + " span").text(parseInt($("#" + id).text()) + 1);
-}
-}
+
 
 function getCount(obj) {
-  // console.log(($(obj).text().length > 0) ? parseInt($(obj).text()) : 0);
-  return ($(obj).text().length > 0) ? parseInt($(obj).text()) : 0;
+  return (($(obj).text().length > 0) ? parseInt($(obj).text()) : 0);
 }
 
 function likePost(id) {
-  icon = $("#" + id + " .fa");
+  span = $(".box #" + id + " span");
+  icon = $(".box #" + id + " .fa");
+  like_count = getCount($(".box #" + id + " span"));
 
-  // console.log(    getCount(("#" + id + " span")));
 
   if (!icon.hasClass('fa-heart')) {
     url = '{{url("like")}}';
-    $("#" + id + " span").text(getCount("#" + id + " span") + 1);
+    $(span).text(like_count + 1);
   } else {
     url = '{{url("removelike")}}';
-    $("#" + id + " span").text(getCount("#" + id + " span") > 1 ? (getCount("#" + id + " span") - 1) : '');
+    $(span).text(span_c > 1 ? (like_count - 1) : '');
   }
+
   $.ajax({
     type: "POST",
     url: url,

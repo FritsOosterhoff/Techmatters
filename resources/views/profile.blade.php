@@ -19,6 +19,13 @@
 				<div class="user_info">
 					<h1>{{ $user->username }}</h1>
 					<p>{{$user->biography}}</p>
+					<p>{{$user->follows()->count()}} Follows</p>
+
+
+					@if(Auth::user()->follow_person($user->id))
+					<p>You follow {{$user->name}} </p>
+					@else <p>You dont follow {{$user->name}}</p>
+					@endif
 				</div>
 		</div>
 
@@ -31,7 +38,7 @@
 		</form>
 		@else
 		<a href="{{url('follow')}}">  </a>
-		@endif 
+		@endif
 	</div>
 
 		<div class="section group">

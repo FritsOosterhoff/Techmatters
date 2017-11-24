@@ -11,6 +11,7 @@ use \App\Tag;
 use Image;
 use Auth;
 use Storage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Hash;
 class HomeController extends Controller
 {
@@ -27,9 +28,6 @@ class HomeController extends Controller
 
   public function comment(Request $request)
   {
-    // dd($request);
-    # code...
-    // print_r($request);
     $c = new Comment();
     $c->text =  $request->input('text');
     $c->user_id = Auth::id();
@@ -66,8 +64,6 @@ class HomeController extends Controller
 
   public function removePost(Request $request)
   {
-    // $posts->photos()->where('id', '=', 1)->delete();
-
 
     $p = Post::find( $request->input('post_id'));
     $p->delete();
@@ -85,14 +81,9 @@ class HomeController extends Controller
   {
 
     $user = Auth::user();
-    // $posts = $user->posts->paginate(20);
-    // $posts
-    // $teams = $user->teams;
 
     $posts = Post::where('user_id',  \Auth::id())->orderBy('title', 'desc')
     ->paginate(25);
-
-
 
     return view('home')->with(compact('posts', 'user', 'teams'));
   }
@@ -123,11 +114,74 @@ class HomeController extends Controller
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->groupBy('posts.id')
     ->orderBy('aggregate', 'desc')
-    ->paginate(10);
+    ->paginate(12);
 
     $title = 'Trending Posts';
 
     return view('home')->with(compact('posts', 'title'));
+
+  }
+
+  public function following($value='')
+  {
+    $posts = Post::orderBy('updated_at', 'desc')->paginate(20);
+
+    // $users = \DB::select('select
+    // * from
+    // users
+    // join followers
+    // on users.id = followers.user_id
+    // where
+    // followable_id = ?
+    //
+    //  ', [Auth::id()]);
+    //
+    //  $users = User::select('users')
+    //  ->join('followers', 'user.id', '=', 'followers.user_id')
+    //  ->join('posts', 'post.id', '=', 'followers.followable_id')
+    //  ->groupBy('posts.id')
+    //  ->orderBy('aggregate', 'desc');
+    //
+
+    //
+    // $posts = \DB::table('posts')->join('users', function($join){
+    //     $join->on('posts.user_id', '=', 'users.id');
+    // })->joi
+
+
+        $posts = \DB::table('posts')
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->join('likes', 'posts.id', '=', 'likes.likeable_id')
+        ->join('followers', 'users.id', '=', 'followers.followable_id')
+        ->where('followers.user_id', '=', Auth::id())
+        ->groupBy('posts.id')->orderBy('posts.updated_at', 'desc')
+        ->select('posts.*', 'users.*')->selectRaw('count(likes.likeable_id) as likes')->paginate(10);
+
+
+        
+
+
+
+     //
+     //
+     // $users = \DB::table('users')
+     //        ->join('followers', function($join){
+     //           $join->on('users.id', '=', 'followers.followable_id');
+     //           // ->where('followers.followable_type', '=', 'App\User')
+     //        })->where('followers.user_id', '=', Auth::id())->select('*')->get();
+     //
+     //  dd($users);
+
+
+    //  $users = \DB::table('users')
+    //         ->join('followers', 'users.id', '=', 'followers.followable_id')
+    //         ->where('followers.')
+    //         ->select('users.*')
+    //         ->get();
+    //  dd($users);
+    $title = 'Following';
+
+    return view('following')->with(compact('posts', 'title'));
 
   }
 
@@ -171,9 +225,11 @@ class HomeController extends Controller
       if($request->has('file')){
 
         $file = $request->file('file');
-
-
+        if($file->isValid())
         $path = $file->hashName('images');
+        else $path = 'images/' . md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+
+
         $image = Image::make($file);
         $image->fit(480, 360, function ($constraint) {
           $constraint->aspectRatio();
@@ -218,7 +274,6 @@ class HomeController extends Controller
       $user = Auth::user();
 
       $avatar = $request->file('avatar');
-
 
       $filename = md5_file($avatar->getRealPath()) . '.' . $avatar->getClientOriginalExtension();
       Image::make($avatar)->resize(300, 300)->save( 'img/uploads/avatars/' . $filename ) ;
