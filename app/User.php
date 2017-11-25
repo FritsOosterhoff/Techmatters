@@ -65,7 +65,13 @@ class User extends Authenticatable
       return (count($results) > 0 ? true : false);
 
   }
-  public function followers()
+
+  public function followers($value='')
+  {
+    return $this->morphMany('App\Follower', 'followable');
+  }
+
+  public function follower_count()
   {
     # code...
     $results = \DB::select('select

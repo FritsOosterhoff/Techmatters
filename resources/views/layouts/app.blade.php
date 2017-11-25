@@ -178,22 +178,36 @@ function removePost(id) {
     },
 
     success: function(){
-      alert('success');
+      window.location = '{{url('/')}}';
     },
   });
 
 }
 
 function followUser(id) {
+
   $.ajax({
     type: "POST",
-    url:   url = '{{url("removepost")}}',
+    url: '{{url("followuser")}}',
     data: {
-      'post_id': id
+      'followable_id': id
     },
-
     success: function(){
-      alert('success');
+      location.reload();
+    },
+  });
+
+}
+
+function unfollowUser(id) {
+  $.ajax({
+    type: "POST",
+    url:   url = '{{url("unfollowuser")}}',
+    data: {
+      'followable_id': id
+    },
+    success: function(){
+      location.reload();
     },
   });
 

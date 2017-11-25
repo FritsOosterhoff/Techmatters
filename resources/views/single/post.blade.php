@@ -18,7 +18,7 @@
 
       <div class="social_interactions_single_post">
         <ul>
-          
+
 
           @if(  $post->likes->where('user_id', Auth::id())->first()  )
           <li class="post like_icon"  id="{{$post->id}}" onclick="likePost({{$post->id}})"><i class="fa fa-fw  fa-heart "></i><span>{{(count($post->likes) > 0 ? count($post->likes) : '')}}</span></li>

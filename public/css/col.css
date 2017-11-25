@@ -181,7 +181,8 @@ body {
 }
 
 .page-heading{
-	text-align:center
+	text-align:center;
+	padding-top:20px;
 }
 
 .fl-right {
@@ -234,7 +235,9 @@ a:hover{text-decoration:underline}
 .profile > .user_info >.user_profile > .user_img img{width:150px; height:150px;border-radius:50%;}
 .profile > .user_info >.user_profile > .user_info{text-align:center;}
 
-.profile > .user_info >.user_profile >  .social_user_actions ul{list-style: none; overflow: hidden;background: white;line-height:40px;padding:10px 10px 0px 10px;}
+.profile > .user_info >.user_profile >  .social_user_actions ul{list-style: none; overflow: hidden;background: white;line-height:40px;padding:10px 10px 0px 10px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px}
 .profile > .user_info >.user_profile >  .social_user_actions {overflow: hidden;padding:60px 0px;}
 .profile > .user_info >.user_profile >  .social_user_actions ul li{float:left; text-align:center; margin-right:33px;}
 
