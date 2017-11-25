@@ -124,61 +124,15 @@ class HomeController extends Controller
 
   public function following($value='')
   {
-    $posts = Post::orderBy('updated_at', 'desc')->paginate(20);
 
-    // $users = \DB::select('select
-    // * from
-    // users
-    // join followers
-    // on users.id = followers.user_id
-    // where
-    // followable_id = ?
-    //
-    //  ', [Auth::id()]);
-    //
-    //  $users = User::select('users')
-    //  ->join('followers', 'user.id', '=', 'followers.user_id')
-    //  ->join('posts', 'post.id', '=', 'followers.followable_id')
-    //  ->groupBy('posts.id')
-    //  ->orderBy('aggregate', 'desc');
-    //
+    $posts = \DB::table('posts')
+    ->join('users', 'posts.user_id', '=', 'users.id')
+    ->join('likes', 'posts.id', '=', 'likes.likeable_id')
+    ->join('followers', 'users.id', '=', 'followers.followable_id')
+    ->where('followers.user_id', '=', Auth::id())
+    ->groupBy('posts.id')->orderBy('posts.updated_at', 'desc')
+    ->select('posts.*', 'users.*')->selectRaw('count(likes.likeable_id) as likes')->paginate(10);
 
-    //
-    // $posts = \DB::table('posts')->join('users', function($join){
-    //     $join->on('posts.user_id', '=', 'users.id');
-    // })->joi
-
-
-        $posts = \DB::table('posts')
-        ->join('users', 'posts.user_id', '=', 'users.id')
-        ->join('likes', 'posts.id', '=', 'likes.likeable_id')
-        ->join('followers', 'users.id', '=', 'followers.followable_id')
-        ->where('followers.user_id', '=', Auth::id())
-        ->groupBy('posts.id')->orderBy('posts.updated_at', 'desc')
-        ->select('posts.*', 'users.*')->selectRaw('count(likes.likeable_id) as likes')->paginate(10);
-
-
-        
-
-
-
-     //
-     //
-     // $users = \DB::table('users')
-     //        ->join('followers', function($join){
-     //           $join->on('users.id', '=', 'followers.followable_id');
-     //           // ->where('followers.followable_type', '=', 'App\User')
-     //        })->where('followers.user_id', '=', Auth::id())->select('*')->get();
-     //
-     //  dd($users);
-
-
-    //  $users = \DB::table('users')
-    //         ->join('followers', 'users.id', '=', 'followers.followable_id')
-    //         ->where('followers.')
-    //         ->select('users.*')
-    //         ->get();
-    //  dd($users);
     $title = 'Following';
 
     return view('following')->with(compact('posts', 'title'));

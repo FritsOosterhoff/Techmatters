@@ -57,7 +57,9 @@
               <ul>
                 <li><a href="{{url('/newest')}}"> Newest </a></li>
                 <li><a href="{{url('/trending')}}">Trending</a></li>
+                @if(Auth::check())
                 <li><a href="{{url('/following')}}">Following</a></li>
+                @endif
 
                 <!-- <li><a href="{{url('/teams')}}"> Teams</a></li> -->
               </ul>
@@ -168,6 +170,21 @@ icon.toggleClass('fa-heart-o fa-heart');
 }
 
 function removePost(id) {
+  $.ajax({
+    type: "POST",
+    url:   url = '{{url("removepost")}}',
+    data: {
+      'post_id': id
+    },
+
+    success: function(){
+      alert('success');
+    },
+  });
+
+}
+
+function followUser(id) {
   $.ajax({
     type: "POST",
     url:   url = '{{url("removepost")}}',

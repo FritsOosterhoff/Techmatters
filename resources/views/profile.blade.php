@@ -19,13 +19,24 @@
 				<div class="user_info">
 					<h1>{{ $user->username }}</h1>
 					<p>{{$user->biography}}</p>
-					<p>{{$user->follows()->count()}} Follows</p>
+
+				</div>
+
+				<div class="social_user_actions span_8_of_12 center" style="clear:both;">
+					<ul>
+						@if(Auth::user()->follow_person($user->id))
+						<li class="follow_icon " onclick=""><i class="fa fa-3x fa-fw  fa-address-card "></i></li>
+						@else
+						<li class="follow_icon " onclick=""><i class="fa fa-3x fa-fw  fa-address-card-o "></i></li>
+						@endif
+
+						<li>{{count($user->posts)}} Posts</li>
+						<li>{{$user->followers()[0]->followers}} Followers</li>
+						<li>{{count($user->follows)}} Follows</li>
 
 
-					@if(Auth::user()->follow_person($user->id))
-					<p>You follow {{$user->name}} </p>
-					@else <p>You dont follow {{$user->name}}</p>
-					@endif
+
+					</ul>
 				</div>
 		</div>
 

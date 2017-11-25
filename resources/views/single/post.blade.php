@@ -6,43 +6,65 @@
 
 <div class="center span_6_of_12">
 
-    <div class="box" style="padding:0px 30px 30px 30px; margin-top:20px;">
-@include('layouts.user', ['data' => $post])
-        <div class="box-img">
-          <img src="{{ (strpos($post->image, 'http')===false) ? url('/img/uploads/' . $post->image) : $post->image}}" />
+  <div class="box" style="padding:0px 30px 30px 30px; margin-top:20px;">
+    @include('layouts.user', ['data' => $post])
+    <div class="box-img">
+      <img src="{{ (strpos($post->image, 'http')===false) ? url('/img/uploads/' . $post->image) : $post->image}}" />
 
-        </div>
-        <div class="box-content">
-          <p>{!! $post->text = preg_replace('/(?:^|\s)#(\w+)/',' <a href="'. url("tag/$1") . '">#$1</a>', preg_replace('/@(\w+)/', '<a href="'. url("profile/$1") . '">@$1</a>', $post->text)) !!}</p>
-
-          <hr>
-        </div>
+    </div>
+    <div class="box-content">
+      <p>{!! $post->text = preg_replace('/(?:^|\s)#(\w+)/',' <a href="'. url("tag/$1") . '">#$1</a>', preg_replace('/@(\w+)/', '<a href="'. url("profile/$1") . '">@$1</a>', $post->text)) !!}</p>
 
 
+      <div class="social_interactions_single_post">
+        <ul>
+          
+
+          @if(  $post->likes->where('user_id', Auth::id())->first()  )
+          <li class="post like_icon"  id="{{$post->id}}" onclick="likePost({{$post->id}})"><i class="fa fa-fw  fa-heart "></i><span>{{(count($post->likes) > 0 ? count($post->likes) : '')}}</span></li>
+          @else
+          <li class="like_icon" id="{{$post->id}}" onclick="likePost({{$post->id}})"><i class="fa fa-fw fa-heart-o "></i> <span>{{(count($post->likes) > 0 ? count($post->likes) : '')}}</span></li>
+          @endif
+          <li class="comment_icon" onclick="sendCommentToPost({{$post->id}})"><i class="fa fa-fw  fa-comment-o "></i><span>{{(count($post->comments) > 0 ? count($post->comments) : '')}}</span></li>
+
+
+          @if($post->user_id === Auth::id()) <!-- || Auth::id()===201 -->
+          <li class="remove_icon fl-right" onclick="removePost({{$post->id}})"><i class="fa fa-fw  fa-trash-o "></i></li>
+          @endif
+
+        </ul></div>
+        <hr>
+        <hr>
 
 
 
-    <div class="comments">
+      </div>
+
+
+
+
+
+      <div class="comments">
 
         @each('layouts.comment', $post->comments, 'comment')
 
-    </div>
+      </div>
 
-</div>
-</div>
-<!--
-<div class="user_profile">
+    </div>
+  </div>
+  <!--
+  <div class="user_profile">
   <a href="{{url('profile/' . $post->username)}}">
   <div class="col span_12_of_12">
-    <!--
-    <div class="user_card" style="">
-    </div>
-    <!-- <div class="col span_9_of_12">
-      <div class="col span_6_of_12" style="padding:0px!important"><h4>{{ $post->username }}</h4></div>
-      <div class="col col span_6_of_12"><p style="padding-top:16px;">{{$post->updated_at}}</p></div>
-    </div>
-    <p>{{$post->text}}</p>
-  </div>
+  <!--
+  <div class="user_card" style="">
+</div>
+<!-- <div class="col span_9_of_12">
+<div class="col span_6_of_12" style="padding:0px!important"><h4>{{ $post->username }}</h4></div>
+<div class="col col span_6_of_12"><p style="padding-top:16px;">{{$post->updated_at}}</p></div>
+</div>
+<p>{{$post->text}}</p>
+</div>
 
 </a>
 

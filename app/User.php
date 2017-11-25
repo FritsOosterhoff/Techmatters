@@ -51,8 +51,6 @@ class User extends Authenticatable
     return $this->hasMany('App\Follower');
   }
 
-
-  
   public function follow_person($followable_id)
   {
     # code...
@@ -65,6 +63,19 @@ class User extends Authenticatable
      ', [$followable_id, $this->id]);
 
       return (count($results) > 0 ? true : false);
+
+  }
+  public function followers()
+  {
+    # code...
+    $results = \DB::select('select
+    count(id) as followers from
+    followers where
+    followable_id = ?
+     ', [$this->id]);
+
+
+      return $results;
 
   }
 
