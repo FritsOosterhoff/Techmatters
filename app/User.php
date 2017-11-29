@@ -80,9 +80,7 @@ class User extends Authenticatable
     followable_id = ?
      ', [$this->id]);
 
-
       return $results;
-
   }
 
   /**

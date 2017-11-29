@@ -98,6 +98,10 @@
 
 /* GENERAL STYLES */
 
+.gutter{
+	margin:60px 0px;
+}
+
 #paginate-container{margin-bottom:50px}
 ul.pagination{
 	margin: 0;
@@ -240,6 +244,11 @@ a:hover{text-decoration:underline}
 	border-radius: 50px}
 .profile > .user_info >.user_profile >  .social_user_actions {overflow: hidden;padding:60px 0px;}
 .profile > .user_info >.user_profile >  .social_user_actions ul li{float:left; text-align:center; margin-right:33px;}
+.social_user_actions ul{list-style: none; overflow: hidden;background: white;line-height:40px;padding:10px 10px 0px 10px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px}
+ /*.social_user_actions {overflow: hidden;padding:60px 0px;}*/
+  .social_user_actions ul li{float:left; text-align:center; margin-right:33px;}
 
 
 .profile-page{width:100%;margin-top:250px;}

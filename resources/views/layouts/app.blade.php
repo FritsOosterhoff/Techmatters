@@ -13,8 +13,8 @@
   <!-- Always force latest IE rendering engine & Chrome Frame -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Dive</title>
-  <meta name="description" content="Dive - A simple social networking solution">
+  <title> Foo.social - @yield('title', 'Newest')</title>
+  <meta name="description" content="Foo.social - A simple social networking solution">
   <meta name="keywords" content="social, network, laravel, product">
 
   <meta name="author" content="www.github.com/FritsOosterhoff">
@@ -76,9 +76,9 @@
             <ul class="socials">
 
               @if (Auth::check())
-              <li><a href="{{url('profile')}}"><img class="user_avatar_small" style="margin-top:5px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}"></img></a></li>
+              <li><a href="{{url('profile')}}"><img class="user_avatar_small" style="margin-top:5px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}"/></a></li>
               <li><a id="add_post" onclick="close_post_panel()"><i class="fa fa-fw fa-lg fa-plus "></i></a></li>
-              <li class="soc"><a href="#"><i class="fa fa-fw fa-lg fa-globe "><i class="badge"></i></i></a></li>
+              <!-- <li class="soc"><a href="#"><i class="fa fa-fw fa-lg fa-globe "><i class="badge"></i></i></a></li> -->
               <!-- <li class="soc"><i class="fa fa-fw fa-lg fa-inbox"><i class="badge"></i></i></li> -->
               <li  class="fl-right"><a href="{{ route('logout') }}">Sign out</a></i></li>
               @else

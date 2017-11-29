@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $title)
+
 @section('content')
 
 
@@ -46,8 +48,7 @@
 	      <div class="social_interactions">
 	        <ul>
 
-
-						<li class="post like_icon"  id="{{$post->id}}" onclick="likePost({{$post->id}})"><i class="fa fa-fw  fa-heart "></i><span>{{$post->likes}}</span></li>
+						<li class="post like_icon"  id="{{$post->id}}" onclick="likePost({{$post->id}})"><i class="fa fa-fw  fa-heart-o"></i><span>{{$post->likes}}</span></li>
 
 	          @if($post->user_id === Auth::id()) <!-- || Auth::id()===201 -->
 	          <li class="remove_icon fl-right" onclick="removePost({{$post->id}})"><i class="fa fa-fw  fa-trash-o "></i></li>

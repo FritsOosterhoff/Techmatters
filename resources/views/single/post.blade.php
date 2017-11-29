@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+@section('title', $title)
 
 <div class="center span_6_of_12">
 

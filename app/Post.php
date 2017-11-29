@@ -39,6 +39,8 @@ class Post extends Model
     return $this->morphMany('App\Like', 'likeable');
   }
 
+  
+
   public function delete()
   {
     $res = parent::delete();

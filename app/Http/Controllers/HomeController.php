@@ -137,22 +137,25 @@ class HomeController extends Controller
     ->orderBy('aggregate', 'desc')
     ->paginate(12);
 
-    $title = 'Trending Posts';
+    $title = 'Trending';
 
     return view('home')->with(compact('posts', 'title'));
-
   }
 
   public function following($value='')
   {
 
-    $posts = \DB::table('posts')
+
+
+    $posts = \DB::table('posts', 'likes')
     ->join('users', 'posts.user_id', '=', 'users.id')
-    ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->join('followers', 'users.id', '=', 'followers.followable_id')
+    ->leftJoin('likes', 'posts.id', '=', 'likes.likeable_id')
     ->where('followers.user_id', '=', Auth::id())
     ->groupBy('posts.id')->orderBy('posts.updated_at', 'desc')
-    ->select('posts.*', 'users.*')->selectRaw('count(likes.likeable_id) as likes')->paginate(10);
+    ->select('posts.*', 'users.*')
+    ->selectRaw('count(likes.likeable_id) as likes')
+    ->paginate(20);
 
     $title = 'Following';
 
@@ -217,7 +220,8 @@ class HomeController extends Controller
       $post->user_id = \Auth::id();
       $post->save();
 
-      return back()->with('success','Image Upload successful');
+      return redirect('');
+      // return back()->with('success','Image Upload successful');
     }
 
   }
@@ -225,8 +229,9 @@ class HomeController extends Controller
   public function post($value='')
   {
     $post = Post::find($value);
+    $title = $post->title;
 
-    return view('single.post')->with(compact('post'));
+    return view('single.post')->with(compact('post', 'title'));
   }
 
   public function profile($user ='')
@@ -237,7 +242,9 @@ class HomeController extends Controller
     $user = \Auth::user();
     else $user = User::where('username', $user)->limit(1)->get()->first();
 
-    return view('profile', array('user' => $user) );
+    $title = $user->username . "'s Profile";
+
+    return view('profile')->with(compact('user', 'title') );
 
   }
 
