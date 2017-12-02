@@ -40,6 +40,7 @@ Route::get('tag/{name}', 'HomeController@tags');
 Route::get('post/{id}', 'HomeController@post');
 
 Route::get('search/{text}', 'HomeController@search');
+Route::post('search/{text}', 'HomeController@search');
 
 Route::get('profile', 'HomeController@profile');
 Route::post('profile', 'HomeController@update_avatar');

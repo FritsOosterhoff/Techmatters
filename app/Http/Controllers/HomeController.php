@@ -117,7 +117,7 @@ class HomeController extends Controller
 
     $title = 'Newest Posts';
 
-    return view('home')->with(compact('posts', 'title'));
+    return view('new.home')->with(compact('posts', 'title'));
   }
 
   public function teams($value='')

@@ -235,7 +235,7 @@ function close_post_panel() {
   $("#add_post_panel").toggle();
 }
 
-function handle(e, obj) {
+function searchHandle(e, obj) {
 
   if (e.keyCode === 13) {
     //$("searchBox")
