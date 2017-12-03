@@ -21,7 +21,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{{url('home')}}">Home</a>
+            <a class="nav-link" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url('newest')}}">Newest</a>
@@ -71,13 +71,13 @@
           </form>
         </div>
         <div class="col-4 col-md-1 align-self-center">
-          <a href="https://www.facebook.com" target="_blank"><i class="fa fa-fw fa-facebook fa-3x text-white"></i></a>
+          <a href="https://www.facebook.com" target="_blank"><i class="fa fa-fw fa-facebook fa-2x text-white"></i></a>
         </div>
         <div class="col-4 col-md-1 align-self-center">
-          <a href="https://twitter.com" target="_blank"><i class="fa fa-fw fa-twitter fa-3x text-white"></i></a>
+          <a href="https://twitter.com" target="_blank"><i class="fa fa-fw fa-twitter fa-2x text-white"></i></a>
         </div>
         <div class="col-4 col-md-1 align-self-center">
-          <a href="https://www.instagram.com" target="_blank"><i class="fa fa-fw fa-instagram text-white fa-3x"></i></a>
+          <a href="https://www.instagram.com" target="_blank"><i class="fa fa-fw fa-instagram text-white fa-2x"></i></a>
         </div>
       </div>
       <div class="row">

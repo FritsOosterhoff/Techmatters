@@ -93,6 +93,20 @@ class HomeController extends Controller
   }
 
 
+  public function home($value='')
+  {
+    # code...
+
+    $media = \DB::table('posts')->select('image', 'id')->orderBy('updated_at', 'desc')->limit(6)->get();
+
+    $posts = Post::orderBy('id', 'desc')->limit(3)->get();
+
+    $title = 'Home';
+
+    return view('new.front')->with(compact('posts', 'media', 'title'));
+
+  }
+
   /**
   * Show the application dashboard.
   *
@@ -106,7 +120,7 @@ class HomeController extends Controller
     $posts = Post::where('user_id',  \Auth::id())->orderBy('title', 'desc')
     ->paginate(25);
 
-    return view('home')->with(compact('posts', 'user', 'teams'));
+    return view('new.home')->with(compact('posts', 'user', 'teams'));
   }
 
 
@@ -139,7 +153,7 @@ class HomeController extends Controller
 
     $title = 'Trending';
 
-    return view('home')->with(compact('posts', 'title'));
+    return view('new.home')->with(compact('posts', 'title'));
   }
 
   public function following($value='')
@@ -231,7 +245,7 @@ class HomeController extends Controller
     $post = Post::find($value);
     $title = $post->title;
 
-    return view('single.post')->with(compact('post', 'title'));
+    return view('new.single_post')->with(compact('post', 'title'));
   }
 
   public function profile($user ='')

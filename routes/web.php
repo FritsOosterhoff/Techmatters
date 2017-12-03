@@ -24,7 +24,8 @@ return redirect('/');
 
 Auth::routes();
 
-Route::get('/', 'HomeController@newest')->name('home');
+Route::get('/', 'HomeController@home')->name('home');
+// Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/newest', 'HomeController@newest')->name('newest');
 Route::get('/teams', 'HomeController@index')->name('teams');
 //Route::get('/', 'HomeController@index')->name('news');
