@@ -40,6 +40,7 @@
 		<div class="main-content main-container ">
 			<div class=" span_4_of_12 center" style="clear:both;">
 				<ul>
+
 					@if(Auth::id()!==$user->id)
 						@if(Auth::user()->follow_person($user->id))
 						<li class="follow_icon" onclick=""><i id="{{$user->id}}" onclick="unfollowUser(this.id)" class="fa fa-3x fa-fw  fa-address-card "></i></li>

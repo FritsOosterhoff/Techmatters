@@ -39,7 +39,15 @@ class Post extends Model
     return $this->morphMany('App\Like', 'likeable');
   }
 
-  
+  /**
+  * Get all of the post's comments.
+  */
+  public function notifications()
+  {
+    return $this->morphMany('App\Notification', 'notifiable');
+  }
+
+
 
   public function delete()
   {

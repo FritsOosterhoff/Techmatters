@@ -66,7 +66,8 @@ class User extends Authenticatable
 
   }
 
-  public function followers($value='')
+
+  public function followers()
   {
     return $this->morphMany('App\Follower', 'followable');
   }
@@ -91,6 +92,17 @@ class User extends Authenticatable
     return $this->hasMany('App\Like');
 
   }
+
+
+    /**
+    * Get the notifications for this user
+    */
+    public function notifications()
+    {
+      return $this->hasMany('App\Notification');
+
+    }
+
 
 
 }

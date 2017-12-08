@@ -7,8 +7,8 @@
     <div class="py-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-3"> </div>
-          <div class="col-md-6">
+
+          <div class="col-md-12">
             <div class="card text-white p-5 bg-secondary">
               <div class="card-body">
                 <h1 class="mb-4">Login</h1>

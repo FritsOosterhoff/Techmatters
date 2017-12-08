@@ -9,6 +9,7 @@ use \App\Follower;
 use \App\Comment;
 use \App\Like;
 use \App\Tag;
+use \App\Notification;
 use Image;
 use Auth;
 use Storage;
@@ -46,6 +47,11 @@ class HomeController extends Controller
     $l->user_id = Auth::id();
     $p = Post::find( $request->input('likeable'));
     $p->likes()->save($l);
+
+    $n = new Notification();
+    $n->user_id = Auth::id();
+
+    $p->user()->notifications()->save($n);
 
     return response()->json($p, 200);
   }
@@ -120,6 +126,7 @@ class HomeController extends Controller
     $posts = Post::where('user_id',  \Auth::id())->orderBy('title', 'desc')
     ->paginate(25);
 
+
     return view('new.home')->with(compact('posts', 'user', 'teams'));
   }
 
@@ -127,9 +134,11 @@ class HomeController extends Controller
   public function newest($value='')
   {
 
-    $posts = Post::orderBy('id', 'desc')->paginate(20);
+    $posts = Post::orderBy('id', 'desc')->paginate(15);
 
     $title = 'Newest Posts';
+
+    $notifications = Notification::where('notifiable_id', '=', Auth::id())->get();
 
     return view('new.home')->with(compact('posts', 'title'));
   }
@@ -151,6 +160,7 @@ class HomeController extends Controller
     ->orderBy('aggregate', 'desc')
     ->paginate(12);
 
+
     $title = 'Trending';
 
     return view('new.home')->with(compact('posts', 'title'));
@@ -158,7 +168,7 @@ class HomeController extends Controller
 
   public function following($value='')
   {
-
+    $posts = array();
 
 
     $posts = \DB::table('posts', 'likes')
@@ -167,9 +177,11 @@ class HomeController extends Controller
     ->leftJoin('likes', 'posts.id', '=', 'likes.likeable_id')
     ->where('followers.user_id', '=', Auth::id())
     ->groupBy('posts.id')->orderBy('posts.updated_at', 'desc')
-    ->select('posts.*', 'users.*')
+    ->select('posts.*', 'users.*', 'likes.*')
     ->selectRaw('count(likes.likeable_id) as likes')
     ->paginate(20);
+
+    // dd($posts);
 
     $title = 'Following';
 
@@ -248,17 +260,16 @@ class HomeController extends Controller
     return view('new.single_post')->with(compact('post', 'title'));
   }
 
-  public function profile($user ='')
+  public function profile($username ='')
   {
 
-    // return view('profile', array('user' => Auth::user()) );
-    if(empty($user))
+    if(empty($username))
     $user = \Auth::user();
-    else $user = User::where('username', $user)->limit(1)->get()->first();
+    else $user = User::where('username', $username)->limit(1)->get()->first();
 
     $title = $user->username . "'s Profile";
 
-    return view('profile')->with(compact('user', 'title') );
+    return view('new.profile')->with(compact('user', 'title') );
 
   }
 
@@ -278,7 +289,9 @@ class HomeController extends Controller
       $user->save();
     }
 
-    return view('profile', array('user' => Auth::user()) );
+    $title = $user->username . "'s Profile";
+
+    return view('profile')->with(compact('user', 'title'));
 
   }
 

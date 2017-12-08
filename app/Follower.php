@@ -19,7 +19,12 @@ So, you will access those methods as dynamic properties:
       {
         return $this->belongsTo('App\User');
       }
-      
+
+      public function followable()
+      {
+        return $this->morphTo();
+      }
+
       // public function follow($value='')
       // {
       // return $this->morphMany('App\Follow', 'followable_type');

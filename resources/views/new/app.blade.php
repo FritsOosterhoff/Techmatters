@@ -19,7 +19,7 @@
         <img src="{{url('/img/dive_logo.png')}}"  class="img-fluid"> </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mx-auto">
+        <ul class="navbar-nav ">
           <li class="nav-item">
             <a class="nav-link" href="{{url('/')}}">Home</a>
           </li>
@@ -35,20 +35,28 @@
 
         </ul>
 
-        <ul class="nav navbar-nav pull-sm-right">
-          <li class="nav-item">
-            <input class="form-control mr-2"  onkeypress="searchHandle(event, this)" type="text" placeholder="Search" style="border-radius:50px;">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item align-fix">
+            <input class="form-control mr-2"  onkeypress="searchHandle(event, this)" type="text" placeholder="Search" style="border-radius:50px;padding:3px 8px">
           </li>
 
+
+          @if (Auth::check())
+              <li class="nav-item align-fix">
+                <a href="{{url('profile')}}">
+                  <img class="rounded-circle" style="width:32px; height:32px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}">
+                </a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-fw fa-globe"></i></a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-fw fa-envelope"></i></a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url('logout')}}">Sign out</a>
+              </li>
+          @else
           <li class="nav-item">
-            @if (Auth::check())
-            <a href="{{url('profile')}}">
-              <img class="rounded-circle" style="width:36px; height:36px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}"> </li>
-            </a>
-            <a class="nav-link" href="{{url('logout')}}">Sign out</a>
-            @else
-              <a class="nav-link" href="{{url('login')}}">Sign in</a>
-            @endif
+            <a class="nav-link" href="{{url('login')}}">Sign in</a>
+          </li>
+          @endif
         </ul>
       </div>
     </div>
@@ -58,10 +66,11 @@
 
 
 
-
   <div class="py-5 bg-dark text-white">
     <div class="container">
       <div class="row">
+        <!--
+
         <div class="col-md-9">
           <p class="lead">Sign up to our newsletter for the latest news</p>
           <form class="form-inline">
@@ -70,23 +79,27 @@
             <button type="submit" class="btn btn-primary ml-3">Subscribe</button>
           </form>
         </div>
-        <div class="col-4 col-md-1 align-self-center">
-          <a href="https://www.facebook.com" target="_blank"><i class="fa fa-fw fa-facebook fa-2x text-white"></i></a>
-        </div>
-        <div class="col-4 col-md-1 align-self-center">
-          <a href="https://twitter.com" target="_blank"><i class="fa fa-fw fa-twitter fa-2x text-white"></i></a>
-        </div>
-        <div class="col-4 col-md-1 align-self-center">
-          <a href="https://www.instagram.com" target="_blank"><i class="fa fa-fw fa-instagram text-white fa-2x"></i></a>
-        </div>
+
+      <div class="col-4 col-md-1 align-self-center">
+        <a href="https://www.facebook.com" target="_blank"><i class="fa fa-fw fa-facebook fa-fw text-white"></i></a>
+      </div>
+      <div class="col-4 col-md-1 align-self-center">
+        <a href="https://twitter.com" target="_blank"><i class="fa fa-fw fa-twitter fa-fw text-white"></i></a>
+      </div>
+      <div class="col-4 col-md-1 align-self-center">
+        <a href="https://www.instagram.com" target="_blank"><i class="fa fa-fw fa-instagram text-white fa-1x"></i></a>
+      </div>
+
+      -->
       </div>
       <div class="row">
         <div class="col-md-12 mt-3 text-center">
-          <p>© Copyright 2017 Socials - All rights reserved.</p>
+          <p>© Copyright {{date('Y')}} Foo.socials - A project by Frits Oosterhoff</p>
         </div>
       </div>
     </div>
   </div>
+
 
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
