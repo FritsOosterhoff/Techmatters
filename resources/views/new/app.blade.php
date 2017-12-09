@@ -26,12 +26,14 @@
           <li class="nav-item">
             <a class="nav-link" href="{{url('newest')}}">Newest</a>
           </li>
+          @if (Auth::check())
           <li class="nav-item">
             <a class="nav-link" href="{{url('trending')}}">Trending</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url('following')}}">Following</a>
           </li>
+          @endif
 
         </ul>
 
@@ -122,7 +124,23 @@
     return false;
   }
 
+
+    document.getElementById("image-upload").addEventListener("click", function(){
+      document.getElementById("file-upload").click();
+    });
+    
+
+    var loadFile = function(event) {
+      var output = document.getElementById("image-upload");
+      console.log(output);
+      console.log(event.target.files[0]);
+
+      //event.target.files[0].name
+      output.src = URL.createObjectURL(event.target.files[0]);
+    };
+
   </script>
+
 </body>
 
 </html>

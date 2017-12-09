@@ -134,7 +134,7 @@ class HomeController extends Controller
   public function newest($value='')
   {
 
-    $posts = Post::orderBy('id', 'desc')->paginate(15);
+    $posts = Post::orderBy('id', 'desc')->paginate(8);
 
     $title = 'Newest Posts';
 
@@ -192,7 +192,7 @@ class HomeController extends Controller
   public function tags($value='')
   {
     # code...
-    $posts = Post::where('text', 'like', '%#' . $value . '%')->paginate(20);
+    $posts = Post::where('text', 'like', '%#' . $value . '%')->paginate(8);
 
     $title = 'Posts tagged with: ' . $value;
 
@@ -201,20 +201,20 @@ class HomeController extends Controller
 
   public function search($value)
   {
-    $posts = Post::where('text', 'like', '%' . $value . '%')->paginate(20);
+    $posts = Post::where('text', 'like', '%' . $value . '%')->paginate(8);
 
     $title = 'Search results for: ' . $value;
 
-    return view('home')->with(compact('posts', 'title'));
+    return view('new.home')->with(compact('posts', 'title'));
   }
 
   public function addPost(Request $request)
   {
 
-    if ($request->has('name') && $request->has('text')) {
+    if ($request->has('text')) {
       //
       $post = new Post;
-      $post->title = $request->name;
+      $post->title = 'title';
       $post->text = $request->text;
 
       preg_match_all('/#([^\s]+)/', $post->text, $matches);
@@ -283,7 +283,7 @@ class HomeController extends Controller
       $avatar = $request->file('avatar');
 
       $filename = md5_file($avatar->getRealPath()) . '.' . $avatar->getClientOriginalExtension();
-      Image::make($avatar)->resize(300, 300)->save( 'img/uploads/avatars/' . $filename ) ;
+      Image::make($avatar)->resize(300, 300)->save( url('img/uploads/avatars/') . $filename ) ;
 
       $user->avatar = $filename;
       $user->save();

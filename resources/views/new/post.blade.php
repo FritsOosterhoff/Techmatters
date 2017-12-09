@@ -1,7 +1,15 @@
 
-
 <div class="col-md-4 my-3">
   <div class="card">
+
+    <div style="padding:10px;">
+      <a href="{{url('profile/' . $post->user->username)}}" style="color:#292b2c;display:block;text-decoration:none;width: auto;display: inline-block;">
+            <img src="{{url('img/uploads/avatars/' . $post->user->avatar)}}" class="user_avatar rounded-circle" style="float:left;margin-right:10px;">
+            <div style= "float:left;" >{{$post->user->username}}
+            <p class="small" style="margin:0;"> {{$post->updated_at}} </p></div>
+      </a>
+
+    </div>
     <a href="{{url('post/' . $post->id)}}" style="text-decoration:none;color:black">
 
     <img class="img-fluid" src="{{ (strpos($post->image, 'http')===false) ? url('/img/uploads/' . $post->image) : $post->image}}" alt="Card image">
@@ -29,13 +37,18 @@
 
     </div>
 
-    <div class="card-footer text-muted">
-      <a href="{{url('profile/' . $post->user->username)}}" style="color:#292b2c;display:block;text-decoration:none;width: auto;display: inline-block;">
+<div class="card-footer">
+
+
+
+    <!-- <div class="card-footer text-muted"> -->
+      <!-- <a href="{{url('profile/' . $post->user->username)}}" style="color:#292b2c;display:block;text-decoration:none;width: auto;display: inline-block;">
             <img src="{{url('img/uploads/avatars/' . $post->user->avatar)}}" class="user_avatar rounded-circle" style="float:left;margin-right:10px;">
             <div style= "float:left;" >{{$post->user->username}}
             <p class="small" style=""> {{$post->updated_at}} </p></div>
-      </a>
-      <ul class="social_tools" style=" float: right;  padding:0px">
+      </a> -->
+
+      <ul class="social_tools" style=" float: right;  padding:0px; margin:0px;">
 
 
           @if(  $post->likes->where('user_id', Auth::id())->first()  )
@@ -48,7 +61,8 @@
       </ul>
 
 
-</div>
+<!-- </div> -->
 
   </div>
+</div>
 </div>
