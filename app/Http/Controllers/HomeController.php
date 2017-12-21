@@ -48,10 +48,10 @@ class HomeController extends Controller
     $p = Post::find( $request->input('likeable'));
     $p->likes()->save($l);
 
-    $n = new Notification();
-    $n->user_id = Auth::id();
+    // $n = new Notification();
+    // $n->user_id = Auth::id();
 
-    $p->user()->notifications()->save($n);
+    // $p->user()->notifications()->save($n);
 
     return response()->json($p, 200);
   }
@@ -235,7 +235,7 @@ class HomeController extends Controller
 
 
         $image = Image::make($file);
-        $image->fit(480, 360, function ($constraint) {
+        $image->fit(860, 600, function ($constraint) {
           $constraint->aspectRatio();
         });
         Storage::put($path, (string) $image->encode());
@@ -251,6 +251,18 @@ class HomeController extends Controller
     }
 
   }
+
+
+    public function addComment(Request $request)
+    {
+      $post = Post::find($request->input('post'));
+      $comment = new Comment();
+      $comment->text =  $request->input('text');
+      $comment->user_id = Auth::id();
+      $post->comments()->save($comment);
+
+      return back();
+    }
 
   public function post($value='')
   {

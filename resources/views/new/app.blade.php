@@ -49,8 +49,10 @@
                   <img class="rounded-circle" style="width:32px; height:32px;" src="{{url('/img/uploads/avatars/'  . Auth::user()->avatar)}}">
                 </a>
               </li>
+              <!--
               <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-fw fa-globe"></i></a></li>
               <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-fw fa-envelope"></i></a></li>
+            -->
               <li class="nav-item">
                 <a class="nav-link" href="{{url('logout')}}">Sign out</a>
               </li>
@@ -104,7 +106,9 @@
 
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
   @stack('scripts')
@@ -128,7 +132,7 @@
     document.getElementById("image-upload").addEventListener("click", function(){
       document.getElementById("file-upload").click();
     });
-    
+
 
     var loadFile = function(event) {
       var output = document.getElementById("image-upload");
@@ -138,6 +142,100 @@
       //event.target.files[0].name
       output.src = URL.createObjectURL(event.target.files[0]);
     };
+
+    function getCount(obj) {
+      return (($(obj).text().length > 0) ? parseInt($(obj).text()) : 0);
+    }
+
+    function likePost(id) {
+      span = $(".card #" + id + " span");
+      icon = $(".card #" + id + " .fa");
+      like_count = getCount($(".card #" + id + " span"));
+      console.log(span);
+      console.log(icon);
+      console.log(like_count);
+
+      if (!icon.hasClass('fa-heart')) {
+        url = '{{url("like")}}';
+        $(span).text(like_count + 1);
+      } else {
+        url = '{{url("removelike")}}';
+        $(span).text(like_count > 1 ? (like_count - 1) : '');
+      }
+
+      console.log(url);
+      console.log(id);
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          'likeable': id
+        }
+      });
+    icon.toggleClass('fa-heart-o fa-heart');
+
+    }
+
+    function removePost(id) {
+      $.ajax({
+        type: "POST",
+        url:   url = '{{url("removepost")}}',
+        data: {
+          'post_id': id
+        },
+
+        success: function(){
+          window.location = '{{url('/')}}';
+        },
+      });
+
+    }
+
+    function followUser(id) {
+
+      $.ajax({
+        type: "POST",
+        url: '{{url("followuser")}}',
+        data: {
+          'followable_id': id
+        },
+        success: function(){
+          location.reload();
+        },
+      });
+
+    }
+
+    function unfollowUser(id) {
+      $.ajax({
+        type: "POST",
+        url:   url = '{{url("unfollowuser")}}',
+        data: {
+          'followable_id': id
+        },
+        success: function(){
+          location.reload();
+        },
+      });
+
+    }
+
+    function sendCommentToPost(id) {
+      console.log(id);
+      $.ajax({
+        type: "POST",
+        url: "{{url('/comment')}}",
+        data: {
+          'text': 'THIS IS MY TEXT',
+          'commentable_id': id
+        }
+      });
+    }
+
+    $(document).ready(function(){
+        console.log($('body'));
+    });
+
 
   </script>
 

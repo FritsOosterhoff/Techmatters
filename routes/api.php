@@ -18,10 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('comment', function(Request $request){
-  dd($request);
-});
+
 
 Route::post('comment', 'HomeController@comment');
 Route::post('like', 'HomeController@like');
 Route::post('removelike', 'HomeController@removeLike');
+Route::post('removepost', 'HomeController@removePost');
+Route::get('followuser', 'HomeController@followuser');
+Route::post('followuser', 'HomeController@followuser');
+Route::post('unfollowuser', 'HomeController@unfollowuser');
+Route::get('unfollowuser', 'HomeController@unfollowuser');

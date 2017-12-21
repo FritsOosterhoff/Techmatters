@@ -17,5 +17,6 @@ class VerifyCsrfToken extends Middleware
           'removepost',
           'followuser',
           'unfollowuser',
+          'add_comment',
     ];
 }

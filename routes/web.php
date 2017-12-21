@@ -33,7 +33,10 @@ Route::get('/trending', 'HomeController@trending')->name('trending');
 Route::get('/following', 'HomeController@following')->name('following');
 
 
+
 Route::post('new_post', 'HomeController@addPost');
+
+Route::post('post/add_comment', 'HomeController@addComment');
 
 Route::get('profile/{username}', 'HomeController@profile');
 Route::get('tag/{name}', 'HomeController@tags');

@@ -225,6 +225,7 @@ function sendCommentToPost(id) {
   // success: success
 );
 }
+
 jQuery(function($) {
   $('.box').matchHeight();
 });

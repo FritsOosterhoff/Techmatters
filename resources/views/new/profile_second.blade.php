@@ -31,10 +31,10 @@
 	margin-bottom: 35px;
 	border: 5px solid #e6e5e1;
 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
 }
 
 .card-title {
@@ -49,7 +49,7 @@
 }
 
 </style>
-<div class="container-fluid">
+<div class="container">
 
 	<div class="profile card-profile text-center">
 		<div  class="card-img-top" style="background-image: url(&quot;{{url('img/uploads/banners/' . $user->banner)}}&quot;);"> </div>
@@ -60,7 +60,6 @@
 				<br>
 				<small>{{$user->biography}}</small>
 			</h4>
-
 			<div class="card-links">
 
 
@@ -75,29 +74,13 @@
 						<a class="nav-link " href="#">{{count($user->follows)}} Follows</a>
 					</li>
 
-					@if(Auth::id()!==$user->id)
-					@if(Auth::user()->follow_person($user->id))
-					<a id="{{$user->id}}" onclick="unfollowUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; line-height:40px; color:white;border:0;"class="btn-danger"><i class="fa fa-user-times"></i></a>
-					@else
-					<a id="{{$user->id}}" onclick="followUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; line-height:40px; color:white;border:0;"class="btn-success"><i class="fa fa-user-plus"></i></a>
-					@endif
-					@endif
-					<!--
-					<li class="nav-item follow_icon">
-					@if(Auth::id()!==$user->id)
-					@if(Auth::user()->follow_person($user->id))
-					<i id="{{$user->id}}" onclick="unfollowUser(this.id)" class="fa fa-2x fa-fw fa-user-times"></i>
-					@else
-					<i id="{{$user->id}}" onclick="followUser(this.id)" class="fa fa-2x fa-fw fa-user-plus"></i>
-					@endif
-					@endif
-				</li>
-
-			-->
-		</ul>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#">Disabled</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
-</div>
-</div>
 </div>
 
 <div class="py-5 bg-light text-dark">
@@ -106,17 +89,17 @@
 		<h1 class="display-5">{{$title}}</h1>
 
 		@foreach (array_chunk($user->posts->all(), 3) as $post)
-		<div class="row">
-			@each('new.post', $post, 'post')
-		</div>
+		  <div class="row">
+	    	@each('new.post', $post, 'post')
+			</div>
 		@endforeach
 	</div>
 </div>
 
 <div class="py-5">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
+	 <div class="container">
+		 <div class="row">
+			 <div class="col-md-12">
 			</div>
 		</div>
 	</div>

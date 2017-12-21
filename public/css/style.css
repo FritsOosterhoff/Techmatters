@@ -5601,7 +5601,7 @@ body > * {
 .like_icon:hover i.fa:before{content: "\f004";}
 		.remove_icon:hover i.fa:before{content: "\f1f8";}
 		.comment_icon:hover i.fa:before{content:"\f075"}
-		.follow_icon:hover i.fa:before{content:"\f2bb";cursor:pointer}
+		/*.follow_icon:hover i.fa:before{content:"\f2bb";cursor:pointer}*/
 
 .navbar .nav-item{margin-right:10px;}
 .navbar .align-fix {margin-top:8px;}
