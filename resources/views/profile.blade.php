@@ -47,6 +47,7 @@
 						@else
 						<li class="follow_icon" onclick=""><i id="{{$user->id}}" onclick="followUser(this.id)" class="fa fa-3x fa-fw  fa-address-card-o"></i></li>
 						@endif
+
 					@endif
 
 					<li>{{count($user->posts)}} Posts</li>

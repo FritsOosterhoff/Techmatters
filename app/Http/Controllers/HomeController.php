@@ -25,7 +25,7 @@ class HomeController extends Controller
   */
   public function __construct()
   {
-    $this->middleware('auth', ['except' => ['home', 'newest', 'teams']]);
+    $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams']]);
   }
 
   public function comment(Request $request)
@@ -133,8 +133,8 @@ class HomeController extends Controller
 
   public function newest($value='')
   {
-
-    $posts = Post::orderBy('id', 'desc')->paginate(8);
+    $nr = (Auth::check() ? 8 : 9);
+    $posts = Post::orderBy('id', 'desc')->paginate($nr);
 
     $title = 'Newest Posts';
 
@@ -153,12 +153,13 @@ class HomeController extends Controller
 
   public function trending($value='')
   {
+    $nr = (Auth::check() ? 8 : 9);
 
     $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->groupBy('posts.id')
     ->orderBy('aggregate', 'desc')
-    ->paginate(12);
+    ->paginate($nr);
 
 
     $title = 'Trending';
@@ -279,7 +280,7 @@ class HomeController extends Controller
     $user = \Auth::user();
     else $user = User::where('username', $username)->limit(1)->get()->first();
 
-    $title = $user->username . "'s Profile";
+    $title = $user->username . "'s Activity";
 
     return view('new.profile')->with(compact('user', 'title') );
 

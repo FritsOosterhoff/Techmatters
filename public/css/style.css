@@ -3590,7 +3590,7 @@ h1, h2, h3, h4, h5, h6,
   color: inherit; }
 
 h1, .h1 {
-  font-size: 2.5rem; }
+  font-size: 2rem; }
 
 h2, .h2 {
   font-size: 2rem; }
@@ -5606,3 +5606,9 @@ body > * {
 .navbar .nav-item{margin-right:10px;}
 .navbar .align-fix {margin-top:8px;}
 .navbar .nav-item .nav-link > .fa {font-size:1.5em;}
+
+.search{    border-radius: 2px;
+    border: 1px solid #edeff2;
+    width: 100%;
+    padding: 14px 10px;
+    color: #b4b7c1;}

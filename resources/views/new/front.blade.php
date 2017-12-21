@@ -24,6 +24,7 @@
 <div class="py-5 bg-light text-dark">
 
 	<div class="container">
+		<h1 class="text-center mb-4">Latest posts</h1>
 
 
 		@foreach (array_chunk($posts->all(), 3) as $post)
@@ -41,7 +42,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="text-center mb-5 text-white">Recent photos</h1>
+          <h1 class="text-center mb-5 text-light">Recent photos</h1>
         </div>
       </div>
       <div class="row">

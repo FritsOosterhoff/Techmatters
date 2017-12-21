@@ -15,21 +15,23 @@
 <body>
   <nav class="navbar navbar-expand-md bg-secondary navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{{route('home')}}">
-        <img src="{{url('/img/dive_logo.png')}}"  class="img-fluid"> </a>
+
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ">
+        <a class="navbar-brand mf-auto" href="{{route('home')}}">
+          <img src="{{url('/img/dive_logo.png')}}"  class="img-fluid"> </a>
+        <ul class="navbar-nav mx-auto ">
           <li class="nav-item">
             <a class="nav-link" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url('newest')}}">Newest</a>
           </li>
-          @if (Auth::check())
           <li class="nav-item">
             <a class="nav-link" href="{{url('trending')}}">Trending</a>
           </li>
+          @if (Auth::check())
+
           <li class="nav-item">
             <a class="nav-link" href="{{url('following')}}">Following</a>
           </li>
@@ -38,10 +40,11 @@
         </ul>
 
         <ul class="nav navbar-nav ml-auto">
+          <!--
           <li class="nav-item align-fix">
             <input class="form-control mr-2"  onkeypress="searchHandle(event, this)" type="text" placeholder="Search" style="border-radius:50px;padding:3px 8px">
           </li>
-
+          -->
 
           @if (Auth::check())
               <li class="nav-item align-fix">

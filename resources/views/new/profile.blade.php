@@ -54,17 +54,20 @@
 	<div class="profile card-profile text-center">
 		<div  class="card-img-top" style="background-image: url(&quot;{{url('img/uploads/banners/' . $user->banner)}}&quot;);"> </div>
 		<div class="card-block">
-			<img alt="" class="card-img-profile" src="{{url('img/uploads/avatars/' . $user->avatar)}}">
+			<div class="image-block">
+			<img alt="{{$user->username}}_avatar" id="form_image" class="card-img-profile" src="{{url('img/uploads/avatars/' . $user->avatar)}}" style="position:relative">
+			<i style="position:absolute;top:0;" class="fa fa-pencil"></i>
+		</div>
 			<h4 class="card-title">
 				{{$user->username}} <br>
 				<br>
 				<small>{{$user->biography}}</small>
 			</h4>
 
-			<div class="card-links">
+			<div class="card-links pb-5">
 
 
-				<ul class="nav justify-content-center">
+				<ul class="nav justify-content-center mb-3">
 					<li class="nav-item">
 						<a class="nav-link" href="#">{{count($user->posts)}} Posts</a>
 					</li>
@@ -74,27 +77,24 @@
 					<li class="nav-item">
 						<a class="nav-link " href="#">{{count($user->follows)}} Follows</a>
 					</li>
+				</ul>
+
+				<ul class="nav justify-content-center">
 
 					@if(Auth::id()!==$user->id)
-					@if(Auth::user()->follow_person($user->id))
-					<a id="{{$user->id}}" onclick="unfollowUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; line-height:40px; color:white;border:0;"class="btn-danger"><i class="fa fa-user-times"></i></a>
-					@else
-					<a id="{{$user->id}}" onclick="followUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; line-height:40px; color:white;border:0;"class="btn-success"><i class="fa fa-user-plus"></i></a>
-					@endif
-					@endif
-					<!--
-					<li class="nav-item follow_icon">
-					@if(Auth::id()!==$user->id)
-					@if(Auth::user()->follow_person($user->id))
-					<i id="{{$user->id}}" onclick="unfollowUser(this.id)" class="fa fa-2x fa-fw fa-user-times"></i>
-					@else
-					<i id="{{$user->id}}" onclick="followUser(this.id)" class="fa fa-2x fa-fw fa-user-plus"></i>
-					@endif
-					@endif
-				</li>
+						@if(Auth::user()->follow_person($user->id))
+							<a class=" btn-danger " id="{{$user->id}}" onclick="unfollowUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; line-height:40px;margin-right:10px; color:white;border:0;"><i class="fa fa-user-times"></i></a>
+						@else
+							<a class=" btn-success "  id="{{$user->id}}" onclick="followUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; line-height:40px;margin-right:10px; color:white;border:0;" ><i class="fa fa-user-plus"></i></a>
+						@endif
 
-			-->
-		</ul>
+					<a class="btn btn-secondary "  id="{{$user->id}}" onclick="followUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; margin-right:10px; color:white" ><i class="fa fa-user-plus"></i></a>
+
+
+
+					@endif
+
+				</ul>
 	</div>
 </div>
 </div>
@@ -103,7 +103,7 @@
 <div class="py-5 bg-light text-dark">
 
 	<div class="container">
-		<h1 class="display-5">{{$title}}</h1>
+		<h1 class="text-center mb-5">{{$title}}</h1>
 
 		@foreach (array_chunk($user->posts->all(), 3) as $post)
 		<div class="row">
@@ -123,94 +123,5 @@
 </div>
 
 
-
-<!--
-
-
-<div style="
-background-image: url(&quot;http://social.fritsoosterhoff.nl/img/banner.jpg&quot;);
-background-size: cover;
-background-repeat: no-repeat;
-background-position: 50% 50%;height:60vh;position:absolute;z-index:-1;width:100%;
-">
-
-
-<div class="mx-auto" style=" width:300px; padding-top:85%;">
-<div class="social" style="background:none;position:absolute;top:85%; width:300px">
-
-<div class="user_image mx-auto" style="width:300px;">
-<img class="mx-auto rounded-circle bg-white" style="padding:5px;" src="https://randomuser.me/api/portraits/women/31.jpg" />
-<h1 class="display-3 mb-4">Foo.social</h1>
-</div>
-
-
-</div>
-</div>
-</div>
-
-<div class="container" style="padding-top:80vh">
-
-<div class="col-md-12 bg-white">
-
-<ul class="nav justify-content-center">
-<li class="nav-item">
-<a class="nav-link active" href="#">Active</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Link</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Link</a>
-</li>
-<li class="nav-item">
-<a class="nav-link disabled" href="#">Disabled</a>
-</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-<div style="height:4000px;"></div>
-
-<!--
-<div class="py-5 bg-light text-dark text-center" class=" py-5" style="
-background-image: url(&quot;http://social.fritsoosterhoff.nl/img/banner.jpg&quot;);
-background-size: cover;
-background-repeat: no-repeat;
-background-position: 50% 50%;height:50vh;
-">
-
-
-<div class="container mx-auto" style="background:none;position:relative;">
-<div class="row mx-auto" style="position:absolute;top:85%;">
-<div class="col-md-6">
-<div class="user_image mx-auto" style="width:300px;">
-<img class="mx-auto rounded-circle bg-white" style="padding:5px;" src="https://randomuser.me/api/portraits/women/31.jpg" />
-<h1 class="display-3 mb-4">Foo.social</h1>
-</div></div>
-
-</div>
-</div>
-
-
-<!--
-<ul class="nav justify-content-center">
-<li class="nav-item">
-<a class="nav-link active" href="#">Active</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Link</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Link</a>
-</li>
-<li class="nav-item">
-<a class="nav-link disabled" href="#">Disabled</a>
-</li>
-</ul>
-</div>
-</div>
--->
 
 @endsection

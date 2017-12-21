@@ -6,7 +6,7 @@
 
   <div class="col-md-7 my-3 mx-auto">
     <div class="card">
-      <a href="{{url('post/' . $post->id)}}" style="text-decoration:none;color:black">
+
       <img class="img-fluid" src="{{ (strpos($post->image, 'http')===false) ? url('/img/uploads/' . $post->image) : $post->image}}" alt="Card image">
       <div class="card-body">
         <p class="card-text p-y-1">
@@ -15,7 +15,7 @@
 
 
       </div>
-    </a>
+
 
 
     <div class="row" style="margin:0px">
