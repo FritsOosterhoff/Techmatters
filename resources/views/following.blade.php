@@ -8,11 +8,14 @@
 @if(!empty($posts))
 
 
+	
+	
 <div class="section group">
 	<h1 class="page-heading">{{$title}}</h1>
 	@foreach($posts as $post)
 
 
+	
 	<div class="col span_3_of_12 item" id="{{$post->id}}">
 	  <div class="box" >
 

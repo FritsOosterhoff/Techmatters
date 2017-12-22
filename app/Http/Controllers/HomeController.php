@@ -14,6 +14,7 @@ use Image;
 use Auth;
 use Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Hash;
 class HomeController extends Controller
 {
@@ -172,6 +173,7 @@ class HomeController extends Controller
     $posts = array();
 
 
+
     $posts = \DB::table('posts', 'likes')
     ->join('users', 'posts.user_id', '=', 'users.id')
     ->join('followers', 'users.id', '=', 'followers.followable_id')
@@ -182,13 +184,51 @@ class HomeController extends Controller
     ->selectRaw('count(likes.likeable_id) as likes')
     ->paginate(20);
 
-    // dd($posts);
+
+    $follows = Follower::all()->where('user_id', Auth::id());
+    $posts = array();
+    $c = 0;
+    foreach ($follows as $key => $follow) {
+      foreach ($follow->followable->posts as $key => $post) {
+        $posts[$c] = $post;
+
+        $c++;
+      }
+    }
+
+    $posts = collect($posts)->sortByDesc('updated_at');
+
+
+    $posts = $this->paginate($posts);
 
     $title = 'Following';
 
-    return view('following')->with(compact('posts', 'title'));
+    return view('new.home')->with(compact('posts', 'title'));
 
   }
+
+  /**
+  * Gera a paginação dos itens de um array ou collection.
+  *
+  * @param array|Collection      $items
+  * @param int   $perPage
+  * @param int  $page
+  * @param array $options
+  *
+  * @return LengthAwarePaginator
+
+  *
+  *asd
+  *use Illuminate\Pagination\LengthAwarePaginator;
+  *use Illuminate\Pagination\Paginator;
+  *Illuminate\Support\Collection
+  */
+public function paginate($items, $perPage = 15, $page = null, $options = [])
+{
+	$page = $page ?: (\Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1);
+	$items = $items instanceof \Illuminate\Support\Collection ? $items : \Illuminate\Support\Collection::make($items);
+	return new \Illuminate\Pagination\LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+}
 
   public function tags($value='')
   {
