@@ -49,6 +49,8 @@ Route::post('search/{text}', 'HomeController@search');
 Route::get('profile', 'HomeController@profile');
 Route::post('profile', 'HomeController@update_avatar');
 
+Route::get('notifications', 'HomeController@notifications');
+
 Route::post('comment', 'HomeController@comment');
 Route::post('like', 'HomeController@like');
 Route::post('removelike', 'HomeController@removeLike');

@@ -37,8 +37,11 @@ class HomeController extends Controller
     $p = Post::find( $request->input('commentable_id'));
     $p->comments()->save($c);
 
+    $this->notify(1, $comment);
+
     return response()->json($p, 200);
   }
+
 
 
   public function like(Request $request)
@@ -49,12 +52,32 @@ class HomeController extends Controller
     $p = Post::find( $request->input('likeable'));
     $p->likes()->save($l);
 
-    // $n = new Notification();
-    // $n->user_id = Auth::id();
+    $n = new Notification();
+    $n->user_id = Auth::id();
 
-    // $p->user()->notifications()->save($n);
 
-    return response()->json($p, 200);
+    $user = User::find($p->user->id);
+
+    $n->notifiable_id = $user->id;
+    $n->notifiable_type = 'App\Like';
+    	dd($n);
+    $user->notifications()->save($n);
+
+
+    // $n->notifiable_type = 'App\Like';
+    // $n->notifiable_id = $p->user->id;
+    // $p->user->notifications()->save($n);
+
+    /*
+    $post = Post::find($request->input('post'));
+    $comment = new Comment();
+    $comment->text =  $request->input('text');
+    $comment->user_id = Auth::id();
+    $post->comments()->save($comment);
+    */
+    // $this->notify(0, $l);
+
+    // return response()->json($p, 200);
   }
 
 
@@ -87,15 +110,17 @@ class HomeController extends Controller
     $user = User::find($request->input('followable_id'));
     $user->followers()->save($follow);
 
+    $this->notify(2, $follow);
+
     return response()->json($follow, 200);
   }
 
   public function unfollowUser(Request $request)
   {
     # code...
-     $follow = Follower::where('user_id', '=', \Auth::id())->where('followable_id', '=', $request->input('followable_id'))->first();
-     $follow->delete();
-     return response()->json($follow, 200);
+    $follow = Follower::where('user_id', '=', \Auth::id())->where('followable_id', '=', $request->input('followable_id'))->first();
+    $follow->delete();
+    return response()->json($follow, 200);
 
   }
 
@@ -106,11 +131,18 @@ class HomeController extends Controller
 
     $media = \DB::table('posts')->select('image', 'id')->orderBy('updated_at', 'desc')->limit(6)->get();
 
-    $posts = Post::orderBy('id', 'desc')->limit(3)->get();
+    // $posts = Post::orderBy('id', 'desc')->where('image', '!=', "")->limit(50)->get();
+
+
+    $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
+    ->join('likes', 'posts.id', '=', 'likes.likeable_id')
+    ->groupBy('posts.id')
+    ->orderBy('aggregate', 'desc')
+    ->limit(20)->get();
 
     $title = 'Home';
 
-    return view('new.front')->with(compact('posts', 'media', 'title'));
+    return view('new.new_front')->with(compact('posts', 'media', 'title'));
 
   }
 
@@ -223,12 +255,12 @@ class HomeController extends Controller
   *use Illuminate\Pagination\Paginator;
   *Illuminate\Support\Collection
   */
-public function paginate($items, $perPage = 15, $page = null, $options = [])
-{
-	$page = $page ?: (\Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1);
-	$items = $items instanceof \Illuminate\Support\Collection ? $items : \Illuminate\Support\Collection::make($items);
-	return new \Illuminate\Pagination\LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-}
+  public function paginate($items, $perPage = 15, $page = null, $options = [])
+  {
+    $page = $page ?: (\Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1);
+    $items = $items instanceof \Illuminate\Support\Collection ? $items : \Illuminate\Support\Collection::make($items);
+    return new \Illuminate\Pagination\LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+  }
 
   public function tags($value='')
   {
@@ -237,7 +269,7 @@ public function paginate($items, $perPage = 15, $page = null, $options = [])
 
     $title = 'Posts tagged with: ' . $value;
 
-    return view('home')->with(compact('posts', 'title'));
+    return view('new.home')->with(compact('posts', 'title'));
   }
 
   public function search($value)
@@ -294,16 +326,16 @@ public function paginate($items, $perPage = 15, $page = null, $options = [])
   }
 
 
-    public function addComment(Request $request)
-    {
-      $post = Post::find($request->input('post'));
-      $comment = new Comment();
-      $comment->text =  $request->input('text');
-      $comment->user_id = Auth::id();
-      $post->comments()->save($comment);
+  public function addComment(Request $request)
+  {
+    $post = Post::find($request->input('post'));
+    $comment = new Comment();
+    $comment->text =  $request->input('text');
+    $comment->user_id = Auth::id();
+    $post->comments()->save($comment);
 
-      return back();
-    }
+    return back();
+  }
 
   public function post($value='')
   {
@@ -352,5 +384,34 @@ public function paginate($items, $perPage = 15, $page = null, $options = [])
   {
     return Hash::make($value);
   }
+
+  public function notifications($value='')
+  {
+      $notifications =  Notification::where('user_id', '=', \Auth::id())->get();
+      $title = "Notifications";
+      return view('new.notifications')->with(compact('notifactions', 'title'));
+  }
+
+
+    public function notify($type, $model)
+    {
+      $n = new Notification();
+      $n->user_id = Auth::id();
+      switch ($type) {
+        case 0:
+        $type = 'App\Like';
+        break;
+        case 1:
+        $type = 'App\Comment';
+        break;
+        case 2:
+        $type = 'App\Follow';
+        break;
+      }
+
+      $n->type = $type;
+
+      $model->user()->notifications()->save($n);
+    }
 
 }

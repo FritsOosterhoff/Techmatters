@@ -6,7 +6,6 @@
 
 @section('content')
 
-
 <div class="py-5 text-center opaque-overlay" style="background-image: url(&quot;{{url('img/banner.jpg')}}&quot;);">
 	<div class="container py-5">
 		<div class="row">
@@ -57,4 +56,5 @@
     </div>
   </div>
 </div>
+
 @endsection

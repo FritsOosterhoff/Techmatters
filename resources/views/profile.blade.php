@@ -63,6 +63,7 @@
 
 	<div class="section group">
 		<h1 class="page-heading">Articles</h1>
+
 		@each('layouts.post', $user->posts, 'post')
 	</div>
 

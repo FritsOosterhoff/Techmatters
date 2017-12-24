@@ -88,7 +88,7 @@
 							<a class=" btn-success "  id="{{$user->id}}" onclick="followUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; line-height:40px;margin-right:10px; color:white;border:0;" ><i class="fa fa-user-plus"></i></a>
 						@endif
 
-					<a class="btn btn-secondary "  id="{{$user->id}}" onclick="followUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; margin-right:10px; color:white" ><i class="fa fa-user-plus"></i></a>
+					<a class="btn btn-secondary "  id="{{$user->id}}" onclick="followUser(this.id)"  style=" border-radius:100%; height:40px;width:40px; margin-right:10px; color:white" ><i class="fa fa-comment"></i></a>
 
 
 
@@ -100,10 +100,13 @@
 </div>
 </div>
 
-<div class="py-5 bg-light text-dark">
+<div class="py-5 text-dark">
 
 	<div class="container">
 		<h1 class="text-center mb-5">{{$title}}</h1>
+
+
+
 
 		@foreach (array_chunk($user->posts->all(), 3) as $post)
 		<div class="row">

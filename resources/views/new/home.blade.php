@@ -10,7 +10,7 @@
 @if(!empty($posts))
 
 
-<div class="py-5 bg-light text-dark">
+<div class="py-5 text-dark">
 
 	<div class="container">
 		<h2 class="text-center mb-5">{{$title}}</h2>
