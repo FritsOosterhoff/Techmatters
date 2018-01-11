@@ -17,7 +17,7 @@
 			<div class="center panel user_info span_6_of_12">
 
 				<div class="user_profile center">
-					<div class="user_img center"><img src="{{url('/img/uploads/avatars/' . $user->avatar)}}" /></div>
+					<div class="user_img center"><img src="{{public_path(/img/uploads/avatars/' . $user->avatar)}}" /></div>
 					<div class="user_info">
 						<h1>{{ $user->username }}</h1>
 						<p>{{$user->biography}}</p>

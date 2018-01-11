@@ -34,12 +34,13 @@ class HomeController extends Controller
     $c = new Comment();
     $c->text =  $request->input('text');
     $c->user_id = Auth::id();
-    $p = Post::find( $request->input('commentable_id'));
+    $p = Post::find( $request->input('post'));
     $p->comments()->save($c);
 
-    $this->notify(1, $comment);
+    // $this->notify(1, $c);
 
-    return response()->json($p, 200);
+    // return response()->json($p, 200);
+    return back();
   }
 
 
@@ -138,7 +139,7 @@ class HomeController extends Controller
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->groupBy('posts.id')
     ->orderBy('aggregate', 'desc')
-    ->limit(20)->get();
+    ->limit(21)->get();
 
     $title = 'Home';
 
@@ -362,13 +363,16 @@ class HomeController extends Controller
   public function update_avatar(Request $request){
 
     // Handle the user upload of avatar
+    $user = Auth::user();
+
+
     if($request->hasFile('avatar')){
-      $user = Auth::user();
 
       $avatar = $request->file('avatar');
 
       $filename = md5_file($avatar->getRealPath()) . '.' . $avatar->getClientOriginalExtension();
-      Image::make($avatar)->resize(300, 300)->save( url('img/uploads/avatars/') . $filename ) ;
+      $location = public_path('img/uploads/avatars/')  . '/' . $filename;
+      Image::make($avatar)->resize(300, 300)->save($location) ;
 
       $user->avatar = $filename;
       $user->save();
