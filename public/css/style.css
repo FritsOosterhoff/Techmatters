@@ -2573,6 +2573,7 @@ button.list-group-item-dark {
   vertical-align: middle;
   content: "";
   background: no-repeat center center;
+
   background-size: 100% 100%; }
 
 @media (max-width: 575px) {
@@ -5595,6 +5596,11 @@ body > * {
   height:100px;width:100px;
 }
 .navbar-dark{background:#222835!important}
+.navbar-dark .navbar-toggler-icon {height:25px;}
+.navbar-dark .navbar-toggler {border:0px;outline:none}
+
+
+
 .card .social_tools{list-style:none;}
 .card .social_tools li{float:left;margin-right:15px}
 

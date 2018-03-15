@@ -63,7 +63,9 @@
 			<h4 class="card-title">
 				{{$user->username}} <br>
 				<br>
-				<small>{{$user->biography}}</small>
+				<div class="container">
+					<small>{{$user->biography}}</small>
+				</div>
 			</h4>
 
 			<div class="card-links pb-5">
@@ -81,7 +83,7 @@
 					</li>
 				</ul>
 
-				
+
 
 				<ul class="nav justify-content-center">
 
@@ -97,7 +99,7 @@
 					@else
 					<!-- Button trigger modal -->
 					<!-- Example single danger button -->
-					<div class="btn-group">
+					<!-- <div class="btn-group">
 					  <button type="button" class="btn btn-danger dropdown-toggle rounded" style=" " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-gears"></i>
 					  </button>
@@ -108,94 +110,27 @@
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item" href="#">Separated link</a>
 					  </div>
+					</div> -->
+
+					<div class="col col-md-6">
+						<h2>Profile image</h2>
+						<form enctype="multipart/form-data" action="{{url('profile_avatar')}}" method="POST">
+						<label>Update Profile Image</label>
+						<input type="file" name="avatar">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="submit" class="pull-right btn btn-sm btn-primary">
+						</form>
 					</div>
 
-
-					<!-- Modal
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
--->
-<div class="container" id="crop-avatar">
-<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <form class="avatar-form" action="{{url('profile')}}"  enctype="multipart/form-data" method="post">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">×</button>
-              <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
-            </div>
-            <div class="modal-body">
-              <div class="avatar-body">
-
-                <!-- Upload image and data -->
-                <div class="avatar-upload">
-                  <input type="hidden" class="avatar-src" name="avatar_src">
-                  <input type="hidden" class="avatar-data" name="avatar_data">
-                  <label for="avatarInput">Local upload</label>
-                  <input type="file" class="avatar-input" id="avatarInput" name="avatar_file">
-                </div>
-
-                <!-- Crop and preview -->
-                <div class="row">
-                  <div class="col-md-9">
-                    <div class="avatar-wrapper"></div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="avatar-preview preview-lg"></div>
-                    <div class="avatar-preview preview-md"></div>
-                    <div class="avatar-preview preview-sm"></div>
-                  </div>
-                </div>
-
-                <div class="row avatar-btns">
-                  <div class="col-md-9">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="-90" title="Rotate -90 degrees">Rotate Left</button>
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="-15">-15deg</button>
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="-30">-30deg</button>
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45">-45deg</button>
-                    </div>
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="90" title="Rotate 90 degrees">Rotate Right</button>
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="15">15deg</button>
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="30">30deg</button>
-                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="45">45deg</button>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <input type="submit" class="btn btn-primary btn-block ">Done</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div> -->
-          </form>
-        </div>
-      </div>
-    </div>
-	</div>
-
-
-
+					<div class="col col-md-6">
+						<h2>Banner image</h2>
+						<form enctype="multipart/form-data" action="{{url('profile_banner')}}" method="POST">
+						<label>Update Banner Image</label>
+						<input type="file" name="banner">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="submit" class="pull-right btn btn-sm btn-primary">
+						</form>
+					</div>
 
 					@endif
 
@@ -210,8 +145,6 @@
 
 	<div class="container">
 		<h1 class="text-center mb-5">{{$title}}</h1>
-
-
 
 
 		@foreach (array_chunk($user->posts->all(), 3) as $post)

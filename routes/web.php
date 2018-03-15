@@ -34,28 +34,31 @@ Route::get('/following', 'HomeController@following')->name('following');
 
 
 
-Route::post('new_post', 'HomeController@addPost');
+Route::post('new_post', 'PostController@addPost');
 
-Route::post('post/add_comment', 'HomeController@addComment');
+Route::post('post/add_comment', 'CommentController@addComment');
 
 Route::get('profile/{username}', 'HomeController@profile');
 Route::get('tag/{name}', 'HomeController@tags');
 
-Route::get('post/{id}', 'HomeController@post');
+Route::get('post/{id}', 'PostController@post');
 
 Route::get('search/{text}', 'HomeController@search');
 Route::post('search/{text}', 'HomeController@search');
 
 Route::get('profile', 'HomeController@profile');
-Route::post('profile', 'HomeController@update_avatar');
+Route::post('profile_avatar', 'HomeController@update_avatar');
+Route::post('profile_banner', 'HomeController@update_banner');
 
 Route::get('notifications', 'HomeController@notifications');
 
-Route::post('comment', 'HomeController@comment');
-Route::post('like', 'HomeController@like');
-Route::post('removelike', 'HomeController@removeLike');
-Route::post('removepost', 'HomeController@removePost');
-Route::get('followuser', 'HomeController@followuser');
-Route::post('followuser', 'HomeController@followuser');
-Route::post('unfollowuser', 'HomeController@unfollowuser');
-Route::get('unfollowuser', 'HomeController@unfollowuser');
+Route::post('comment', 'CommentController@comment');
+
+Route::post('like', 'LikeController@like');
+Route::post('removelike', 'LikeController@removeLike');
+
+Route::post('removepost', 'PostController@removePost');
+Route::get('followuser', 'FollowController@followuser');
+Route::post('followuser', 'FollowController@followuser');
+Route::post('unfollowuser', 'FollowController@unfollowuser');
+Route::get('unfollowuser', 'FollowController@unfollowuser');

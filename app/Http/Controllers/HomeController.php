@@ -29,101 +29,10 @@ class HomeController extends Controller
     $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams']]);
   }
 
-  public function comment(Request $request)
-  {
-    $c = new Comment();
-    $c->text =  $request->input('text');
-    $c->user_id = Auth::id();
-    $p = Post::find( $request->input('post'));
-    $p->comments()->save($c);
-
-    // $this->notify(1, $c);
-
-    // return response()->json($p, 200);
-    return back();
-  }
 
 
 
-  public function like(Request $request)
-  {
 
-    $l = new Like();
-    $l->user_id = Auth::id();
-    $p = Post::find( $request->input('likeable'));
-    $p->likes()->save($l);
-
-    $n = new Notification();
-    $n->user_id = Auth::id();
-
-
-    $user = User::find($p->user->id);
-
-    $n->notifiable_id = $user->id;
-    $n->notifiable_type = 'App\Like';
-    	dd($n);
-    $user->notifications()->save($n);
-
-
-    // $n->notifiable_type = 'App\Like';
-    // $n->notifiable_id = $p->user->id;
-    // $p->user->notifications()->save($n);
-
-    /*
-    $post = Post::find($request->input('post'));
-    $comment = new Comment();
-    $comment->text =  $request->input('text');
-    $comment->user_id = Auth::id();
-    $post->comments()->save($comment);
-    */
-    // $this->notify(0, $l);
-
-    // return response()->json($p, 200);
-  }
-
-
-  public function removeLike(Request $request)
-  {
-    // $posts->photos()->where('id', '=', 1)->delete();
-
-
-    $p = Post::find( $request->input('likeable'));
-    $p->likes()->where('user_id', '=', Auth::id())->delete();
-
-    return response()->json($p, 200);
-  }
-
-
-  public function removePost(Request $request)
-  {
-
-    $p = Post::find( $request->input('post_id'));
-    $p->delete();
-
-    return response()->json($p, 200);
-  }
-
-  public function followUser(Request $request)
-  {
-
-    $follow = new Follower();
-    $follow->user_id = Auth::id();
-    $user = User::find($request->input('followable_id'));
-    $user->followers()->save($follow);
-
-    $this->notify(2, $follow);
-
-    return response()->json($follow, 200);
-  }
-
-  public function unfollowUser(Request $request)
-  {
-    # code...
-    $follow = Follower::where('user_id', '=', \Auth::id())->where('followable_id', '=', $request->input('followable_id'))->first();
-    $follow->delete();
-    return response()->json($follow, 200);
-
-  }
 
 
   public function home($value='')
@@ -282,69 +191,9 @@ class HomeController extends Controller
     return view('new.home')->with(compact('posts', 'title'));
   }
 
-  public function addPost(Request $request)
-  {
-
-    if ($request->has('text')) {
-      //
-      $post = new Post;
-      $post->title = 'title';
-      $post->text = $request->text;
-
-      preg_match_all('/#([^\s]+)/', $post->text, $matches);
-      foreach ($matches[1] as $key => $value) {
-        # code...
-        $tag =Tag::firstOrNew(array('name' => $value));
-
-        $tag->name = $value;
-        $tag->save();
-      }
-
-      if($request->has('file')){
-
-        $file = $request->file('file');
-        if($file->isValid())
-        $path = $file->hashName('images');
-        else $path = 'images/' . md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
 
 
-        $image = Image::make($file);
-        $image->fit(860, 600, function ($constraint) {
-          $constraint->aspectRatio();
-        });
-        Storage::put($path, (string) $image->encode());
-        $post->image = $path;
 
-      }
-
-      $post->user_id = \Auth::id();
-      $post->save();
-
-      return redirect('');
-      // return back()->with('success','Image Upload successful');
-    }
-
-  }
-
-
-  public function addComment(Request $request)
-  {
-    $post = Post::find($request->input('post'));
-    $comment = new Comment();
-    $comment->text =  $request->input('text');
-    $comment->user_id = Auth::id();
-    $post->comments()->save($comment);
-
-    return back();
-  }
-
-  public function post($value='')
-  {
-    $post = Post::find($value);
-    $title = $post->title;
-
-    return view('new.single_post')->with(compact('post', 'title'));
-  }
 
   public function profile($username ='')
   {
@@ -379,10 +228,36 @@ class HomeController extends Controller
     }
 
     $title = $user->username . "'s Profile";
-
-    return view('profile')->with(compact('user', 'title'));
+    // dd($user);
+    return view('new.profile')->with(compact('user', 'title'));
 
   }
+
+
+
+    public function update_banner(Request $request){
+
+      // Handle the user upload of avatar
+      $user = Auth::user();
+
+
+      if($request->hasFile('banner')){
+
+        $banner = $request->file('banner');
+
+        $filename = md5_file($banner->getRealPath()) . '.' . $banner->getClientOriginalExtension();
+        $location = public_path('img/uploads/banners/')  . '/' . $filename;
+        Image::make($banner)->resize(1920, 1080)->save($location) ;
+
+        $user->banner = $filename;
+        $user->save();
+      }
+
+      $title = $user->username . "'s Profile";
+      return view('new.profile')->with(compact('user', 'title'));
+
+    }
+
 
   public function hash($value='')
   {
@@ -391,31 +266,31 @@ class HomeController extends Controller
 
   public function notifications($value='')
   {
-      $notifications =  Notification::where('user_id', '=', \Auth::id())->get();
-      $title = "Notifications";
-      return view('new.notifications')->with(compact('notifactions', 'title'));
+    $notifications =  Notification::where('user_id', '=', \Auth::id())->get();
+    $title = "Notifications";
+    return view('new.notifications')->with(compact('notifactions', 'title'));
   }
 
 
-    public function notify($type, $model)
-    {
-      $n = new Notification();
-      $n->user_id = Auth::id();
-      switch ($type) {
-        case 0:
-        $type = 'App\Like';
-        break;
-        case 1:
-        $type = 'App\Comment';
-        break;
-        case 2:
-        $type = 'App\Follow';
-        break;
-      }
-
-      $n->type = $type;
-
-      $model->user()->notifications()->save($n);
+  public function notify($type, $model)
+  {
+    $n = new Notification();
+    $n->user_id = Auth::id();
+    switch ($type) {
+      case 0:
+      $type = 'App\Like';
+      break;
+      case 1:
+      $type = 'App\Comment';
+      break;
+      case 2:
+      $type = 'App\Follow';
+      break;
     }
+
+    $n->type = $type;
+
+    $model->user()->notifications()->save($n);
+  }
 
 }

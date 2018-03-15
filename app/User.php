@@ -69,7 +69,7 @@ class User extends Authenticatable
 
   public function followers()
   {
-    return $this->hasMany('App\Follower', 'followable');
+    return $this->morphMany('App\Follower', 'followable');
   }
 
   public function follower_count()
