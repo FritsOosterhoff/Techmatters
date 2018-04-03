@@ -23,7 +23,6 @@
     </div>
   </a>
 
-
   <div class="card-footer">
     <div class="social-toolbox">
       <ul class="socials " style=" float: right;  padding:0px; margin:0px;">

@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Techmatters.nl - @yield('title', 'Newest')</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+
+
   <link rel="stylesheet" href="{{route('home')}}/css/style.css" media="all">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +17,7 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top ">
       <div class="container">
-        <a class="navbar-brand mx-auto" href="#">Techmatters</a>
+        <a class="navbar-brand mx-auto" href="{{route('home')}}">Techmatters</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,13 +61,14 @@
             @endif
 
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-facebook-f fa-lg fa-fw"></i></a>
+              <a class="nav-link" target="_blank" href="https://nl.linkedin.com/in/frits-oosterhoff"><i class="fa fa-linkedin fa-lg fa-fw"></i></a>
+
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-twitter fa-lg fa-fw"></i></a>
+              <a class="nav-link" target="_blank" href="https://github.com/FritsOosterhoff/Techmatters"><i class="fa fa-github fa-lg fa-fw"></i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-linkedin fa-lg fa-fw"></i></a>
+              <a class="nav-link" target="_blank" href="https://laravel.com/"><i class="fab fa-laravel"></i></i></a>
             </li>
           </ul>
 

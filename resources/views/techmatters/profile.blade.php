@@ -67,13 +67,14 @@
        </div>
      </section>
 
-     @if(!empty($posts))
+     @if(!empty($posts) )
 
           <section>
             <div class="container">
               <div class="row">
                 <div class="col-md-8">
-                  @each('techmatters.post_each', 'posts', 'post')
+
+                  @each('techmatters.post_each', $posts, 'post')
                 </div>
               </div>
             </div>
