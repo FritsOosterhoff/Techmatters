@@ -13,7 +13,7 @@
        <div class="row py-3">
          <div class="col-md-4">
            <div class="card text-center p-2">
-             <img class="card-img-top mx-auto d-block rounded-circle" style="max-width:150px;" src="https://social.fritsoosterhoff.nl/img/uploads/avatars/10.jpg" alt="Card image cap">
+             <img class="card-img-top mx-auto d-block rounded-circle" style="max-width:150px;" src="{{url('img/uploads/avatars/' . $user->avatar)}}" alt="Card image cap">
              <div class="card-block">
                <h4 class="card-title">{{$user->name}}</h4>
 
@@ -32,11 +32,19 @@
              <div>
                <hr>
              </div>
-             <div class="card-block text-center pb-3">
-               <i class="fa fa-lg fa-heart-o"></i>
-               <i class="fa fa-lg fa-comment-o"></i>
+             @if(Auth::id()!==$user->id)
+             <div class="card-block text-center pb-3 social-toolbox">
+               <ul class="social-toolbox">
+                 @if(Auth::user()->follow_person($user->id))
+                  <li class="unfollow-icon mr-3"><i class="fa fa-lg fa-heart" id="{{$user->id}}" onclick="unfollowUser(this.id)"></i></li>
+                 @else
+                  <li class="follow-icon mr-3"><i class="fa fa-lg fa-heart-o" id="{{$user->id}}" onclick="followUser(this.id)"></i></li>
+                 @endif
 
+                 <li class="comment-icon"><i class="fa fa-lg fa-comment-o"></i> </li>
+               </ul>
              </div>
+            @endif
            </div>
          </div>
          <div class="col-md-8">

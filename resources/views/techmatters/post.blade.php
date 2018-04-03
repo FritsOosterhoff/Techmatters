@@ -22,7 +22,7 @@
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn button-primary pull-right">
+                <button type="submit" class="btn btn-primary pull-right">
                   Post
                 </button>
               </div>

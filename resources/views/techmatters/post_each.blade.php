@@ -3,8 +3,10 @@
   <div class="user p-2">
     <img class="avatar rounded-circle" src="{{url('img/uploads/avatars/' . $post->user->avatar)}}" />
     <div class="details">
-      <b> {{$post->user->username}}</b>
-      <p class="small"><span>{{$post->updated_at}}</span></p>
+      <a href="{{url('profile') . '/' . $post->user->username}}" class="d-block text-dark">
+        <b> {{$post->user->username}}</b>
+        <p class="small"><span>{{$post->updated_at}}</span></p>
+      </a>
     </div>
   </div>
   <a class="text-dark" href="{{url('post/' . $post->id)}}">
@@ -26,7 +28,7 @@
   <div class="card-footer">
     <div class="social-toolbox">
       <ul class="socials " style=" float: right;  padding:0px; margin:0px;">
-        <li class="like_icon" id="3" onclick="likePost(3)"><i class="fa fa-fw fa-heart-o "></i> <span>{{$post->likes->count() }}</span></li>
+        <li class="like_icon" id="{{$post->id}}" onclick="likePost(this.id)"><i class="fa fa-fw fa-heart-o "></i> <span>{{$post->likes->count() }}</span></li>
       </ul>
     </div>
   </div>

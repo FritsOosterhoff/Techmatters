@@ -11,6 +11,11 @@ $primary-font: "Poppins", sans-serif;
 $footer-color:#222222;
 $footer-text-color : #c3c3c3c3;
 
+.btn-primary{
+  background-color: $primary-color;
+border-color: $primary-font;
+}
+
 footer.footer{
   background:$primary-color;
 }
@@ -26,6 +31,17 @@ footer.footer{
     content : "\f004"!important;
   }
 
+  ul .comment-icon:hover i:before{
+      content: "\f075" !important;
+  }
+
+  ul .follow-icon:hover i:before{
+    content: "\f004" !important;
+  }
+
+  ul .unfollow-icon:hover i:before{
+    content: "\f08a" !important;
+  }
 }
 
 .images .post-image{

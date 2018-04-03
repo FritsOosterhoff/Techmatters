@@ -21,6 +21,9 @@ class PostController extends Controller
 
     if ($request->has('text')) {
       //
+
+
+
       $post = new Post;
       $post->title = 'title';
       $post->text = $request->text;
@@ -36,10 +39,23 @@ class PostController extends Controller
 
       if($request->has('file')){
 
-        $file = $request->file('file');
-        if($file->isValid())
-        $path = $file->hashName('images');
-        else $path = 'images/' . md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+        $image       = $request->file('file');
+      $filename    = $image->getClientOriginalName();
+
+      $image_resize = Image::make($image->getRealPath());
+      $image_resize->fit(800, 600);
+      $image_resize->save(public_path('img/uploads/images/' .$filename));
+      $post->image = $filename;
+        /*
+      if($file->isValid())
+        $path =  $file->hashName('images');
+        else $path ='images/' . md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+
+
+                $filename = md5_file($file->getRealPath()) . '.' . $file->getClientOriginalExtension();
+                $location = public_path('img/uploads/banners/')  . '/' . $filename;
+
+
 
         $image = Image::make($file);
         $image->fit(860, 600, function ($constraint) {
@@ -47,7 +63,7 @@ class PostController extends Controller
         });
         Storage::put($path, (string) $image->encode());
         $post->image = $path;
-
+        */
       }
 
       $post->user_id = \Auth::id();

@@ -46,8 +46,6 @@ class HomeController extends Controller
 
     $media = $this->recentMedia();
 
-    // $posts = Post::orderBy('id', 'desc')->where('image', '!=', "")->limit(50)->get();
-
 
     $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
@@ -91,7 +89,7 @@ class HomeController extends Controller
 
     $notifications = Notification::where('notifiable_id', '=', Auth::id())->get();
 
-    return view('techmatters.newest')->with(compact('posts', 'title', 'media'));
+    return view('techmatters.posts')->with(compact('posts', 'title', 'media'));
   }
 
   public function teams($value='')
@@ -114,10 +112,9 @@ class HomeController extends Controller
 
 
     $media = $this->recentMedia();
-
     $title = 'Trending';
 
-    return view('techmatters.newest')->with(compact('posts', 'title', 'media'));
+    return view('techmatters.posts')->with(compact('posts', 'title', 'media'));
   }
 
   public function about($value='')
@@ -129,6 +126,7 @@ class HomeController extends Controller
   {
     $posts = array();
 
+    $media = $this->recentMedia();
 
 
     $posts = \DB::table('posts', 'likes')
@@ -160,7 +158,8 @@ class HomeController extends Controller
 
     $title = 'Following';
 
-    return view('new.home')->with(compact('posts', 'title'));
+
+    return view('techmatters.posts')->with(compact('posts', 'title', 'media'));
 
   }
 
@@ -208,7 +207,27 @@ class HomeController extends Controller
 
 
 
+public function settings(Request $request)
+{
+  $user = Auth::user();
+  if ($request->isMethod('post')) {
+    $user->name = $request->name;
+    $user->username = $request->username;
+    $user->email = $request->email;
+    $user->biography = $request->biography;
+    $user->save();
+    dd($user);
+  }
 
+  return view('techmatters.settings')->with(compact('user'));
+}
+
+public function change_password(Request $request)
+{
+  # code...
+  dd($request);
+
+}
 
   public function profile($username ='')
   {

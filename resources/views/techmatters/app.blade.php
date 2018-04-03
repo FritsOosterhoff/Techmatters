@@ -48,17 +48,26 @@
             <li class="nav-item {{$url==='trending' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('/trending')}}">Trending</a>
             </li>
+            @auth
+            <li class="nav-item {{$url==='following' ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/following')}}">Following</a>
+            </li>
+            @endauth
+
             <!-- <li class="nav-item">
               <a class="nav-link disabled" href="#">Disabled</a>
             </li> -->
           </ul>
 
           <ul class="nav navbar-nav social_media ml-auto w-100 justify-content-end">
-            @if (Auth::check())
+            @auth
             <li class="nav-item">
               <a class="nav-link" href="{{url('profile/' . Auth::user()->username)}}">{{Auth::user()->username}}</a>
             </li>
-            @endif
+            <li class="nav-item">
+              <a class="nav-link" href="{{url('settings')}}"><i class="fa fa-gears fa-lg fa-fw"></i></a>
+            </li>
+            @endauth
 
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://nl.linkedin.com/in/frits-oosterhoff"><i class="fa fa-linkedin fa-lg fa-fw"></i></a>
@@ -67,9 +76,9 @@
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://github.com/FritsOosterhoff/Techmatters"><i class="fa fa-github fa-lg fa-fw"></i></a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://laravel.com/"><i class="fab fa-laravel"></i></i></a>
-            </li>
+            </li> -->
           </ul>
 
         </div>

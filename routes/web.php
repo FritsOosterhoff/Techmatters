@@ -33,8 +33,11 @@ Route::get('/about', 'HomeController@about');
 Route::get('/trending', 'HomeController@trending')->name('trending');
 Route::get('/following', 'HomeController@following')->name('following');
 
+Route::get('settings', 'HomeController@settings');
+Route::post('settings', 'HomeController@settings');
 
 
+Route::post('change_password', 'HomeController@change_password');
 
 Route::post('new_post', 'PostController@addPost');
 
