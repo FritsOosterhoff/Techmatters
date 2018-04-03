@@ -1,4 +1,4 @@
-@extends('new.app')
+@extends('techmatters.app')
 
 @section('title', 'Sign in')
 
@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-3"> </div>
       <div class="col-md-6">
-        <div class="card text-white p-5 bg-secondary">
+        <div class="card bg-light text-dark p-5 ">
           <div class="card-body">
             <h1 class="mb-4">Login</h1>
             <form method="post"  action="{{ route('login') }}">

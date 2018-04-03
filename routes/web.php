@@ -28,9 +28,11 @@ Route::get('/', 'HomeController@home')->name('home');
 // Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/newest', 'HomeController@newest')->name('newest');
 Route::get('/teams', 'HomeController@index')->name('teams');
+Route::get('/about', 'HomeController@about');
 //Route::get('/', 'HomeController@index')->name('news');
 Route::get('/trending', 'HomeController@trending')->name('trending');
 Route::get('/following', 'HomeController@following')->name('following');
+
 
 
 

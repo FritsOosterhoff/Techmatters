@@ -19,7 +19,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
     return [
         'title' => $faker->title,
         'text' => $faker->text,
-        'image' =>  $faker->biasedNumberBetween($min = 1, $max = 6, $function = 'sqrt') . '.jpeg',
+        'image' =>  $faker->biasedNumberBetween($min = 1, $max = 6, $function = 'sqrt') . '.jpg',
         'user_id' => $faker->biasedNumberBetween($min = 1, $max = 200, $function = 'sqrt')
     ];
 });

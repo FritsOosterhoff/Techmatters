@@ -26,7 +26,7 @@ class HomeController extends Controller
   */
   public function __construct()
   {
-    $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams']]);
+    $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about']]);
   }
 
 
@@ -34,12 +34,17 @@ class HomeController extends Controller
 
 
 
+  public function recentMedia($value='')
+  {
+    return  $media = \DB::table('posts')->select('image', 'id')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
+  }
+
 
   public function home($value='')
   {
     # code...
 
-    $media = \DB::table('posts')->select('image', 'id')->orderBy('updated_at', 'desc')->limit(6)->get();
+    $media = $this->recentMedia();
 
     // $posts = Post::orderBy('id', 'desc')->where('image', '!=', "")->limit(50)->get();
 
@@ -48,11 +53,12 @@ class HomeController extends Controller
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->groupBy('posts.id')
     ->orderBy('aggregate', 'desc')
-    ->limit(21)->get();
+    ->limit(3)->get();
+
 
     $title = 'Home';
 
-    return view('new.new_front')->with(compact('posts', 'media', 'title'));
+    return view('techmatters.home')->with(compact('posts', 'media', 'title'));
 
   }
 
@@ -79,11 +85,13 @@ class HomeController extends Controller
     $nr = (Auth::check() ? 8 : 9);
     $posts = Post::orderBy('id', 'desc')->paginate($nr);
 
+    $media = $this->recentMedia();
+
     $title = 'Newest Posts';
 
     $notifications = Notification::where('notifiable_id', '=', Auth::id())->get();
 
-    return view('new.home')->with(compact('posts', 'title'));
+    return view('techmatters.newest')->with(compact('posts', 'title', 'media'));
   }
 
   public function teams($value='')
@@ -105,9 +113,16 @@ class HomeController extends Controller
     ->paginate($nr);
 
 
+    $media = $this->recentMedia();
+
     $title = 'Trending';
 
-    return view('new.home')->with(compact('posts', 'title'));
+    return view('techmatters.newest')->with(compact('posts', 'title', 'media'));
+  }
+
+  public function about($value='')
+  {
+    return view('techmatters.static.about');
   }
 
   public function following($value='')
@@ -204,7 +219,9 @@ class HomeController extends Controller
 
     $title = $user->username . "'s Activity";
 
-    return view('new.profile')->with(compact('user', 'title') );
+    $posts = Post::where('user_id', $user->id)->get();
+
+    return view('techmatters.profile')->with(compact('user', 'title', 'posts') );
 
   }
 
