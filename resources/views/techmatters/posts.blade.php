@@ -20,6 +20,7 @@
 
 			<div class="col-md-8">
 
+				@auth
 				<div class="pt-3">
 					<form class="form-horizontal" method="POST" action="{{url('/new_post')}}" enctype="multipart/form-data">
 						{{ csrf_field() }}
@@ -36,6 +37,8 @@
 						</div>
 					</form>
 				</div>
+				@endauth
+
 
 				@each('techmatters.post_each', $posts, 'post')
 				<!-- col-md-8 -->

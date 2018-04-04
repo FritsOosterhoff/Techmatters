@@ -54,6 +54,8 @@
             </li>
             @endauth
 
+
+
             <!-- <li class="nav-item">
               <a class="nav-link disabled" href="#">Disabled</a>
             </li> -->
@@ -65,17 +67,25 @@
               <a class="nav-link" href="{{url('profile/' . Auth::user()->username)}}">{{Auth::user()->username}}</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{url('logout')}}">Signout</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{{url('settings')}}"><i class="fa fa-gears fa-lg fa-fw"></i></a>
             </li>
             @endauth
 
+            @guest
+            <li class="nav-item {{$url==='login' ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/login')}}">Login</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://nl.linkedin.com/in/frits-oosterhoff"><i class="fa fa-linkedin fa-lg fa-fw"></i></a>
-
             </li>
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://github.com/FritsOosterhoff/Techmatters"><i class="fa fa-github fa-lg fa-fw"></i></a>
             </li>
+            @endguest
+
             <!-- <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://laravel.com/"><i class="fab fa-laravel"></i></i></a>
             </li> -->
@@ -100,7 +110,7 @@
          <a class="navbar-brand mx-auto" href="#">Techmatters</a>
          <small class="d-block mb-3 ">© 2017-2018</small>
        </div>
-       <div class="col-6 col-md">
+       <!-- <div class="col-6 col-md">
          <h5>Features</h5>
          <ul class="list-unstyled text-small">
            <li><a class="" href="#">Cool stuff</a></li>
@@ -110,7 +120,7 @@
            <li><a class="" href="#">Another one</a></li>
            <li><a class="" href="#">Last time</a></li>
          </ul>
-       </div>
+       </div> -->
        <div class="col-6 col-md">
          <h5>Resources</h5>
          <ul class="list-unstyled text-small">
@@ -120,7 +130,7 @@
            <li><a class="" target="_blank" href="#">Final resource</a></li>
          </ul>
        </div>
-       <div class="col-6 col-md">
+       <!-- <div class="col-6 col-md">
          <h5>Resources</h5>
          <ul class="list-unstyled text-small">
            <li><a class="" href="#">Business</a></li>
@@ -128,7 +138,7 @@
            <li><a class="" href="#">Government</a></li>
            <li><a class="" href="#">Gaming</a></li>
          </ul>
-       </div>
+       </div> -->
        <div class="col-6 col-md">
          <h5>About</h5>
          <ul class="list-unstyled text-small">
