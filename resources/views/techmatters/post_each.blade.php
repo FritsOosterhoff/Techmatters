@@ -18,7 +18,8 @@
     </div>
 
     <div class="images ">
-      <img src="{{url('img/uploads/images/' . $post->image)}}" class="img-fluid">
+      <?php $path = unserialize($post->image)[0] ?>
+      <img src="{{url('img/uploads/images/' . $path)}}" class="img-fluid">
       <img src="https://social.fritsoosterhoff.nl/img/uploads/images/23.jpg" class="img-fluid post-image col-4">
       <img src="https://social.fritsoosterhoff.nl/img/uploads/images/6.jpg" class="img-fluid post-image col-4">
       <img src="https://social.fritsoosterhoff.nl/img/uploads/images/4.jpg" class="img-fluid post-image col-4" >

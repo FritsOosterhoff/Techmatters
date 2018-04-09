@@ -21,7 +21,7 @@
 			<div class="col-md-8">
 
 				@auth
-				<div class="pt-3">
+				<div class="pt-3" id="create-post">
 					<form class="form-horizontal" method="POST" action="{{url('/new_post')}}" enctype="multipart/form-data">
 						{{ csrf_field() }}
 						<div class="form-group">
@@ -29,8 +29,14 @@
 						</div>
 
 
-						<div class="form-group">
-							<img id="image-upload" class="img-fluid" src="{{url('/img/photo-camera.png')}}"> <input type="file" style="display:none" id="file-upload" name="file" onchange="loadFile(event)">
+						<div class="form-group tools">
+							<!-- <img id="image-upload" class="img-fluid" src="{{url('/img/photo-camera.png')}}"> -->
+							<a href="#" class="ml-2" id="image-upload" alt="flush all files">  <i class="fas fa-lg fa-camera"></i></a>
+							 <input type="file" style="display:none" id="file-upload" name="files[]" onchange="loadFile(event)" multiple="">
+							<a href="#" class="ml-2" onclick="flushFiles()" alt="flush all files">  <i class="fas fa-lg fa-trash"></i></a>
+							<div id="images-upload" class="row">
+
+							</div>
 							<button type="submit" class="btn btn-primary pull-right">
 								Post
 							</button>
@@ -55,8 +61,9 @@
 						<div class="row">
 							@foreach($media as $image)
 							<div class="col-4 py-3">
+								<?php $path = unserialize($image->image)[0] ?>
 								<a href="{{url('post/' . $image->id)}}">
-									<img src="{{ (strpos($image->image, 'http')===false) ? url('public/img/uploads/images/' . $image->image) : $image->image}}" class="img-fluid"> </a>
+									<img src="{{ (strpos($path, 'http')===false) ? url('public/img/uploads/images/' . $path) : $path}}" class="img-fluid"> </a>
 								</div>
 
 								@endforeach

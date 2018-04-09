@@ -13,13 +13,13 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Post::class, function (Faker $faker) {
+$factory->define(App\Article::class, function (Faker $faker) {
 
 
     return [
         'title' => $faker->title,
         'text' => $faker->text,
-        'image' => serialize(  array($faker->biasedNumberBetween($min = 1, $max = 6, $function = 'sqrt') . '.jpg')),
+        'image' =>  $faker->biasedNumberBetween($min = 1, $max = 6, $function = 'sqrt') . '.jpg',
         'user_id' => $faker->biasedNumberBetween($min = 1, $max = 200, $function = 'sqrt')
     ];
 });

@@ -28,6 +28,8 @@ class PostController extends Controller
   public function addPost(Request $request)
   {
 
+
+
     if ($request->has('text')) {
 
       $post = new Post;
@@ -43,17 +45,33 @@ class PostController extends Controller
         $tag->save();
       }
 
-      if($request->has('file')){
+      $images = array();
+      if(!empty($request->file('files') ) ) {
 
-        $image = $request->file('file');
-        $filename = $image->getClientOriginalName();
-        $image_resize = Image::make($image->getRealPath());
-        $image_resize->fit(800, 600);
-        $filename = md5($filename) . '.' . $image->getClientOriginalExtension();
-        $image_resize->save(public_path('img/uploads/images/' . $filename ));
-        $post->image = $filename;
-
+        foreach ($request->file('files') as $key => $file) {
+          print_R(52);
+            $file2 = Image::make($file->getRealPath());
+            $file2->fit(800,600);
+              $filename = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+              $file2->save(public_path('img/uploads/images/' . $filename ));
+              array_push($images, $filename);
+            //$thumb = $file->fit(150, 150);
+        }
       }
+
+      $post->image = serialize($images);
+
+      // if($request->has('file')){
+      //
+      //   $image = $request->file('file');
+      //   $filename = $image->getClientOriginalName();
+      //   $image_resize = Image::make($image->getRealPath());
+      //   $image_resize->fit(800, 600);
+      //   $filename = md5($filename) . '.' . $image->getClientOriginalExtension();
+      //   $image_resize->save(public_path('img/uploads/images/' . $filename ));
+      //   $post->image = $filename;
+      //
+      // }
 
       $post->user_id = \Auth::id();
       $post->save();

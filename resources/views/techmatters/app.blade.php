@@ -11,6 +11,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  @stack('css')
+
 </head>
 
 <body>
@@ -45,6 +47,9 @@
             <li class="nav-item {{$url==='newest' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('/newest')}}">Newest</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url('articles')}}">Articles</a>
+            </li>
             <li class="nav-item {{$url==='trending' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('/trending')}}">Trending</a>
             </li>
@@ -63,13 +68,13 @@
 
           <ul class="nav navbar-nav social_media ml-auto w-100 justify-content-end">
             @auth
-            <li class="nav-item">
+            <li class="nav-item {{$url==='profile' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('profile/' . Auth::user()->username)}}">{{Auth::user()->username}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('logout')}}">Signout</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{$url==='settings' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('settings')}}"><i class="fa fa-gears fa-lg fa-fw"></i></a>
             </li>
             @endauth
@@ -182,14 +187,54 @@
      }
 
 
-     var loadFile = function(event) {
-       var output = document.getElementById("image-upload");
-       console.log(output);
-       console.log(event.target.files[0]);
+     function flushFiles(){
+       $("#file-upload").val("");
+       var myNode = document.getElementById("images-upload");
+       while (myNode.firstChild) {
+           myNode.removeChild(myNode.firstChild);
+       }
+     }
 
-       //event.target.files[0].name
-       output.src = URL.createObjectURL(event.target.files[0]);
+     function removeImage(event){
+       files = [];
+       //arr.splice(arr.indexOf("def"), 1);
+       $("#"+event.target.id).parent().remove();
+       files = $("#file-upload")[0].files;
+       console.log(files);
+       console.log(files[event.target.id]);
+       var index = files.indexOf(event.target.id);
+       files.splice(index, 1);
+
+       //files.push($("#file-upload")[0].files[event.target.id]); // Simplest case
+       console.log($("#file-upload")[0].files[event.target.id]);
+     }
+
+     //<input type="file" style="display:none" id="file-upload" name="files[]" onchange="loadFile(event)">
+
+     var loadFile = function(event) {
+       id = new Date().getMilliseconds();
+
+
+       for(var i =0; i<event.target.files.length; i++){
+
+         $("#images-upload").append("<div class='col-3' ><img class='img-fluid' id='"+i+"'/></div>");
+
+         document.getElementById(i).src = URL.createObjectURL(event.target.files[i]);
+
+       }
+
      };
+
+
+         var setThumb = function(event) {
+           var output = document.getElementById("image-upload");
+           console.log(output);
+           console.log(event.target.files[0]);
+
+           //event.target.files[0].name
+           output.src = URL.createObjectURL(event.target.files[0]);
+         };
+
 
      function getCount(obj) {
        return (($(obj).text().length > 0) ? parseInt($(obj).text()) : 0);
