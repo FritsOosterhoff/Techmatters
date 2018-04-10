@@ -56,6 +56,7 @@ class HomeController extends Controller
 
     $title = 'Home';
 
+
     return view('techmatters.home')->with(compact('posts', 'media', 'title'));
 
   }

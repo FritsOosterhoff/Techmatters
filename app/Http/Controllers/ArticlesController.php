@@ -16,8 +16,12 @@ class ArticlesController extends Controller
     {
       $articles = Article::orderBy('id', 'desc')->paginate(20);
 
+      $interesting_articles = Article::orderBy('id', 'asc')->limit(5)->get();
+
+
+
       $title = 'Articles';
-      return view('techmatters.articles')->with(compact('articles','title'));
+      return view('techmatters.articles')->with(compact('articles', 'title', 'interesting_articles'));
     }
 
     public function add2(Request $request)
