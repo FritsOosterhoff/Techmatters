@@ -20,7 +20,7 @@
 		{{$posts->links()}}
 	</div>
 </div>
-
+eoahsduhasds
 @endif
 
 @endsection

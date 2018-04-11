@@ -17,8 +17,8 @@ Hardcoded a get logout route, since laravel decided to explicitly ask for post r
 **/
 
 Route::get('logout', function (){
-Auth::logout();
-return redirect('/');
+  Auth::logout();
+  return redirect('/');
 });
 
 

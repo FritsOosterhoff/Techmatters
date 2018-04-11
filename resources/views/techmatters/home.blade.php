@@ -69,8 +69,9 @@
 									<div class="row">
 														@foreach($media as $image)
 										        <div class="col-4 py-3">
+
 										          <a href="{{url('post/' . $image->id)}}">
-										            <img src="{{ (strpos($image->image, 'http')===false) ? url('public/img/uploads/images/' . $image->image) : $image->image}}" class="img-fluid"> </a>
+										            <img src="{{ (strpos($image->image, 'http')===false) ? url('public/img/uploads/images/' . unserialize($image->image)[0]) : unserialize( $image->image)[0]}}" class="img-fluid"> </a>
 										        </div>
 
 													@endforeach
