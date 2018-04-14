@@ -11,7 +11,7 @@
 @section('content')
 
 <form class="form-horizontal" method="POST" action="{{url('/articles/create')}}" enctype="multipart/form-data">
-
+{{ csrf_field() }}
 <div class="row mt-5">
   <div class="col-md-6">
     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}"> <label>Title</label>

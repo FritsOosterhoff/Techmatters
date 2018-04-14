@@ -29,14 +29,14 @@ class HomeController extends Controller
     $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about']]);
   }
 
-
-
-
-
-
+  /**
+  *  Returns recent photo data
+  *
+  *  @return Media;
+  */
   public function recentMedia($value='')
   {
-    return  $media = \DB::table('posts')->select('image', 'id')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
+    return  $media = \DB::table('posts')->select('image', 'id')->whereNotNull('image')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
   }
 
 
@@ -46,16 +46,13 @@ class HomeController extends Controller
 
     $media = $this->recentMedia();
 
-
     $posts = Post::select(\DB::raw('posts.*, count(*) as `aggregate`'))
     ->join('likes', 'posts.id', '=', 'likes.likeable_id')
     ->groupBy('posts.id')
     ->orderBy('aggregate', 'desc')
     ->limit(3)->get();
 
-
     $title = 'Home';
-
 
     return view('techmatters.home')->with(compact('posts', 'media', 'title'));
 

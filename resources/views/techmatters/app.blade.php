@@ -15,7 +15,7 @@
 
 </head>
 
-<body>
+<body class="">
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top ">
       <div class="container">
@@ -47,7 +47,7 @@
             <li class="nav-item {{$url==='newest' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('/newest')}}">Newest</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{$url==='articles' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('articles')}}">Articles</a>
             </li>
             <li class="nav-item {{$url==='trending' ? 'active' : ''}}">

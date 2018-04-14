@@ -22,6 +22,18 @@
 
 				@auth
 				<div class="pt-3" id="create-post">
+
+
+								@if (count($errors) > 0)
+					<div class="alert alert-danger">
+							<strong>Whoops!</strong> There were some problems with your input.<br><br>
+									<ul>
+											@foreach ($errors->all() as $error)
+													<li>{{ $error }}</li>
+											@endforeach
+									</ul>
+					</div>
+			@endif
 					<form class="form-horizontal" method="POST" action="{{url('/new_post')}}" enctype="multipart/form-data">
 						{{ csrf_field() }}
 						<div class="form-group">

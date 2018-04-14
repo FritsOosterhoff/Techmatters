@@ -38,6 +38,7 @@ Route::post('settings', 'HomeController@settings');
 
 Route::get('articles', 'ArticlesController@index');
 Route::get('articles/create', 'ArticlesController@add');
+
 Route::post('articles/create', 'ArticlesController@add2');
 
 Route::post('change_password', 'HomeController@change_password');

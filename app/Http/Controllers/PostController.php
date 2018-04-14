@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Validator;
 
 use Illuminate\Http\Request;
 use Auth;
@@ -24,13 +25,22 @@ class PostController extends Controller
     $this->middleware('auth', ['except' => ['post']]);
   }
 
-
+  /**
+  * Store a new blog post.
+  *
+  * @param  Request  $request
+  * @return Response
+  */
   public function addPost(Request $request)
   {
+    $validator = Validator::make($request->all(), [
+      'text' => 'max:255',
+      'files.*' =>  'mimes:jpg,jpeg,png,bmp|max:20000'
+    ]);
 
-
-
-    if ($request->has('text')) {
+    if ($validator->fails()) {
+      return back()->withErrors($validator)->withInput();
+    }
 
       $post = new Post;
       $post->title = 'title';
@@ -49,17 +59,18 @@ class PostController extends Controller
       if(!empty($request->file('files') ) ) {
 
         foreach ($request->file('files') as $key => $file) {
-          print_R(52);
-            $file2 = Image::make($file->getRealPath());
-            $file2->fit(800,600);
-              $filename = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-              $file2->save(public_path('img/uploads/images/' . $filename ));
-              array_push($images, $filename);
-            //$thumb = $file->fit(150, 150);
+
+          $file2 = Image::make($file->getRealPath());
+          $file2->fit(800,600);
+          $filename = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+          $file2->save(public_path('img/uploads/images/' . $filename ));
+          array_push($images, $filename);
+          //$thumb = $file->fit(150, 150);
         }
       }
 
-      $post->image = serialize($images);
+      if(!empty($images))
+        $post->image = serialize($images);
 
       // if($request->has('file')){
       //
@@ -80,7 +91,7 @@ class PostController extends Controller
       // return back()->with('success','Image Upload successful');
     }
 
-  }
+
 
   public function removePost(Request $request)
   {
