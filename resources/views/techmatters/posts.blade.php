@@ -46,12 +46,13 @@
 							<a href="#" class="ml-2" id="image-upload" alt="flush all files">  <i class="fas fa-lg fa-camera"></i></a>
 							 <input type="file" style="display:none" id="file-upload" name="files[]" onchange="loadFile(event)" multiple="">
 							<a href="#" class="ml-2" onclick="flushFiles()" alt="flush all files">  <i class="fas fa-lg fa-trash"></i></a>
-							<div id="images-upload" class="row">
-
-							</div>
 							<button type="submit" class="btn btn-primary pull-right">
 								Post
 							</button>
+							<div id="images-upload" class="row">
+
+							</div>
+
 						</div>
 					</form>
 				</div>

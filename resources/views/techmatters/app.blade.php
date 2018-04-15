@@ -145,12 +145,13 @@
          </ul>
        </div> -->
        <div class="col-6 col-md">
-         <h5>About</h5>
+         <h5>Sitemap</h5>
          <ul class="list-unstyled text-small">
-           <li><a class="" href="#">Team</a></li>
-           <li><a class="" href="#">Locations</a></li>
-           <li><a class="" href="#">Privacy</a></li>
-           <li><a class="" href="#">Terms</a></li>
+           <li><a class="" href="{{url('/')}}">Home</a></li>
+           <li><a class="" href="{{url('about')}}">About</a></li>
+           <li><a class="" href="{{url('newest')}}">Newest</a></li>
+           <li><a class="" href="{{url('articles')}}">Articles</a></li>
+           <li><a class="" href="{{url('trending')}}">Trending</a></li>
          </ul>
        </div>
      </div>

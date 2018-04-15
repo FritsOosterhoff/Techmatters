@@ -191,7 +191,10 @@ class HomeController extends Controller
 
     $title = 'Posts tagged with: ' . $value;
 
-    return view('new.home')->with(compact('posts', 'title'));
+    $media = $this->recentMedia();
+
+
+    return view('techmatters.posts')->with(compact('posts', 'title', 'media'));
   }
 
   public function search($value)
@@ -236,7 +239,7 @@ public function change_password(Request $request)
 
     $title = $user->username . "'s Activity";
 
-    $posts = Post::where('user_id', $user->id)->get();
+    $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->get();
 
     return view('techmatters.profile')->with(compact('user', 'title', 'posts') );
 
