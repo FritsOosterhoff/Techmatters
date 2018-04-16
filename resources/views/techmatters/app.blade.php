@@ -101,6 +101,9 @@
     </nav>
   </header>
 
+  @yield('jumbotron')
+
+
   <main class="container py-5">
 
 

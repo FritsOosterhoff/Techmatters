@@ -24,11 +24,12 @@ class ArticlesController extends Controller
       return view('techmatters.articles')->with(compact('articles', 'title', 'interesting_articles'));
     }
 
-    public function add2(Request $request)
+    public function create(Request $request)
     {
-
+      dd($request);
       if ($request->isMethod('post')) {
             if ($request->has('text')) {
+
 
               $post = new Article;
               $post->title = 'title';

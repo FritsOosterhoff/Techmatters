@@ -63,6 +63,7 @@ var loadFile = function(event) {
   output.src = URL.createObjectURL(event.target.files[0]);
 };
 
+
 </script>
 
 @endpush
