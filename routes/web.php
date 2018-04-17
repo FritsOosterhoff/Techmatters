@@ -37,6 +37,7 @@ Route::get('settings', 'HomeController@settings');
 Route::post('settings', 'HomeController@settings');
 
 Route::get('articles', 'ArticlesController@index');
+Route::get('articles/{id}', 'ArticlesController@article');
 Route::get('articles/create', 'ArticlesController@add');
 
 Route::post('articles/create', 'ArticlesController@create');

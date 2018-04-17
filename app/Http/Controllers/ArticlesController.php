@@ -24,9 +24,16 @@ class ArticlesController extends Controller
       return view('techmatters.articles')->with(compact('articles', 'title', 'interesting_articles'));
     }
 
+    public function article($id = "")
+    {
+        $article = Article::find($id);
+        $title = $article->title;
+        return view('techmatters.article')->with(compact('title', 'article'));
+    }
+
     public function create(Request $request)
     {
-      dd($request);
+
       if ($request->isMethod('post')) {
             if ($request->has('text')) {
 

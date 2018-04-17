@@ -259,7 +259,9 @@ code {
   padding:1em;
 }
 
-.articles .tags .tag-item{
+
+
+.article-container .tags .tag-item{
   text-transform: uppercase!important;
   color: $light-color;
      font-family: "Poppins", sans-serif;
@@ -267,19 +269,19 @@ code {
     letter-spacing: .03em;
     font-weight: 700;
 }
-.articles .article-post-data ul{
+.article-container .article-post-data ul, .article .article-post-data{
   padding:0;
   margin:0;
 }
 
-.articles .article-post-data li{
+.article-container .article-post-data li{
   display: inline-block;
     font-size: 13px;
     font-family: "Poppins", sans-serif;
     color: #919BA3;
 }
 
-.articles .article-small-content{
+.article-container .article-small-content{
     display: block; /* or inline-block */
   text-overflow: ellipsis;
   word-wrap: break-word;
