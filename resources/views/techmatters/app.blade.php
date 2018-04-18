@@ -61,6 +61,7 @@
 
 
 
+
             <!-- <li class="nav-item">
               <a class="nav-link disabled" href="#">Disabled</a>
             </li> -->
@@ -71,13 +72,34 @@
             <li class="nav-item {{$url==='profile' ? 'active' : ''}}">
               <a class="nav-link" href="{{url('profile/' . Auth::user()->username)}}">{{Auth::user()->username}}</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url('logout')}}">Signout</a>
-            </li>
-            <li class="nav-item {{$url==='settings' ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('settings')}}"><i class="fa fa-gears fa-lg fa-fw"></i></a>
-            </li>
+
+            <li class="nav-item dropdown {{$url==='settings' ? 'active' : ''}}">
+                <a class="nav-link "  href="{{url('settings')}}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-gears fa-lg fa-fw"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="{{url('logout')}}">Signout</a>
+
+                </div>
+              </li>
             @endauth
+
+            <?php /*
+
+            <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown link
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+        </div>
+
+            */?>
 
             @guest
             <li class="nav-item {{$url==='login' ? 'active' : ''}}">
