@@ -27,8 +27,8 @@
           </li>
         </ul>
       </div>
-      <div class="article-small-content">
-        <p>{{$article->text}}</p>
+      <div class="article-content">
+        <p>{!! $article->text !!}</p>
       </div>
     </div>
   </article>

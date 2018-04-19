@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{route('home')}}/css/style.css" media="all">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/png" href="{{ url('public/favicon.ico')}}"/>
 
   @stack('css')
 

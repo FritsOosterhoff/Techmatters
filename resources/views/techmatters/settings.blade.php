@@ -70,7 +70,7 @@
         </div>
 
         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}"> <label>Password</label>
-          <input id="password" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
+          <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
 
           @if ($errors->has('password_confirmation'))
           <span class="help-block">
@@ -85,7 +85,7 @@
 
       <form enctype="multipart/form-data" action="{{url('profile_avatar')}}" method="POST">
 
-      <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}"> <label>Password</label>
+      <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}"> <label>Avatar</label>
         <input  type="file" class="form-control" name="avatar" >
 
         @if ($errors->has('image'))
