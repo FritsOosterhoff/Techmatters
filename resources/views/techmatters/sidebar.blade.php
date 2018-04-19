@@ -1,5 +1,5 @@
 
-			<section class="col-md-4 sidebar">
+        @yield('sidebar_element')
 
         @foreach($sidebar as $type => $data)
 
@@ -7,17 +7,18 @@
             @case('articles')
               <div class="articles white-bg">
                 <h2>Recent News</h2>
+                <hr>
                 @each('techmatters.article_simple',  $data, 'article')
               </div>
               @break
 
               @case('media')
-              <div class="card mt-5">
-                <div class="card-header">
-                  Recent Photos
-                </div>
 
-                <div class="card-body">
+                <div class="white-bg mt-5">
+
+                  <h2>Recent photos</h2>
+                  <hr>
+                <!-- <div class="card-body"> -->
                   <div class="row">
                     @foreach($data as $image)
                     <div class="col-4 py-3">
@@ -29,10 +30,20 @@
                       @endforeach
                     </div>
                   </div>
-                </div>
+
                 @break
+
+                @case('tags')
+                  <div class="tags white-bg mt-5">
+                    <h2>Tags</h2>
+                    <hr>
+
+                    @foreach($data as $tag)
+                      <a href="{{url('tag/' . strtolower($tag->text))}}"> {{$tag->name}}</a>
+                    @endforeach
+
+                    </div>
+                  @break
           @endswitch
 
         @endforeach
-
-       </section>

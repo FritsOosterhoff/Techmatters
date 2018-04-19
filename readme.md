@@ -1,7 +1,19 @@
+# **Techmatters.nl**
 
-# Foo.social
+A laravel powered Social network
 
-A Social networking application
+> “This project is only here to provide insight into my experience in Development”
+
+### Techmatters
+Techmatters is a project maintained by Frits Oosterhoff. This project is **NOT** supposed to be used as an **actual social network**, this project is **only** a placeholder. The data it contains is only used as place holder data.  
+
+Most of the functionalities were ported from a previous project, a social network system built on Laravel. This project is located here: [social.fritsoosterhoff.nl](https://social.fritsoosterhoff.nl/)  
+
+
+### About this project
+
+
+My goal for this project is to get a better understanding of frameworks like Laravel, Vue, GIT, Sass and SEO. As i kept building upon the project i decided to build another more complete web app, which would become Techmatters.
 
 ### Prerequisites
 

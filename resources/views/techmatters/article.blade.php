@@ -2,11 +2,9 @@
 
 @section('content')
 
-<div class="py-5  ">
 
-  <div class="col-md-8 ">
 
-    <article class="row py-2">
+    <article class="row white-bg">
       <div class="image-container">
         <img class="img-fluid" src="{{url('img/uploads/images/' . $article->image)}}" />
       </div>
@@ -75,8 +73,7 @@
         </div>
         @endforeach
       </div>
-    </div>
-  </div>
+
 
 
 

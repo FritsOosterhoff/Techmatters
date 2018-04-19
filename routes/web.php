@@ -24,6 +24,16 @@ Route::get('logout', function (){
 Auth::routes();
 
 
+Route::group(['middleware' => ['auth']], function () {
+    // Authorized routs
+});
+
+Route::group(['middleware' => ['guest']], function () {
+  Route::get('/', 'HomeController@labhsduiahsiudh')->name('home');
+
+});
+
+
 Route::get('/', 'HomeController@home')->name('home');
 // Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/newest', 'HomeController@newest')->name('newest');
@@ -36,12 +46,12 @@ Route::get('/following', 'HomeController@following')->name('following');
 Route::get('settings', 'HomeController@settings');
 Route::post('settings', 'HomeController@settings');
 
-Route::get('articles', 'ArticlesController@index');
-Route::get('articles/{id}', 'ArticlesController@article');
+Route::get('articles', 'HomeController@articles');
+
 Route::get('articles/create', 'ArticlesController@add');
 
 Route::post('articles/create', 'ArticlesController@create');
-
+Route::get('articles/{id}', 'ArticlesController@article');
 Route::post('change_password', 'HomeController@change_password');
 
 Route::post('new_post', 'PostController@addPost');

@@ -1,5 +1,4 @@
 <div class="card mt-5 ">
-
   <div class="user p-2">
     <img class="avatar rounded-circle" src="{{url('img/uploads/avatars/' . $post->user->avatar)}}" />
     <div class="details">

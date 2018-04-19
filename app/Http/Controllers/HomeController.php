@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Hash;
+
 class HomeController extends Controller
 {
 
@@ -37,7 +38,8 @@ class HomeController extends Controller
     $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about']]);
     $articles = Article::orderBy('id', 'desc')->limit(3)->get();
     $media = Post::select('image', 'id')->whereNotNull('image')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
-    $this->sidebar = collect(['articles' => $articles, 'media' => $media]);
+    $tags = Tag::all();
+    $this->sidebar = collect(['articles' => $articles, 'media' => $media, 'tags' => $tags]);
 
     View::share('sidebar', $this->sidebar);
 
@@ -174,6 +176,18 @@ class HomeController extends Controller
 
     return view('techmatters.posts')->with(compact('posts', 'title', 'media'));
 
+  }
+
+  public function articles($value='')
+  {
+    $articles = Article::orderBy('id', 'desc')->paginate(20);
+
+    $interesting_articles = Article::orderBy('id', 'asc')->limit(5)->get();
+
+
+
+    $title = 'Articles';
+    return view('techmatters.articles')->with(compact('articles', 'title', 'interesting_articles'));
   }
 
   /**

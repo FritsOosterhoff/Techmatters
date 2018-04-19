@@ -8,36 +8,22 @@
 @section('content')
 
 
+<section class="col-md-8">
 
 @if(!empty($articles))
 
-    <section class="articles py-5">
-      <div class="row">
+<div class="articles-content mt-2 white-bg">
+  <h2>Latest news</h2>
+  <hr>
+  @each('techmatters.article_each', $articles, 'article')
+</div>
 
+@endif
 
-        <div class="col-md-8 pt-5">
+</section>
 
-          <h2>Latest news</h2>
-          <div class="articles-content mt-2">
-            @each('techmatters.article_each', $articles, 'article')
-          </div>
-        </div>
+<section class="col-md-4 sidebar col float-right">
+  @include('techmatters.sidebar')
+</section>
 
-
-        <div class="col-md-4 pt-5">
-          <h2>Interesting articles</h2>
-          <div class=" white-bg recent-articles">
-
-
-            @each('techmatters.article_simple',  $interesting_articles, 'article')
-
-
-            </div>
-          </div>
-
-        </div>
-
-        </section>
-
-	@endif
-	@endsection
+@endsection

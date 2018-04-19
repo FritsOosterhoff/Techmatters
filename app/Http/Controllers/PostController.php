@@ -7,23 +7,34 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Post;
 use App\User;
+use App\Article;
 use App\Tag;
-
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\View;
 use Image;
 use Storage;
 
 class PostController extends Controller
 {
-  //
-  /**
-  * Create a new controller instance.
-  *
-  * @return void
-  */
-  public function __construct()
-  {
-    $this->middleware('auth', ['except' => ['post']]);
-  }
+
+  protected $sidebar;
+
+    /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+      $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about']]);
+      $articles = Article::orderBy('id', 'desc')->limit(3)->get();
+      $media = Post::select('image', 'id')->whereNotNull('image')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
+      $tags = Tag::all();
+      $this->sidebar = collect(['articles' => $articles, 'media' => $media, 'tags' => $tags]);
+
+      View::share('sidebar', $this->sidebar);
+
+    }
 
   /**
   * Store a new blog post.

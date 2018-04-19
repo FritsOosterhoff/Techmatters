@@ -8,9 +8,33 @@ use App\Post;
 use App\Article;
 use App\User;
 use App\Tag;
+
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\View;
+use Image;
+use Storage;
+
 class ArticlesController extends Controller
 {
-    //
+
+  protected $sidebar;
+
+    /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+      $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about']]);
+      $articles = Article::orderBy('id', 'desc')->limit(3)->get();
+      $media = Post::select('image', 'id')->whereNotNull('image')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
+      $tags = Tag::all();
+      $this->sidebar = collect(['articles' => $articles, 'media' => $media, 'tags' => $tags]);
+
+      View::share('sidebar', $this->sidebar);
+
+    }
 
     public function index($value='')
     {
@@ -33,6 +57,8 @@ class ArticlesController extends Controller
 
     public function create(Request $request)
     {
+
+      dd($request);
 
       if ($request->isMethod('post')) {
             if ($request->has('text')) {

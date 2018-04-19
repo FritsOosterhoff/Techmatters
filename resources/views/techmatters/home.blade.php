@@ -40,15 +40,13 @@
 @if(!empty($posts))
 
 
-<section class="recent-activity ">
 
-	<div class="container">
+
+
+	<section class="col-md-8 ">
+
 		<h2 class="text-center mb-2 ">{{$title}}</h2>
 		<div class="row">
-
-			<div class="col-md-8">
-
-
 
 				<div class="card">
 
@@ -84,17 +82,16 @@
 				</div>
 				<!-- main column left -->
 			</div>
-
-			@include('techmatters.sidebar')
-
-			</div>
-
-
-
-		</div>
+		</section>
 
 		@endif
-		@endsection
 
-		<script>
-		</script>
+
+
+		<section class="col-md-4 sidebar col float-right">
+			@include('techmatters.sidebar')
+		</section>
+
+
+
+		@endsection

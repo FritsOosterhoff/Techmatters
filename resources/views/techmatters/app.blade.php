@@ -129,8 +129,14 @@
   <main class="container py-5">
 
 
+    <div class="row mt-5">
+
+
       @yield('content')
-      
+
+
+    </div>
+
 
   </main>
 

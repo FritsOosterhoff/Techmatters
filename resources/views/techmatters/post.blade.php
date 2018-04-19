@@ -2,10 +2,6 @@
 
 @section('content')
 
-<div class="py-5  ">
-
-  <div class="col-md-8 my-3">
-
     @include('techmatters.post_each', ['post'])
 
 
@@ -48,8 +44,7 @@
         </div>
         @endforeach
       </div>
-    </div>
-  </div>
+
 
 
 
