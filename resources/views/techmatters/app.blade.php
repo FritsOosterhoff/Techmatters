@@ -78,7 +78,7 @@
                   <i class="fa fa-gears fa-lg fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="{{url('settings')}}">Settings</a>
                   <a class="dropdown-item" href="{{url('logout')}}">Signout</a>
 
                 </div>

@@ -39,7 +39,7 @@
                     <hr>
 
                     @foreach($data as $tag)
-                      <a href="{{url('tag/' . strtolower($tag->text))}}"> {{$tag->name}}</a>
+                      <a href="{{url('tag/' . strtolower($tag->name))}}"> {{$tag->name}}</a>
                     @endforeach
 
                     </div>

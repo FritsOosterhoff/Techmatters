@@ -35,7 +35,7 @@ class HomeController extends Controller
   */
   public function __construct()
   {
-    $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about']]);
+    $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about', 'articles', 'tags']]);
     $articles = Article::orderBy('id', 'desc')->limit(3)->get();
     $media = Post::select('image', 'id')->whereNotNull('image')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
     $tags = Tag::all();
@@ -295,7 +295,7 @@ class HomeController extends Controller
 
     $title = $user->username . "'s Profile";
     // dd($user);
-    return view('new.profile')->with(compact('user', 'title'));
+    return view('techmatters.profile')->with(compact('user', 'title'));
 
   }
 
