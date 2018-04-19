@@ -8,16 +8,24 @@ use \App\User;
 use \App\Follower;
 use \App\Comment;
 use \App\Like;
+use \App\Article;
 use \App\Tag;
 use \App\Notification;
 use Image;
 use Auth;
 use Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\View;
 use Hash;
 class HomeController extends Controller
 {
+
+  protected $sidebar;
+
+  /*
+  @param
+  */
 
   /**
   * Create a new controller instance.
@@ -27,6 +35,12 @@ class HomeController extends Controller
   public function __construct()
   {
     $this->middleware('auth', ['except' => ['home', 'newest', 'trending',  'teams', 'about']]);
+    $articles = Article::orderBy('id', 'desc')->limit(3)->get();
+    $media = Post::select('image', 'id')->whereNotNull('image')->groupBy('image')->orderBy('updated_at', 'desc')->limit(6)->get();
+    $this->sidebar = collect(['articles' => $articles, 'media' => $media]);
+
+    View::share('sidebar', $this->sidebar);
+
   }
 
   /**
@@ -52,9 +66,10 @@ class HomeController extends Controller
     ->orderBy('aggregate', 'desc')
     ->limit(3)->get();
 
+    $articles =Article::orderBy('id', 'desc')->limit(3)->get();
     $title = 'Home';
 
-    return view('techmatters.home')->with(compact('posts', 'media', 'title'));
+    return view('techmatters.home')->with(compact('posts', 'title', 'sidebar'));
 
   }
 
@@ -208,27 +223,27 @@ class HomeController extends Controller
 
 
 
-public function settings(Request $request)
-{
-  $user = Auth::user();
-  if ($request->isMethod('post')) {
-    $user->name = $request->name;
-    $user->username = $request->username;
-    $user->email = $request->email;
-    $user->biography = $request->biography;
-    $user->save();
-    dd($user);
+  public function settings(Request $request)
+  {
+    $user = Auth::user();
+    if ($request->isMethod('post')) {
+      $user->name = $request->name;
+      $user->username = $request->username;
+      $user->email = $request->email;
+      $user->biography = $request->biography;
+      $user->save();
+      dd($user);
+    }
+
+    return view('techmatters.settings')->with(compact('user'));
   }
 
-  return view('techmatters.settings')->with(compact('user'));
-}
+  public function change_password(Request $request)
+  {
+    # code...
+    dd($request);
 
-public function change_password(Request $request)
-{
-  # code...
-  dd($request);
-
-}
+  }
 
   public function profile($username ='')
   {
@@ -272,28 +287,28 @@ public function change_password(Request $request)
 
 
 
-    public function update_banner(Request $request){
+  public function update_banner(Request $request){
 
-      // Handle the user upload of avatar
-      $user = Auth::user();
+    // Handle the user upload of avatar
+    $user = Auth::user();
 
 
-      if($request->hasFile('banner')){
+    if($request->hasFile('banner')){
 
-        $banner = $request->file('banner');
+      $banner = $request->file('banner');
 
-        $filename = md5_file($banner->getRealPath()) . '.' . $banner->getClientOriginalExtension();
-        $location = public_path('img/uploads/banners/')  . '/' . $filename;
-        Image::make($banner)->resize(1920, 1080)->save($location) ;
+      $filename = md5_file($banner->getRealPath()) . '.' . $banner->getClientOriginalExtension();
+      $location = public_path('img/uploads/banners/')  . '/' . $filename;
+      Image::make($banner)->resize(1920, 1080)->save($location) ;
 
-        $user->banner = $filename;
-        $user->save();
-      }
-
-      $title = $user->username . "'s Profile";
-      return view('new.profile')->with(compact('user', 'title'));
-
+      $user->banner = $filename;
+      $user->save();
     }
+
+    $title = $user->username . "'s Profile";
+    return view('new.profile')->with(compact('user', 'title'));
+
+  }
 
 
   public function hash($value='')

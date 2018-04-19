@@ -16,9 +16,9 @@
 
 		<!--Text-->
 		<div class="d-flex justify-content-center">
-				<p class="card-text mb-3" style="max-width: 43rem;">Techmatters is a project maintained by Frits Oosterhoff. This project is NOT supposed to be used as an actual social network, this project is only a placeholder. The data it contains is only used as place holder data.
+			<p class="card-text mb-3" style="max-width: 43rem;">Techmatters is a project maintained by Frits Oosterhoff. This project is NOT supposed to be used as an actual social network, this project is only a placeholder. The data it contains is only used as place holder data.
 
-				</p>
+			</p>
 		</div>
 
 		<hr class="my-4">
@@ -50,74 +50,51 @@
 
 
 
-          <div class="card">
+				<div class="card">
 
-            <div class="user p-2">
-              <img class="avatar rounded-circle" src="https://social.fritsoosterhoff.nl/img/uploads/avatars/10.jpg" />
-              <div class="details">
-                <b> Andres fushigi </b>
-                <p class="small"><span>ajsdhajushd</span></p>
-              </div>
-            </div>
-
-            <div class="card-body">
-              <!-- <h5 class="card-title">Card title that wraps to a new line</h5> -->
-              <p class="card-text">It FINALLY happened! Now i have a more serious looking design for social and techmatters</p>
-
-            </div>
-
-            <div class="images ">
-		            <img src="https://social.fritsoosterhoff.nl/img/uploads/images/12.jpg" class="img-fluid">
-		            <img src="https://social.fritsoosterhoff.nl/img/uploads/images/23.jpg" class="img-fluid post-image col-4">
-		            <img src="https://social.fritsoosterhoff.nl/img/uploads/images/6.jpg" class="img-fluid post-image col-4">
-		            <img src="https://social.fritsoosterhoff.nl/img/uploads/images/4.jpg" class="img-fluid post-image col-4" >
-            </div>
-
-
-
-
-            <div class="card-footer">
-              <ul class="social_tools" style=" float: right;  padding:0px; margin:0px;">
-                <li class="like_icon" id="3" onclick="likePost(3)"><i class="fa fa-fw fa-heart-o "></i> <span></span></li>
-              </ul>
-            </div>
-          </div>
-					<!-- main column left -->
-        </div>
-
-
-
-						<div class="col-md-4 sidebar">
-
-							<div class="card mt-5">
-								<div class="card-header">
-									Recent Photos
-								</div>
-
-								<div class="card-body">
-									<div class="row">
-														@foreach($media as $image)
-										        <div class="col-4 py-3">
-
-										          <a href="{{url('post/' . $image->id)}}">
-										            <img src="{{ (strpos($image->image, 'http')===false) ? url('public/img/uploads/images/' . unserialize($image->image)[0]) : unserialize( $image->image)[0]}}" class="img-fluid"> </a>
-										        </div>
-
-													@endforeach
-									</div>
-								</div>
-							</div>
+					<div class="user p-2">
+						<img class="avatar rounded-circle" src="https://social.fritsoosterhoff.nl/img/uploads/avatars/10.jpg" />
+						<div class="details">
+							<b> Andres fushigi </b>
+							<p class="small"><span>ajsdhajushd</span></p>
 						</div>
+					</div>
+
+					<div class="card-body">
+						<!-- <h5 class="card-title">Card title that wraps to a new line</h5> -->
+						<p class="card-text">It FINALLY happened! Now i have a more serious looking design for social and techmatters</p>
+
+					</div>
+
+					<div class="images ">
+						<img src="https://social.fritsoosterhoff.nl/img/uploads/images/12.jpg" class="img-fluid">
+						<img src="https://social.fritsoosterhoff.nl/img/uploads/images/23.jpg" class="img-fluid post-image col-4">
+						<img src="https://social.fritsoosterhoff.nl/img/uploads/images/6.jpg" class="img-fluid post-image col-4">
+						<img src="https://social.fritsoosterhoff.nl/img/uploads/images/4.jpg" class="img-fluid post-image col-4" >
+					</div>
+
+
+
+
+					<div class="card-footer">
+						<ul class="social_tools" style=" float: right;  padding:0px; margin:0px;">
+							<li class="like_icon" id="3" onclick="likePost(3)"><i class="fa fa-fw fa-heart-o "></i> <span></span></li>
+						</ul>
+					</div>
+				</div>
+				<!-- main column left -->
+			</div>
+
+			@include('techmatters.sidebar')
+
+			</div>
+
 
 
 		</div>
 
+		@endif
+		@endsection
 
-
-	</div>
-
-	@endif
-@endsection
-
-<script>
-</script>
+		<script>
+		</script>

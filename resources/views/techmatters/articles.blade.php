@@ -26,7 +26,7 @@
 
         <div class="col-md-4 pt-5">
           <h2>Interesting articles</h2>
-          <div class="recent-articles">
+          <div class=" white-bg recent-articles">
 
 
             @each('techmatters.article_simple',  $interesting_articles, 'article')
