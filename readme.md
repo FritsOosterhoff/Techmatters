@@ -19,6 +19,11 @@ My goal for this project is to get a better understanding of frameworks like Lar
 ### To do list
 * Configuring api routes
 * Setting up angular/knockout/Vue
+* NodeJS Chat
+* Setting up and configuring teams.
+* Forums
+* configuring team routing e.g. techmatters.nl/
+
 
 
 ### Prerequisites
