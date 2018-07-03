@@ -22,7 +22,6 @@ My goal for this project is to get a better understanding of frameworks like Lar
 * NodeJS Chat
 * Setting up and configuring teams.
 * Forums
-* configuring team routing e.g. techmatters.nl/
 
 
 
