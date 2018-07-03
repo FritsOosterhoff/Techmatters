@@ -15,6 +15,12 @@ Most of the functionalities were ported from a previous project, a social networ
 
 My goal for this project is to get a better understanding of frameworks like Laravel, Vue, GIT, Sass and SEO. As i kept building upon the project i decided to build another more complete web app, which would become Techmatters.
 
+
+### To do list
+* Configuring api routes
+* Setting up angular/knockout/Vue
+
+
 ### Prerequisites
 
 A working webserver with at least:
@@ -27,7 +33,6 @@ A working webserver with at least:
 * Tokenizer PHP Extension
 * XML PHP Extension
 
-### color theme
 
 
 ### Installing
